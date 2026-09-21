@@ -1,0 +1,739 @@
+{
+  "设备ID": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+  "时间范围": {
+    "开始时间": "2026-05-31T13:59:34.821470+00:00",
+    "结束时间": "2026-06-02T13:59:34.821470+00:00"
+  },
+  "记录总数": 81,
+  "日志记录": [
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:35:43.903543+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:39:10.440135+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:50:10.195513+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:50:17.485106+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:52:53.179639+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:53:11.051374+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:53:45.520795+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:54:08.498203+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:54:27.949632+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:54:49.148522+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:55:09.118344+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:55:28.775442+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:55:50.894105+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:56:28.884917+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:56:45.886116+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:57:06.261139+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:57:21.928889+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:58:27.628536+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T11:59:38.837170+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:00:13.352261+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:00:43.346177+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:00:58.812011+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:03:36.481971+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:03:53.192741+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:04:47.415943+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:06:08.766813+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:07:14.299568+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:10:15.643734+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:13:24.175648+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:13:28.863321+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:13:37.149081+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:14:24.840360+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:14:42.799575+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:15:13.410136+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:15:58.056090+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:16:53.756605+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:17:35.821181+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:18:01.743218+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:18:13.466399+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:18:34.005725+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:18:55.204510+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:19:15.376446+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:19:34.113277+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:20:07.469678+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:20:51.437394+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:21:13.306223+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:21:34.226791+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:21:56.624039+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:22:16.213969+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:22:35.051500+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:22:56.350008+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:23:15.907586+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:23:36.593148+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:24:03.727335+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:24:15.753207+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:24:46.434527+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:25:17.146847+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:25:36.391017+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:25:54.846041+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:26:20.529106+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:26:47.358679+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:27:03.953604+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:27:24.144901+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:27:40.094520+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:27:56.479952+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:28:17.886245+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:28:53.198378+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:29:45.813895+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:30:59.155710+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:31:24.652953+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:31:39.909426+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:32:00.089022+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:32:33.464838+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:33:03.159349+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:33:32.053159+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:33:54.973454+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:34:13.197950+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:34:21.802539+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:34:25.896747+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:34:31.935958+00:00",
+      "状态": "off",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    },
+    {
+      "设备": "switch.chuangmi_cn_713002327_029a02_motion_tracking_p_2_8",
+      "时间": "2026-06-01T12:34:35.103880+00:00",
+      "状态": "on",
+      "属性": {
+        "device_class": "switch",
+        "friendly_name": "小米智能摄像机 云台版2K  摄像机控制 移动追踪"
+      }
+    }
+  ]
+}

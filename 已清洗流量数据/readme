@@ -1,0 +1,10 @@
+##规定服务器到设备方向为下行，设备到服务器方向为上行。记D为下行，U为上行。
+yeelight灯泡--开关特征无差别 流量长度序列 D191(tls) U159(tls) D60(tcp) U191(tls) D60(tcp) D143(tls) U60(tcp)
+yeelight灯泡--色温调节 流量长度序列 D191(tls) U159(tls) D191(tls) U159(tls) D60(tcp) U191(tls) D60(tcp) D143(tls) U60(tcp)
+camara:
+event 1:
+D267(tls) U123(tls) D60(tcp) D123(tls)  U123(tls) D60(tcp)
+event 2:
+U123(tls) D60(tcp) D123(tls) U60(tcp) 
+event 3:
+D267(tls) U60(tcp) U123(tls)  D123(tls)  U123(tls) D60(tcp)

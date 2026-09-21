@@ -1,0 +1,466 @@
+{
+  "设备ID": "light.yeelink_cn_472295430_color8_s_2_light",
+  "时间范围": {
+    "开始时间": "2026-05-31T13:50:54.889562+00:00",
+    "结束时间": "2026-06-02T13:50:54.889562+00:00"
+  },
+  "记录总数": 57,
+  "日志记录": [
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:37:06.015776+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:39:06.594514+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:39:08.515510+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:40:04.538416+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:40:25.530801+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:41:28.614814+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:41:43.568352+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:43:33.560367+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:43:35.606578+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:43:47.589589+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:43:51.583440+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:43:53.528980+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:43:56.512836+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:44:03.566499+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:44:08.584362+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:44:56.499072+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:45:22.546988+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:45:49.561647+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:46:01.542576+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:46:21.604590+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:46:40.567320+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:47:04.626494+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:47:24.525304+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:47:46.618520+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:48:14.570477+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:48:39.563757+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:49:10.690341+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:49:40.592960+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:49:59.642117+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:50:23.617195+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:50:41.626270+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:51:07.636403+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:51:27.605116+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:51:41.570709+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:51:59.658169+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:52:21.678676+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:52:59.671584+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:53:33.660586+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:54:09.610605+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:54:32.653056+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:55:14.638510+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:55:45.666238+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:56:08.682135+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:56:35.638725+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:57:12.607790+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T12:57:45.684941+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:01:23.139781+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:01:41.539429+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:01:59.628561+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:02:43.565833+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:03:03.552619+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:03:20.544172+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:03:44.692423+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:04:09.678242+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:04:41.649096+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:05:00.574897+00:00",
+      "状态": "on",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    },
+    {
+      "设备": "light.yeelink_cn_472295430_color8_s_2_light",
+      "时间": "2026-06-01T13:05:19.620253+00:00",
+      "状态": "off",
+      "属性": {
+        "friendly_name": "yeelight灯泡  灯"
+      }
+    }
+  ]
+}

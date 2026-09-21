@@ -1,0 +1,11 @@
+# Python generated files
+__pycache__/
+*.py[cod]
+
+# Microsoft Word temporary lock files
+doc/~$*.docx
+
+# Source Word documents intentionally kept outside version control
+doc/项目申报书.docx
+doc/中期报告Iot（更新）.docx
+
