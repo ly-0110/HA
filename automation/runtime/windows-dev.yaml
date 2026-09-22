@@ -1,0 +1,16 @@
+mode: dev
+output_root: runs
+appium_url: http://127.0.0.1:4723
+uiautomator2_system_port: 8200
+appium_managed: true
+appium_executable: npx.cmd
+adb_executable: adb
+android_sdk_root: null
+dumpcap_executable: dumpcap
+capture_mode: disabled
+capture_interface: null
+capture_filter: null
+pre_roll_seconds: 0
+post_roll_seconds: 0
+min_free_space_gb: 1
+timezone: UTC
