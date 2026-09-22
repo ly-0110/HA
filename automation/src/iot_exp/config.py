@@ -63,7 +63,7 @@ def is_placeholder(value: str | None) -> bool:
     if not value:
         return True
     normalized = value.strip().lower()
-    return normalized.startswith("replace_") or normalized in {"unknown", "todo", "changeme"}
+    return "replace_with" in normalized or normalized in {"unknown", "todo", "changeme"}
 
 
 def redact_environment() -> dict[str, str]:

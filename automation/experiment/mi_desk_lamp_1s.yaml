@@ -1,4 +1,5 @@
 experiment_id: mi_desk_lamp_1s_vendor_app_v1
+adapter: mi_home_desk_lamp_1s
 phone:
   phone_id: android_phone_01
   udid: REPLACE_WITH_ADB_UDID

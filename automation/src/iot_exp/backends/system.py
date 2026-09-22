@@ -201,7 +201,7 @@ class AppiumServer:
             }
             if os.name == "nt":
                 kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP
-            else:
+            elif not os.environ.get("IOT_EXP_WORKER_GROUP"):
                 kwargs["start_new_session"] = True
             executable_name = Path(self.executable).stem.lower()
             command = [self.executable]
