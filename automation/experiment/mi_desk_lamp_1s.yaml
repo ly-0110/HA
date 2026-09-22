@@ -1,0 +1,47 @@
+experiment_id: mi_desk_lamp_1s_vendor_app_v1
+phone:
+  phone_id: android_phone_01
+  udid: REPLACE_WITH_ADB_UDID
+  network: public_wifi
+  experiment_network_forbidden: true
+app:
+  vendor: xiaomi
+  package: com.xiaomi.smarthome
+  version: 11.8.703
+  selectors:
+    device_entry:
+      - {strategy: accessibility_id, value: "米家台灯1S 增强版"}
+      - {strategy: text, value: "米家台灯1S 增强版"}
+    device_page_marker:
+      - {strategy: text, value: "米家台灯1S 增强版"}
+    power_toggle: []
+    state_on:
+      - {strategy: text, value: "关灯"}
+    state_off:
+      - {strategy: text, value: "开灯"}
+    turn_on:
+      - {strategy: text, value: "开灯"}
+    turn_off:
+      - {strategy: text, value: "关灯"}
+device:
+  device_id: desk_lamp_1s
+  display_name: 米家台灯1S 增强版
+  entity_id: null
+  firmware: REPLACE_WITH_FIRMWARE_VERSION
+network:
+  forbidden_cidrs: [192.168.1.0/24]
+  target_device_ip: null
+  require_no_usb_tethering: true
+sessions:
+  count: 1
+  repetitions_per_event: 10
+  idle_range_seconds: [1, 3]
+  cooldown_seconds: 1
+  max_attempts: 1
+events:
+  - event_type: turn_on
+    required_state: "off"
+    expected_state: "on"
+  - event_type: turn_off
+    required_state: "on"
+    expected_state: "off"

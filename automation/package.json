@@ -1,0 +1,14 @@
+{
+  "name": "iot-experiment-automation-runtime",
+  "private": true,
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "appium": "appium"
+  },
+  "devDependencies": {
+    "appium": "^3.2.0",
+    "appium-uiautomator2-driver": "^6.0.0"
+  }
+}

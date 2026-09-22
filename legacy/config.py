@@ -1,14 +1,15 @@
 # 全局配置参数
 import torch
-import os
 import warnings
+from pathlib import Path
 warnings.filterwarnings("ignore")  # 关掉烦人的警告
 
 # ===================== 核心路径配置 =====================
-# 【正确 Windows 路径写法：前面加 r】
-JSON_LOG_PATH = r"D:\PythonCode\HA\ha_data\ha_device_log_light_yeelink.json"
-PCAP_RAW_PATH = r"D:\PythonCode\HA\预处理数据\new_pre_light.pcapng"
-ALIGNED_PCAP_DIR = os.path.dirname(PCAP_RAW_PATH)
+# 路径相对于 legacy/ 目录解析，迁移仓库后仍可复用历史原型。
+LEGACY_ROOT = Path(__file__).resolve().parent
+JSON_LOG_PATH = str(LEGACY_ROOT / "ha_data" / "ha_device_log_light_yeelink.json")
+PCAP_RAW_PATH = str(LEGACY_ROOT / "预处理数据" / "new_pre_light.pcapng")
+ALIGNED_PCAP_DIR = str(LEGACY_ROOT / "预处理数据")
 
 # ===================== 设备/时间配置 =====================
 TARGET_DEVICE_IP = "192.168.1.207"
