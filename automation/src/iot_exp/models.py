@@ -116,6 +116,7 @@ class NetworkConfig(BaseModel):
 class ExperimentConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     experiment_id: str
+    adapter: str = "mi_home_desk_lamp_1s"
     phone: PhoneConfig
     app: AppConfig
     device: DeviceConfig

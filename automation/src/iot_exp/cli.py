@@ -8,7 +8,7 @@ from dataclasses import asdict
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
-from .adapters import MiHomeDeskLamp1SAdapter, SimulatedLampAdapter
+from .adapters import SimulatedLampAdapter
 from .backends import (
     AdbClient,
     AndroidDevice,
@@ -22,6 +22,8 @@ from .config import ConfigError, apply_runtime_paths, is_placeholder, load_confi
 from .models import CaptureMode, DeviceState
 from .orchestrator import ExperimentRunner, validate_session
 from .preflight import run_preflight, write_preflight_report
+from .registry import create_adapter
+from .resources import ResourceLease, experiment_resource_keys
 
 
 def _automation_root() -> Path:
@@ -259,12 +261,7 @@ def cmd_inspect(experiment, runtime, dry_run: bool) -> int:
         print("dry-run inspect does not require a real device; use run for the simulated contract")
         return 0
     configure_android_environment(runtime.adb_executable, runtime.android_sdk_root)
-    adapter = MiHomeDeskLamp1SAdapter(
-        experiment.app,
-        experiment.phone,
-        appium_url=runtime.appium_url,
-        system_port=runtime.uiautomator2_system_port,
-    )
+    adapter = create_adapter(experiment, runtime)
     server = AppiumServer(
         runtime.appium_executable,
         runtime.appium_url,
@@ -301,13 +298,7 @@ def cmd_run(args, experiment, runtime) -> int:
         server = None
     else:
         configure_android_environment(runtime.adb_executable, runtime.android_sdk_root)
-        adapter = MiHomeDeskLamp1SAdapter(
-            experiment.app,
-            experiment.phone,
-            appium_url=runtime.appium_url,
-            system_port=runtime.uiautomator2_system_port,
-            screenshot_dir=runtime.output_root,
-        )
+        adapter = create_adapter(experiment, runtime, screenshot_dir=runtime.output_root)
         capture = (
             DumpcapCaptureBackend(runtime.dumpcap_executable, runtime.capture_interface or "", runtime.capture_filter)
             if runtime.capture_mode is CaptureMode.DUMPCAP
@@ -371,7 +362,14 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "inspect-app":
             return cmd_inspect(experiment, runtime, args.dry_run)
         if args.command == "run":
-            return cmd_run(args, experiment, runtime)
+            if args.dry_run:
+                return cmd_run(args, experiment, runtime)
+            with ResourceLease(
+                runtime.output_root,
+                experiment_resource_keys(experiment, runtime),
+                owner=f"cli:{args.session_id or 'generated'}",
+            ):
+                return cmd_run(args, experiment, runtime)
     except (ConfigError, RuntimeError, OSError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2

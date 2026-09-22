@@ -46,7 +46,7 @@ class DumpcapCaptureBackend:
         kwargs: dict[str, object] = {"stdout": subprocess.PIPE, "stderr": subprocess.PIPE, "text": True}
         if os.name == "nt":
             kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP
-        else:
+        elif not os.environ.get("IOT_EXP_WORKER_GROUP"):
             kwargs["start_new_session"] = True
         try:
             self.process = subprocess.Popen(args, **kwargs)

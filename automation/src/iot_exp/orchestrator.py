@@ -6,6 +6,7 @@ import random
 import time
 import uuid
 from collections import Counter
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +30,10 @@ from .models import (
 
 
 class RunError(RuntimeError):
+    pass
+
+
+class RunCancelled(RunError):
     pass
 
 
@@ -77,6 +82,8 @@ class ExperimentRunner:
         ha: HaObservationProvider,
         session_id: str | None = None,
         seed: int | None = None,
+        cancel_requested: Callable[[], bool] | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
     ):
         self.experiment = experiment
         self.runtime = runtime
@@ -86,10 +93,16 @@ class ExperimentRunner:
         self.session_id = session_id or create_session_id()
         self.seed = seed if seed is not None else random.SystemRandom().randrange(1, 2**31)
         self.rng = random.Random(self.seed)
-        self.paths = SessionPaths.create(runtime.output_root / "sessions" / self.session_id)
+        session_root = runtime.output_root / "sessions" / self.session_id
+        if session_root.exists() and any(session_root.iterdir()):
+            raise RunError(f"session directory already exists and is not empty: {session_root}")
+        self.paths = SessionPaths.create(session_root)
         self.actions = ActionJournal(self.paths.actions_jsonl)
         self.journal = JsonlJournal(self.paths.run_journal_jsonl)
         self.records: list[ActionRecord] = []
+        self.completed_events = 0
+        self.cancel_requested = cancel_requested or (lambda: False)
+        self.progress_callback = progress_callback or (lambda _event: None)
 
     def run(self) -> list[ActionRecord]:
         self.paths.session_yaml.write_text(
@@ -109,29 +122,78 @@ class ExperimentRunner:
                 "note": "Run preflight before formal acquisition; CLI overwrites this file with its report.",
             }, indent=2) + "\n", encoding="utf-8")
         capture_result = None
+        outcome = "completed"
+        run_error: Exception | None = None
         try:
             self.ha.start(self.paths.root)
             self.adapter.launch_and_open_device()
             self.capture.start(self.paths.capture)
-            time.sleep(self.runtime.pre_roll_seconds)
+            self._sleep(self.runtime.pre_roll_seconds)
             self._run_events()
-            time.sleep(self.runtime.post_roll_seconds)
+            self._sleep(self.runtime.post_roll_seconds)
+        except Exception as exc:  # noqa: BLE001 - outcome and evidence must be persisted.
+            outcome = "cancelled" if isinstance(exc, RunCancelled) else "failed"
+            run_error = exc
         finally:
+            cleanup_errors: list[str] = []
             try:
                 capture_result = self.capture.stop()
-            finally:
-                try:
-                    self.ha.stop()
-                finally:
-                    self.adapter.close()
-            self._write_quality_report(capture_result)
-            self.journal.append({"kind": "session_finished", "session_id": self.session_id, "at_unix_ns": time.time_ns()})
+            except Exception as exc:  # noqa: BLE001 - all owners must still be released.
+                cleanup_errors.append(f"capture: {exc}")
+            try:
+                self.ha.stop()
+            except Exception as exc:  # noqa: BLE001
+                cleanup_errors.append(f"observation: {exc}")
+            try:
+                self.adapter.close()
+            except Exception as exc:  # noqa: BLE001
+                cleanup_errors.append(f"adapter: {exc}")
+            if (
+                capture_result is not None
+                and capture_result.enabled
+                and (
+                    capture_result.return_code != 0
+                    or capture_result.path is None
+                    or not capture_result.path.exists()
+                )
+            ):
+                outcome = "failed"
+                capture_error = capture_result.error or (
+                    f"capture exited with code {capture_result.return_code}"
+                    if capture_result.return_code != 0
+                    else "capture output is missing"
+                )
+                if run_error is None:
+                    run_error = RunError(capture_error)
+            if cleanup_errors and run_error is None:
+                outcome = "failed"
+                run_error = RunError("; ".join(cleanup_errors))
+            self._write_quality_report(capture_result, outcome)
+            self.journal.append({
+                "kind": "session_finished",
+                "session_id": self.session_id,
+                "outcome": outcome,
+                "error": str(run_error) if run_error else None,
+                "cleanup_errors": cleanup_errors,
+                "at_unix_ns": time.time_ns(),
+            })
+        if run_error is not None:
+            raise run_error
         return self.records
+
+    def _sleep(self, seconds: float) -> None:
+        deadline = time.monotonic() + seconds
+        while time.monotonic() < deadline:
+            if self.cancel_requested():
+                raise RunCancelled("experiment cancelled by user")
+            time.sleep(min(0.2, max(0.0, deadline - time.monotonic())))
 
     def _run_events(self) -> None:
         remaining = Counter({event.event_type.value: self.experiment.sessions.repetitions_per_event for event in self.experiment.events})
         sequence = 0
         while any(remaining.values()):
+            if self.cancel_requested():
+                raise RunCancelled("experiment cancelled by user")
             state_before = self.adapter.read_state()
             spec = self._choose_event(state_before, remaining)
             if spec is None:
@@ -160,9 +222,46 @@ class ExperimentRunner:
             sequence += 1
             remaining[spec.event_type.value] -= 1
             idle = self.rng.uniform(*self.experiment.sessions.idle_range_seconds)
-            time.sleep(idle)
-            self._run_one(spec, state_before, sequence)
-            time.sleep(self.experiment.sessions.cooldown_seconds)
+            self._sleep(idle)
+            record = None
+            for attempt in range(1, self.experiment.sessions.max_attempts + 1):
+                if self.cancel_requested():
+                    raise RunCancelled("experiment cancelled by user")
+                record = self._run_one(spec, state_before, sequence, attempt)
+                succeeded = record.result in {
+                    EventResult.CONFIRMED,
+                    EventResult.APP_ACK_ONLY,
+                    EventResult.HA_ONLY,
+                }
+                is_last_attempt = attempt >= self.experiment.sessions.max_attempts
+                if succeeded or is_last_attempt:
+                    break
+                try:
+                    state_before = self.adapter.read_state()
+                except Exception as exc:  # noqa: BLE001 - retry evidence is already persisted.
+                    self.journal.append({
+                        "kind": "retry_aborted",
+                        "event_id": record.event_id,
+                        "reason": f"state_read_failed: {exc}",
+                        "at_unix_ns": time.time_ns(),
+                    })
+                    break
+                if state_before is not spec.required_state:
+                    self.journal.append({
+                        "kind": "retry_aborted",
+                        "event_id": record.event_id,
+                        "reason": f"state_changed_to_{state_before.value}",
+                        "at_unix_ns": time.time_ns(),
+                    })
+                    break
+            self.completed_events += 1
+            if record is not None:
+                self.progress_callback({
+                    "event_id": record.event_id,
+                    "result": record.result.value,
+                    "completed": self.completed_events,
+                })
+            self._sleep(self.experiment.sessions.cooldown_seconds)
 
     def _choose_event(self, state: DeviceState, remaining: Counter[str]) -> EventSpec | None:
         candidates = [
@@ -171,8 +270,13 @@ class ExperimentRunner:
         ]
         return self.rng.choice(candidates) if candidates else None
 
-    def _run_one(self, spec: EventSpec, state_before: DeviceState, sequence: int) -> None:
-        attempt = 1
+    def _run_one(
+        self,
+        spec: EventSpec,
+        state_before: DeviceState,
+        sequence: int,
+        attempt: int,
+    ) -> ActionRecord:
         event_id = create_event_id(self.session_id, sequence, attempt)
         self.journal.append({"kind": "event_started", "event_id": event_id, "at_unix_ns": time.time_ns()})
         self.journal.append({"kind": "event_command", "event_id": event_id, "event_type": spec.event_type.value})
@@ -243,6 +347,7 @@ class ExperimentRunner:
         )
         self._persist_record(record)
         self.journal.append({"kind": "event_finished", "event_id": event_id, "result": result.value, "at_unix_ns": time.time_ns()})
+        return record
 
     @staticmethod
     def _classify(ack: AckEvidence, ha: Any, expected: DeviceState) -> EventResult:
@@ -258,15 +363,28 @@ class ExperimentRunner:
         self.records.append(record)
         self.actions.append_action(record)
 
-    def _write_quality_report(self, capture_result: Any) -> None:
+    def _write_quality_report(self, capture_result: Any, outcome: str) -> None:
         counts = Counter(record.result.value for record in self.records)
+        capture_ok = (
+            capture_result is None
+            or not capture_result.enabled
+            or (
+                capture_result.return_code == 0
+                and capture_result.path is not None
+                and capture_result.path.exists()
+            )
+        )
         report = {
             "session_id": self.session_id,
+            "session_outcome": outcome,
             "planned_repetitions_per_event": self.experiment.sessions.repetitions_per_event,
             "record_count": len(self.records),
+            "planned_event_count": len(self.experiment.events) * self.experiment.sessions.repetitions_per_event,
+            "completed_event_count": self.completed_events,
             "result_counts": dict(counts),
             "app_success_rate": sum(record.result in {EventResult.CONFIRMED, EventResult.APP_ACK_ONLY} for record in self.records) / len(self.records) if self.records else 0.0,
             "capture": capture_result.model_dump(mode="json") if capture_result is not None else None,
+            "capture_ok": capture_ok,
             "actions_sha256": _sha256(self.paths.actions_jsonl) if self.paths.actions_jsonl.exists() else None,
             "generated_at_unix_ns": time.time_ns(),
         }
@@ -279,17 +397,50 @@ def validate_session(root: Path) -> dict[str, Any]:
     actions = ActionJournal(actions_path).read()
     journal = JsonlJournal(journal_path).read()
     ids = [row.get("event_id") for row in actions]
+    logical_ids = {event_id.rsplit("_attempt_", 1)[0] for event_id in ids if event_id}
     unique = len(ids) == len(set(ids))
     started = {row.get("event_id") for row in journal if row.get("kind") == "event_started"}
     finished = {row.get("event_id") for row in journal if row.get("kind") == "event_finished"}
     open_events = sorted(event_id for event_id in started - finished if event_id)
+    quality_path = root / "quality_report.json"
+    quality = None
+    if quality_path.exists():
+        try:
+            quality = json.loads(quality_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            quality = None
+    planned_event_count = quality.get("planned_event_count") if isinstance(quality, dict) else None
+    record_count_matches = bool(quality) and quality.get("record_count") == len(actions)
+    capture_ok = bool(quality) and quality.get("capture_ok") is True
+    session_completed = bool(quality) and quality.get("session_outcome") == "completed"
+    planned_events_complete = (
+        isinstance(planned_event_count, int)
+        and planned_event_count == len(logical_ids)
+        and quality.get("completed_event_count") == planned_event_count
+    )
     result = {
         "session_root": str(root),
         "actions_exist": actions_path.exists(),
         "unique_event_ids": unique,
         "event_count": len(actions),
         "open_events": open_events,
-        "quality_report_exists": (root / "quality_report.json").exists(),
-        "ok": actions_path.exists() and unique and not open_events,
+        "quality_report_exists": quality_path.exists(),
+        "quality_report_valid": quality is not None,
+        "record_count_matches": record_count_matches,
+        "capture_ok": capture_ok,
+        "session_completed": session_completed,
+        "planned_events_complete": planned_events_complete,
+        "planned_event_count": planned_event_count,
+        "completed_logical_events": len(logical_ids),
+        "ok": (
+            actions_path.exists()
+            and unique
+            and not open_events
+            and quality is not None
+            and record_count_matches
+            and capture_ok
+            and session_completed
+            and planned_events_complete
+        ),
     }
     return result

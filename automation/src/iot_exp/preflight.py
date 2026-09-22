@@ -44,6 +44,25 @@ def run_preflight(experiment: ExperimentConfig, runtime: RuntimeConfig) -> dict[
         "detail": experiment.phone.udid,
     })
 
+    if runtime.mode.value == "formal":
+        checks.extend([
+            {
+                "name": "formal_target_device_ip",
+                "ok": not is_placeholder(experiment.network.target_device_ip),
+                "detail": experiment.network.target_device_ip or "not configured",
+            },
+            {
+                "name": "formal_capture_interface",
+                "ok": not is_placeholder(runtime.capture_interface),
+                "detail": runtime.capture_interface or "not configured",
+            },
+            {
+                "name": "formal_capture_filter",
+                "ok": not is_placeholder(runtime.capture_filter),
+                "detail": runtime.capture_filter or "not configured",
+            },
+        ])
+
     adb = AdbClient(runtime.adb_executable)
     device_online = False
     adb_error = None
@@ -64,15 +83,36 @@ def run_preflight(experiment: ExperimentConfig, runtime: RuntimeConfig) -> dict[
             addr_result = adb.shell("ip", "addr", "show", udid=experiment.phone.udid, timeout=10)
             addresses = _parse_ipv4_addresses(addr_result.stdout)
             network_detail["addresses"] = [str(address) for address in addresses]
+            if addr_result.returncode != 0:
+                raise SystemCommandError(
+                    f"address query exited with {addr_result.returncode}: {addr_result.stderr.strip()}"
+                )
+            usable_addresses = [
+                address
+                for address in addresses
+                if not (
+                    address.is_loopback
+                    or address.is_link_local
+                    or address.is_multicast
+                    or address.is_unspecified
+                )
+            ]
+            network_detail["usable_addresses"] = [str(address) for address in usable_addresses]
+            if not usable_addresses:
+                raise SystemCommandError("address query returned no usable non-loopback IPv4 address")
             forbidden = [ipaddress.ip_network(cidr, strict=False) for cidr in experiment.network.forbidden_cidrs]
-            conflicts = [str(address) for address in addresses if any(address in net for net in forbidden)]
+            conflicts = [
+                str(address)
+                for address in usable_addresses
+                if any(address in net for net in forbidden)
+            ]
             network_detail["conflicts"] = conflicts
             network_ok = not conflicts
         except Exception as exc:  # noqa: BLE001 - Android shell output varies by vendor.
-            network_ok = runtime.mode.value != "formal"
+            network_ok = False
             network_detail["error"] = str(exc)
     else:
-        network_ok = runtime.mode.value != "formal"
+        network_ok = False
     checks.append({"name": "phone_network_isolation", "ok": network_ok, "detail": network_detail})
 
     target_reachability = {"target_device_ip": experiment.network.target_device_ip, "reachable": None}

@@ -102,6 +102,31 @@ uv run iot-exp run --dry-run --repetitions 1 --seed 42 --session-id dry_run_001
 uv run iot-exp validate-session runs/sessions/dry_run_001
 ```
 
+### 3.1 图形控制台
+
+完成一次依赖安装和前端构建：
+
+```text
+uv sync --extra dev
+npm install
+npm run web:build
+```
+
+Windows 双击 `start-console.cmd`；Ubuntu 为 `start-console.sh` 增加执行权限后运行，或使用
+`IoT实验控制台.desktop`。启动入口只监听 `127.0.0.1:8765` 并自动打开浏览器。也可以执行：
+
+```text
+uv run iot-exp-gui
+```
+
+控制台提供设备与环境、创建实验、运行中心、历史与结果、环境设置五个页面。实验参数只形成
+本次任务的配置快照，不覆盖 `experiment/*.yaml`。模拟运行不连接真机；真机验证不抓包；正式
+采集必须提供目标设备 IP、抓包接口和过滤器，并通过正式预检。
+
+控制台默认最多并行运行四个独立任务。同一手机、同一 IoT 设备或同一正式抓包接口会自动
+排队；CLI 与控制台通过 `runs/locks/` 共用资源锁。浏览器关闭不会停止任务，重新打开即可继续
+查看。任务元数据保存在 `runs/console.sqlite3`，原始实验产物仍保存在 `runs/sessions/<session_id>/`。
+
 从仓库根目录运行时使用：
 
 ```text
