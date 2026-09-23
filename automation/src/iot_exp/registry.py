@@ -1,14 +1,19 @@
 from __future__ import annotations
 
-from .adapters import MiHomeDeskLamp1SAdapter
+from .adapters import MiHomeDeskLamp1SAdapter, MiHomeTouchscreenSpeakerAdapter
 from .models import ExperimentConfig, RuntimeConfig
 
 
 def create_adapter(experiment: ExperimentConfig, runtime: RuntimeConfig, **kwargs):
     """Create a real adapter from the explicit experiment adapter id."""
-    if experiment.adapter != "mi_home_desk_lamp_1s":
+    adapters = {
+        "mi_home_desk_lamp_1s": MiHomeDeskLamp1SAdapter,
+        "mi_home_touchscreen_speaker": MiHomeTouchscreenSpeakerAdapter,
+    }
+    adapter_class = adapters.get(experiment.adapter)
+    if adapter_class is None:
         raise ValueError(f"unknown adapter: {experiment.adapter}")
-    return MiHomeDeskLamp1SAdapter(
+    return adapter_class(
         experiment.app,
         experiment.phone,
         appium_url=runtime.appium_url,
@@ -18,4 +23,4 @@ def create_adapter(experiment: ExperimentConfig, runtime: RuntimeConfig, **kwarg
 
 
 def available_adapters() -> set[str]:
-    return {"mi_home_desk_lamp_1s"}
+    return {"mi_home_desk_lamp_1s", "mi_home_touchscreen_speaker"}

@@ -8,9 +8,21 @@ from iot_exp.resources import ResourceBusyError, ResourceLease
 from iot_exp.scheduler import TaskScheduler
 from iot_exp.task_models import TaskRequest
 from iot_exp.task_store import TaskStore
+from iot_exp.web import default_runtime_id
 from iot_exp.worker import run_task
 
 ROOT = Path(__file__).parents[1]
+
+
+def test_default_runtime_matches_host_platform(tmp_path, monkeypatch):
+    runtime_root = tmp_path / "runtime"
+    runtime_root.mkdir()
+    (runtime_root / "windows-dev.yaml").touch()
+    (runtime_root / "ubuntu-dev.yaml").touch()
+    monkeypatch.setattr("iot_exp.web.platform.system", lambda: "Linux")
+    assert default_runtime_id(tmp_path) == "ubuntu-dev"
+    monkeypatch.setattr("iot_exp.web.platform.system", lambda: "Windows")
+    assert default_runtime_id(tmp_path) == "windows-dev"
 
 
 def request(**updates):

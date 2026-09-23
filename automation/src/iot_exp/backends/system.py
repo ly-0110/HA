@@ -136,16 +136,16 @@ def resolve_executable(name: str) -> Path | None:
         return Path(located).resolve()
     if candidate.name.lower() in {"adb", "adb.exe"}:
         sdk_roots = [
-            os.environ.get("ANDROID_SDK_ROOT"),
-            os.environ.get("ANDROID_HOME"),
+            (os.environ.get("ANDROID_SDK_ROOT"), os.name == "nt"),
+            (os.environ.get("ANDROID_HOME"), os.name == "nt"),
         ]
         local_app_data = os.environ.get("LOCALAPPDATA")
         if local_app_data:
-            sdk_roots.append(str(Path(local_app_data) / "Android" / "Sdk"))
-        for sdk_root in sdk_roots:
+            sdk_roots.append((str(Path(local_app_data) / "Android" / "Sdk"), True))
+        for sdk_root, windows_layout in sdk_roots:
             if not sdk_root:
                 continue
-            adb_name = "adb.exe" if os.name == "nt" else "adb"
+            adb_name = "adb.exe" if windows_layout else "adb"
             adb_path = Path(sdk_root) / "platform-tools" / adb_name
             if adb_path.exists():
                 return adb_path.resolve()

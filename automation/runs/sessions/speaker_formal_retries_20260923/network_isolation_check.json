@@ -1,0 +1,126 @@
+{
+  "checked_at_unix_ns": 1790156104863376710,
+  "environment": {
+    "ANDROID_HOME": "/home/collapse/HA/automation/.tools/android-sdk",
+    "ANDROID_SDK_ROOT": "/home/collapse/HA/automation/.tools/android-sdk",
+    "JAVA_HOME": "/home/collapse/HA/automation/.tools/jre21"
+  },
+  "selected_phone": {
+    "phone_id": "lg_v405_speaker_control",
+    "udid": "LMV405UAd6421e56",
+    "network": "public_wifi",
+    "experiment_network_forbidden": true,
+    "model": "LM_V405",
+    "product": "judypn_lao_com",
+    "device": "judypn",
+    "transport_id": "10",
+    "manufacturer": "LGE",
+    "android_version": "10",
+    "sdk_level": "29"
+  },
+  "app": {
+    "package": "com.xiaomi.smarthome",
+    "version": "11.8.703"
+  },
+  "automation_runtime": {
+    "adb_executable": "adb",
+    "android_sdk_root": "/home/collapse/HA/automation/.tools/android-sdk",
+    "appium_url": "http://127.0.0.1:4723",
+    "uiautomator2_system_port": 8200,
+    "capture_mode": "dumpcap"
+  },
+  "checks": [
+    {
+      "name": "adb",
+      "ok": true,
+      "detail": "/home/collapse/HA/automation/.tools/android-sdk/platform-tools/adb"
+    },
+    {
+      "name": "node",
+      "ok": true,
+      "detail": "/home/collapse/HA/automation/.tools/node22/bin/node"
+    },
+    {
+      "name": "java",
+      "ok": true,
+      "detail": "/home/collapse/HA/automation/.tools/jre21/bin/java"
+    },
+    {
+      "name": "android_sdk_root",
+      "ok": true,
+      "detail": "/home/collapse/HA/automation/.tools/android-sdk"
+    },
+    {
+      "name": "npx",
+      "ok": true,
+      "detail": "/home/collapse/HA/automation/.tools/node22/lib/node_modules/npm/bin/npx-cli.js"
+    },
+    {
+      "name": "dumpcap",
+      "ok": true,
+      "detail": "/usr/bin/dumpcap"
+    },
+    {
+      "name": "platform",
+      "ok": true,
+      "detail": "Linux-6.17.0-14-generic-x86_64-with-glibc2.39"
+    },
+    {
+      "name": "phone_udid_configured",
+      "ok": true,
+      "detail": "LMV405UAd6421e56"
+    },
+    {
+      "name": "formal_target_device_ip",
+      "ok": true,
+      "detail": "10.42.0.196"
+    },
+    {
+      "name": "formal_capture_interface",
+      "ok": true,
+      "detail": "wlp2s0"
+    },
+    {
+      "name": "formal_capture_filter",
+      "ok": true,
+      "detail": "host 10.42.0.196"
+    },
+    {
+      "name": "adb_device_online",
+      "ok": true,
+      "detail": "online"
+    },
+    {
+      "name": "phone_network_isolation",
+      "ok": true,
+      "detail": {
+        "addresses": [
+          "127.0.0.1",
+          "0.0.0.0",
+          "0.0.0.0",
+          "0.0.0.0",
+          "0.0.0.0",
+          "10.208.124.237",
+          "10.208.127.255"
+        ],
+        "forbidden_cidrs": [
+          "10.42.0.0/24"
+        ],
+        "usable_addresses": [
+          "10.208.124.237",
+          "10.208.127.255"
+        ],
+        "conflicts": []
+      }
+    },
+    {
+      "name": "target_device_unreachable",
+      "ok": true,
+      "detail": {
+        "target_device_ip": "10.42.0.196",
+        "reachable": false
+      }
+    }
+  ],
+  "ok": true
+}

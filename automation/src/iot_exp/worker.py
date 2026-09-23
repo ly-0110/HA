@@ -17,7 +17,7 @@ from .backends import (
 from .backends.system import configure_android_environment
 from .cli import resolve_selected_device
 from .config import apply_runtime_paths, load_configuration
-from .models import CaptureMode, DeviceState
+from .models import CaptureMode
 from .orchestrator import ExperimentRunner, RunCancelled, validate_session
 from .preflight import run_preflight, write_preflight_report
 from .registry import create_adapter
@@ -119,7 +119,7 @@ def run_task(db_path: Path, task_id: str, root: Path, parent_pid: int | None = N
         store.update(task_id, status="starting", stage="starting")
         store.add_log(task_id, "info", "starting", "正在准备实验进程")
         if request.mode == "simulate":
-            adapter = SimulatedLampAdapter(DeviceState.OFF)
+            adapter = SimulatedLampAdapter(experiment.events[0].required_state)
             capture = DisabledCaptureBackend()
         else:
             configure_android_environment(runtime.adb_executable, runtime.android_sdk_root)

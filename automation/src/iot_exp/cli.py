@@ -19,8 +19,10 @@ from .backends import (
 )
 from .backends.system import configure_android_environment, discover_android_sdk
 from .config import ConfigError, apply_runtime_paths, is_placeholder, load_configuration
-from .models import CaptureMode, DeviceState
+from .ha_reconcile import export_window, reconcile
+from .models import CaptureMode
 from .orchestrator import ExperimentRunner, validate_session
+from .pcap_review import review_pcap
 from .preflight import run_preflight, write_preflight_report
 from .registry import create_adapter
 from .resources import ResourceLease, experiment_resource_keys
@@ -72,6 +74,15 @@ def _parser() -> argparse.ArgumentParser:
     sub.add_parser("devices", help="list connected Android devices and detected app metadata")
     validate = sub.add_parser("validate-session")
     validate.add_argument("session_root", type=Path)
+    window = sub.add_parser("ha-window", help="print the UTC time range for an HA export")
+    window.add_argument("session_root", type=Path)
+    matching = sub.add_parser("reconcile-ha", help="match an exported HA JSON file to a session")
+    matching.add_argument("session_root", type=Path)
+    matching.add_argument("history_json", type=Path)
+    matching.add_argument("--clock-offset-ms", type=float, help="capture_minus_ha_ms from clock_probe.py")
+    matching.add_argument("--clock-uncertainty-ms", type=float, help="uncertainty_at_most_ms from clock_probe.py")
+    pcap = sub.add_parser("review-pcap", help="summarize target traffic around every App event")
+    pcap.add_argument("session_root", type=Path)
     return parser
 
 
@@ -292,7 +303,8 @@ def cmd_run(args, experiment, runtime) -> int:
         print(json.dumps(preflight_report, ensure_ascii=False, indent=2), file=sys.stderr)
         return 2
     if args.dry_run:
-        adapter = SimulatedLampAdapter(DeviceState.OFF)
+        initial_state = experiment.events[0].required_state
+        adapter = SimulatedLampAdapter(initial_state)
         capture = DisabledCaptureBackend()
         ha = DisabledHaProvider()
         server = None
@@ -343,11 +355,35 @@ def cmd_run(args, experiment, runtime) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
-    if args.command == "validate-session":
-        report = validate_session(args.session_root)
-        print(json.dumps(report, ensure_ascii=False, indent=2))
-        return 0 if report["ok"] else 2
     try:
+        if args.command == "validate-session":
+            report = validate_session(args.session_root)
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+            return 0 if report["ok"] else 2
+        if args.command == "ha-window":
+            print(json.dumps(export_window(args.session_root), ensure_ascii=False, indent=2))
+            return 0
+        if args.command == "reconcile-ha":
+            report = reconcile(
+                args.session_root, args.history_json,
+                args.clock_offset_ms, args.clock_uncertainty_ms,
+            )
+            print(json.dumps({
+                "session_id": report["session_id"],
+                "candidate_gold_count": report["candidate_gold_count"],
+                "action_count": report["action_count"],
+                "report": str(args.session_root / "ha_reconciliation.json"),
+            }, ensure_ascii=False, indent=2))
+            return 0
+        if args.command == "review-pcap":
+            report = review_pcap(args.session_root)
+            print(json.dumps({
+                "session_id": report["session_id"],
+                "event_count": report["event_count"],
+                "bidirectional_event_count": report["bidirectional_event_count"],
+                "report": str(args.session_root / "pcap_review.json"),
+            }, ensure_ascii=False, indent=2))
+            return 0
         experiment, runtime = _load(args)
         if args.command == "devices":
             return cmd_devices(experiment, runtime)
@@ -370,7 +406,7 @@ def main(argv: list[str] | None = None) -> int:
                 owner=f"cli:{args.session_id or 'generated'}",
             ):
                 return cmd_run(args, experiment, runtime)
-    except (ConfigError, RuntimeError, OSError) as exc:
+    except (ConfigError, RuntimeError, OSError, ValueError, TypeError, KeyError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
     return 2

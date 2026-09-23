@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import platform
 import secrets
 import socket
 import subprocess
@@ -32,6 +33,13 @@ from .worker import _apply_request
 
 def automation_root() -> Path:
     return Path(__file__).resolve().parents[2]
+
+
+def default_runtime_id(root: Path) -> str:
+    preferred = "windows-dev" if platform.system() == "Windows" else "ubuntu-dev"
+    if (root / "runtime" / f"{preferred}.yaml").is_file():
+        return preferred
+    return "windows-dev"
 
 
 def _safe_config(root: Path, folder: str, config_id: str) -> Path:
@@ -78,7 +86,7 @@ def create_app(root: Path | None = None) -> FastAPI:
         return await call_next(request)
 
     def template_payload(path: Path) -> dict[str, Any]:
-        runtime_path = root / "runtime" / "windows-dev.yaml"
+        runtime_path = root / "runtime" / f"{default_runtime_id(root)}.yaml"
         experiment, _runtime = load_configuration(path, runtime_path)
         return {
             "id": path.stem,
@@ -95,7 +103,11 @@ def create_app(root: Path | None = None) -> FastAPI:
 
     @app.get("/api/v1/bootstrap")
     def bootstrap():
-        return {"control_token": control_token, "version": app.version}
+        return {
+            "control_token": control_token,
+            "version": app.version,
+            "default_runtime_id": default_runtime_id(root),
+        }
 
     @app.get("/api/v1/experiments")
     def experiments():
@@ -109,9 +121,10 @@ def create_app(root: Path | None = None) -> FastAPI:
             package = template_payload(_safe_config(root, "experiment", template_id))["app"]["package"]
         elif templates:
             package = template_payload(templates[0])["app"]["package"]
-        runtime_path = root / "runtime" / "windows-dev.yaml"
+        runtime_id = default_runtime_id(root)
+        runtime_path = root / "runtime" / f"{runtime_id}.yaml"
         if not runtime_path.exists():
-            return {"devices": [], "error": "缺少 windows-dev 运行配置"}
+            return {"devices": [], "error": f"缺少 {runtime_id} 运行配置"}
         _experiment, runtime = load_configuration(templates[0], runtime_path)
         runtime = apply_runtime_paths(runtime, config_dir=root)
 
@@ -164,7 +177,8 @@ def create_app(root: Path | None = None) -> FastAPI:
             return {"devices": [], "error": str(exc)}
 
     @app.get("/api/v1/environment")
-    async def environment(runtime_id: str = "windows-dev"):
+    async def environment(runtime_id: str | None = None):
+        runtime_id = runtime_id or default_runtime_id(root)
         runtime_path = _safe_config(root, "runtime", runtime_id)
         templates = sorted((root / "experiment").glob("*.yaml"))
         _experiment, runtime = load_configuration(templates[0], runtime_path)
@@ -295,6 +309,7 @@ def create_app(root: Path | None = None) -> FastAPI:
         allowed = {
             "session.yaml", "actions.jsonl", "run_journal.jsonl", "quality_report.json", "appium.log",
             "clock_sync.json", "network_isolation_check.json", "ha_events.json", "traffic.pcapng",
+            "ha_reconciliation.json", "pcap_review.json", "ha_history.json", "ha_clock_probe.json",
         }
         if artifact not in allowed:
             raise HTTPException(404, "该产物不可下载")

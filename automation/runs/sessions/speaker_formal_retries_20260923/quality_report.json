@@ -1,0 +1,25 @@
+{
+  "session_id": "speaker_formal_retries_20260923",
+  "session_outcome": "completed",
+  "planned_repetitions_per_event": 20,
+  "record_count": 45,
+  "planned_event_count": 40,
+  "completed_event_count": 40,
+  "result_counts": {
+    "app_ack_only": 40,
+    "timeout": 5
+  },
+  "app_success_rate": 0.8888888888888888,
+  "capture": {
+    "enabled": true,
+    "path": "/home/collapse/HA/automation/runs/sessions/speaker_formal_retries_20260923/traffic.pcapng",
+    "started_at_unix_ns": 1790156111205760578,
+    "stopped_at_unix_ns": 1790156702548085525,
+    "return_code": 0,
+    "packets": null,
+    "error": null
+  },
+  "capture_ok": true,
+  "actions_sha256": "1d7669412bf5a7fb5c98cb6000696c4ae653028d79eb9325649098b049be1648",
+  "generated_at_unix_ns": 1790156702972604630
+}

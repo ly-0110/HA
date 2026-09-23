@@ -126,6 +126,32 @@ def test_runner_retries_transient_adapter_failure(tmp_path):
     assert validate_session(runner.paths.root)["ok"] is True
 
 
+def test_runner_reselects_event_if_state_changes_during_idle(tmp_path):
+    experiment, runtime = _configs(tmp_path)
+    experiment = experiment.model_copy(update={
+        "sessions": experiment.sessions.model_copy(update={"repetitions_per_event": 1}),
+    })
+
+    class ChangingAdapter(SimulatedLampAdapter):
+        reads = 0
+
+        def read_state(self):
+            self.reads += 1
+            if self.reads == 2:
+                self.state = DeviceState.ON
+            return super().read_state()
+
+    runner = ExperimentRunner(
+        experiment, runtime, adapter=ChangingAdapter(DeviceState.OFF),
+        capture=DisabledCaptureBackend(), ha=DisabledHaProvider(),
+        session_id="state_changed_during_idle",
+    )
+    records = runner.run()
+    assert len(records) == 2
+    assert all(record.result is EventResult.APP_ACK_ONLY for record in records)
+    assert any('"kind":"precommand_state_changed"' in line for line in runner.paths.run_journal_jsonl.read_text().splitlines())
+
+
 def test_capture_failure_fails_runner_and_validator(tmp_path):
     experiment, runtime = _configs(tmp_path)
 

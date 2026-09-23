@@ -21,7 +21,12 @@ class SimulatedLampAdapter:
         return self.state
 
     def perform_event(self, event_type: EventType) -> None:
-        self.state = DeviceState.ON if event_type is EventType.TURN_ON else DeviceState.OFF
+        self.state = {
+            EventType.TURN_ON: DeviceState.ON,
+            EventType.TURN_OFF: DeviceState.OFF,
+            EventType.PLAY_MUSIC: DeviceState.PLAYING,
+            EventType.PAUSE_MUSIC: DeviceState.PAUSED,
+        }[event_type]
 
     def wait_for_ack(self, expected_state: DeviceState, timeout_seconds: float) -> AckEvidence:
         return AckEvidence(

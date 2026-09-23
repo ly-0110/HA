@@ -2,7 +2,7 @@
 
 本目录提供一个跨平台实验框架，用真实 Android 厂商 App 触发 IoT 设备事件，并将 App 操作、状态回执、网络隔离检查、可选连续抓包和可选独立状态观测整理为可验证的实验会话。
 
-平台核心面向复用；`米家台灯1S 增强版` 是当前第一个已经完成真机验证的适配器案例，而不是平台本身的唯一目标。当前公共事件模型是二态 `turn_on`/`turn_off`，适用于灯、插座、开关等设备。接入多状态设备或其他事件类型时，需要扩展事件模型和编排器，不能只增加选择器。
+平台核心面向复用；当前已有米家台灯的 `turn_on`/`turn_off` 和小爱触屏音箱的 `play_music`/`pause_music` 两组二态事件。接入更多状态或事件时仍需扩展事件模型和编排器，不能只增加选择器。
 
 供模型或自动化代理执行完整接入任务时，必须同时阅读 [AGENTS.md](AGENTS.md)。该文件定义了从实验建模到正式采集的可复用工作流、证据要求、停止条件和最少必要测试。
 
@@ -22,9 +22,8 @@
 当前未包含：
 
 - 账号登录、验证码、CAPTCHA 或安全授权自动化；
-- 通用多厂商适配器注册表；当前 CLI 默认创建米家台灯适配器；
-- 二态开关以外的通用事件模型；
-- 已启用的 Home Assistant 状态提供者；
+- 通用多厂商适配器注册表；当前注册了米家台灯和小爱触屏音箱；
+- 已启用的会话内 Home Assistant 状态提供者；音箱使用会话后 JSON 导入关联；
 - 多手机单编排器和共享事件调度；当前并行方式是一进程一手机；
 - P/U 数据集切分、流量特征提取或模型训练。
 
@@ -69,40 +68,55 @@ HA/
 
 ## 3. 快速开始
 
-进入目录：
+### 3.1 Windows 开发模式
 
 ```powershell
 Set-Location C:\Users\Administrator\Desktop\HA\automation
-```
-
-Ubuntu：
-
-```bash
-cd /path/to/HA/automation
-```
-
-安装依赖：
-
-```text
 uv sync --extra dev
 npm install
-```
-
-执行基础检查：
-
-```text
 uv run iot-exp doctor
 uv run iot-exp devices
 ```
 
+Windows 默认使用 `runtime/windows-dev.yaml`，该配置为开发模式且不抓包。
+
 完成一个不连接真机的逻辑会话：
 
-```text
+```powershell
 uv run iot-exp run --dry-run --repetitions 1 --seed 42 --session-id dry_run_001
 uv run iot-exp validate-session runs/sessions/dry_run_001
 ```
 
-### 3.1 图形控制台
+### 3.2 Ubuntu 开发模式
+
+```bash
+cd /path/to/HA/automation
+uv sync --extra dev
+npm install
+uv run iot-exp --runtime runtime/ubuntu-dev.yaml doctor
+uv run iot-exp --runtime runtime/ubuntu-dev.yaml devices
+```
+
+Ubuntu 使用 `runtime/ubuntu-dev.yaml` 进行不抓包真机验证，正式抓包才使用
+`runtime/ubuntu-lab.yaml`。
+
+在已经将依赖安装到项目 `.tools/` 目录的主机上，使用下列入口可自动加载 Node、Java、
+Android SDK 和 `uv`，同时自动选择 Ubuntu 不抓包配置：
+
+```bash
+./iot-exp-local.sh doctor
+./iot-exp-local.sh devices
+./iot-exp-local.sh preflight --udid <serial>
+```
+
+完成一个不连接真机的逻辑会话：
+
+```bash
+./iot-exp-local.sh run --dry-run --repetitions 1 --seed 42 --session-id dry_run_001
+./iot-exp-local.sh validate-session runs/sessions/dry_run_001
+```
+
+### 3.3 图形控制台
 
 完成一次依赖安装和前端构建：
 
@@ -112,8 +126,10 @@ npm install
 npm run web:build
 ```
 
-Windows 双击 `start-console.cmd`；Ubuntu 为 `start-console.sh` 增加执行权限后运行，或使用
-`IoT实验控制台.desktop`。启动入口只监听 `127.0.0.1:8765` 并自动打开浏览器。也可以执行：
+Windows 双击 `start-console.cmd`。Ubuntu 直接运行 `./start-console.sh`，或双击
+`IoT实验控制台.desktop`；这两个入口会自动加载项目 `.tools/` 中的依赖，不要求 `uv` 位于
+全局 `PATH`，也不应使用 `sudo`。启动入口只监听 `127.0.0.1:8765` 并自动打开浏览器。
+也可以在已经激活依赖环境的终端执行：
 
 ```text
 uv run iot-exp-gui
@@ -165,6 +181,8 @@ Ubuntu 上如果 `/usr/bin/adb` 只是指向 SDK 的符号链接，程序可以�
 
 ## 5. Android 手机发现与选择
 
+### 5.1 两个平台都需要的手机设置
+
 手机准备：
 
 1. 开启开发者选项和 USB 调试；
@@ -174,10 +192,48 @@ Ubuntu 上如果 `/usr/bin/adb` 只是指向 SDK 的符号链接，程序可以�
 5. 手机连接公共 Wi-Fi 或蜂窝网络，不连接实验 IoT 网络；
 6. 关闭 USB 网络共享。
 
-列出设备和参数：
+手机上的 RSA 调试授权与主机的 USB 文件权限是两回事：
 
-```text
+- 在手机弹窗中勾选“始终允许此计算机”后，RSA 授权通常不需要每次重新确认；
+- 撤销 USB 调试授权、清除调试密钥、更换控制主机或重置手机后，需要重新确认 RSA；
+- Windows 通常由设备驱动处理 USB 权限；
+- Ubuntu 必须让当前用户拥有对应 USB 设备节点的读写权限，见下节。
+
+### 5.2 Windows USB 准备
+
+安装手机厂商 USB 驱动或 Google USB Driver，然后重新插入手机。设备管理器中不应存在带警告
+标记的 ADB 设备。使用以下命令确认状态：
+
+```powershell
 uv run iot-exp devices
+```
+
+### 5.3 Ubuntu USB 权限
+
+先用 `lsusb` 查找手机的厂商 ID 和产品 ID。例如本项目当前验证的 LG 手机显示为
+`1004:631f`。对这台已验证手机，直接运行项目内的一键安装脚本：
+
+```bash
+sudo ./install-lg-udev.sh
+```
+
+脚本只安装精确匹配 `1004:631f` 的规则，不会放宽其他 LG USB 设备的权限。安装后重新插入
+手机；若当前登录会话还没有取得 `plugdev` 组，则注销并重新登录一次。之后 USB 拔插通常不再
+需要重新配置 Linux 权限。其他型号不能直接使用该脚本，应按其 `lsusb` ID 创建单独规则。
+
+`setfacl` 只适合临时诊断，例如：
+
+```bash
+sudo setfacl -m u:"$USER":rw /dev/bus/usb/001/005
+```
+
+这里的总线和设备编号会在重新插拔后变化，因此临时 ACL 会失效；它不会导致手机重新询问 RSA，
+但需要对新的设备节点再次授权。长期使用应配置上述精确 udev 规则。
+
+Ubuntu 项目本地环境使用以下命令确认设备状态：
+
+```bash
+./iot-exp-local.sh devices
 ```
 
 输出包括 UDID、ADB 状态、厂商、型号、Android 版本、SDK level、transport ID、目标 App 版本，以及 ADB、SDK、Appium 端口和抓包模式。
@@ -225,11 +281,22 @@ uv run iot-exp validate-session runs/sessions/dry_run_001
 
 ### 7.2 真机无抓包验证
 
-```text
+Windows：
+
+```powershell
 uv run iot-exp preflight --udid <serial>
 uv run iot-exp inspect-app --udid <serial>
 uv run iot-exp run --udid <serial> --repetitions 1 --session-id first_real_001
 uv run iot-exp validate-session runs/sessions/first_real_001
+```
+
+Ubuntu 项目本地环境：
+
+```bash
+./iot-exp-local.sh preflight --udid <serial>
+./iot-exp-local.sh inspect-app --udid <serial>
+./iot-exp-local.sh run --udid <serial> --repetitions 1 --session-id first_real_001
+./iot-exp-local.sh validate-session runs/sessions/first_real_001
 ```
 
 最小闭环通过后再增加重复次数。二态设备的建议首轮验收是每种事件 10 次，App 成功率不低于 95%，无坐标点击，所有 `event_id` 唯一。
@@ -238,7 +305,7 @@ uv run iot-exp validate-session runs/sessions/first_real_001
 
 编辑正式运行配置：
 
-- `capture_interface`：镜像口或抓包接口；
+- `capture_interface`：镜像口；若抓包主机同时提供实验热点，则填写热点的 AP 无线接口；
 - `capture_filter`：目标 IoT 设备过滤器；
 - `android_sdk_root`：无法自动解析时显式填写；
 - `pre_roll_seconds`、`post_roll_seconds`：会话保护时间；
@@ -254,6 +321,33 @@ uv run iot-exp --runtime runtime/ubuntu-lab.yaml run --udid <serial> --repetitio
 
 正式模式只启动一次连续 Dumpcap。任何正式预检失败都必须阻止采集。
 
+### 7.4 抓包主机提供 IoT 热点
+
+该拓扑的完整实验边界与验收条件见 [实验设计 3.2 节](../doc/厂商App异网自动化实验设计.md#32-场地受限时抓包主机兼作实验热点)。抓包主机需要独立外网上行（建议有线）和支持 AP 模式的无线网卡；IoT 设备连接实验 SSID，控制手机始终连接其他网络。不要让同一无线网卡同时承担上行和热点，除非已确认驱动支持并发且长时间试运行稳定。
+
+Ubuntu 使用 NetworkManager 时，先在系统网络设置中建立加密热点并启用连接共享，再只读核对：
+
+```bash
+iw list                         # Supported interface modes 中应有 AP
+nmcli device status             # 确认上行与热点分别使用哪个接口
+nmcli -f 802-11-wireless.mode,802-11-wireless-security.key-mgmt,ipv4.method connection show <热点连接名>
+ip -br addr                     # 记录 AP 接口的实际网段和设备地址
+dumpcap -D                      # 确认 AP 接口可被抓包程序访问
+```
+
+热点应使用 WPA2/WPA3、`ipv4.method shared`，让设备得到 DHCP 地址并经主机 NAT 上网；NetworkManager 可能自动分配 `10.42.x.0/24`，以现场输出为准。不要把热点密码写入仓库配置、命令历史或会话日志。若系统创建的是开放/WEP 热点，或设备无法稳定联网，先修正网卡与热点配置。
+
+正式运行前更新两个现有 YAML 文件，使用现场值，不另造配置字段：
+
+| 文件 | 设置 |
+|---|---|
+| `runtime/ubuntu-lab.yaml` | `capture_interface` 填 **AP 无线接口**；`capture_filter` 先经试抓包验证，再填 `host <设备热点侧IP>` 等目标过滤器。不要填外网上行接口。 |
+| `experiment/mi_desk_lamp_1s.yaml` | `network.target_device_ip` 填设备在热点上的稳定 IP；`network.forbidden_cidrs` 包含热点网段；`phone.network` 保持真实的 `public_wifi` 或蜂窝网络类型。 |
+
+先在 AP 接口进行短时无过滤试抓包，确认设备上线、DNS 和 App 动作期间的设备发出与收到的包，再检查正式过滤器是否仍覆盖目标流量。`host <IP>` 不覆盖全部 ARP、广播发现和无线链路帧；如研究这些流量，需调整抓包范围并重新验证。普通数据包抓取不使用 monitor mode，它可能使网卡退出正常热点工作模式。外网上行接口上的 NAT 后数据不能代替设备侧 PCAP。
+
+现有 `preflight` 在网络隔离方面只检查手机地址是否落在禁止网段，并以设备 IP 的 `ping` 作为可达性辅助判断；`ping` 不通并不能单独证明隔离。当前 `require_no_usb_tethering` 配置也尚未对应自动检查，预检不会验证热点的 DHCP/NAT、AP 抓包覆盖率或厂商 App 是否走局域网控制。现场仍需核对 USB 网络共享关闭、手机未连接实验 SSID、设备确实通过热点访问云端、App 操作后 PCAP 有双向流量，再开始正式会话。热点重启、设备 IP 改变或上行切换后重新执行这些检查并新建会话。
+
 ## 8. 多手机与混杂流量
 
 当前并行模型是一进程一手机。每个进程必须使用唯一的 Appium 端口和 UiAutomator2 `systemPort`：
@@ -263,7 +357,7 @@ uv run iot-exp run --udid SERIAL_A --phone-id phone_a --appium-port 4723 --syste
 uv run iot-exp run --udid SERIAL_B --phone-id phone_b --appium-port 4725 --system-port 8201 --repetitions 10
 ```
 
-每条动作记录同时包含 `phone_id` 和 `phone_udid`。多个控制进程可以共同制造背景和混杂流量，但同一镜像口的连续抓包应只由一个采集进程负责，避免重复 PCAP、接口竞争和不一致的边界。
+每条动作记录同时包含 `phone_id` 和 `phone_udid`。多个控制进程可以共同制造背景和混杂流量，但同一镜像口或热点 AP 接口的连续抓包应只由一个采集进程负责，避免重复 PCAP、接口竞争和不一致的边界。
 
 如果实验需要统一随机化多台手机的事件、共享一个会话 ID 和一份 PCAP，应扩展为单编排器、多适配器会话、单 `CaptureBackend`，而不是让多个正式进程分别启动 Dumpcap。
 
@@ -327,6 +421,98 @@ runs/inspect/inspect_failure.png
 选择器优先级：资源 ID、无障碍描述、可见文字、Android UIAutomator、XPath。坐标只能作为最后的设备专用降级方案，不能进入通用编排层。
 
 该案例仍需填写真实 `device.firmware`。由于 `HaObservationProvider` 当前禁用，成功记录应为 `app_ack_only`，不能错误标记为 `confirmed`。
+
+## 10.1 小爱触屏音箱 LX04：音乐播放与暂停
+
+使用 [实验配置](experiment/xiaomi_touchscreen_speaker_music.yaml) 和
+[正式运行配置](runtime/ubuntu-speaker-lab.yaml)。已识别设备型号 `xiaomi.wifispeaker.lx04`、
+固件 `2.42.112`、HA 实体 `media_player.xiaomi_cn_636575596_lx04`、热点侧 IP
+`10.42.0.196`。控制手机是 LG V405，米家版本 `11.8.703`。
+
+米家设备页的播放按钮没有可读取的文字或无障碍标签。专用适配器根据实际截图中按钮的
+三角形或双竖线读取当前状态，每次点击前重新检查前置状态，点击后等待页面回执。
+如果图标无法可靠识别，状态为 `unknown`，不得按上一次点击推断。
+曲目自然结束造成的状态变化不能算作点击确认。
+本音箱试采集连续记录播放和暂停各 20 次尝试；页面未收到回执时保留失败记录和数据包，
+不因试采集中的成功率中途停止会话。
+操作前随机等待 3–6 秒、操作后等待 2 秒；页面 10 秒无回执即记录失败，
+同一逻辑事件最多尝试 3 次。每次尝试都有独立事件 ID，因此原始日志可能超过 40 条，
+但计划的逻辑事件仍是播放和暂停各 20 次。
+
+在 `automation/` 下执行干运行与无抓包验收：
+
+```bash
+./iot-exp-local.sh --experiment experiment/xiaomi_touchscreen_speaker_music.yaml run --dry-run --repetitions 1 --session-id speaker_dry_001
+./iot-exp-local.sh --experiment experiment/xiaomi_touchscreen_speaker_music.yaml inspect-app --udid LMV405UAd6421e56
+./iot-exp-local.sh --experiment experiment/xiaomi_touchscreen_speaker_music.yaml run --udid LMV405UAd6421e56 --repetitions 1 --session-id speaker_one_001
+./iot-exp-local.sh --experiment experiment/xiaomi_touchscreen_speaker_music.yaml run --udid LMV405UAd6421e56 --repetitions 10 --session-id speaker_ten_001
+```
+
+正式采集前，确认手机未连接 `10.42.0.0/24` 热点、USB 网络共享关闭、设备仍为
+`10.42.0.196`、`wlp2s0` 能抓到该设备的双向流量、Dumpcap 权限可用，并实测 HA 电脑与
+采集机的时钟偏差。可将 [时钟探针](clock_probe.py) 复制到 HA 电脑；采集机运行
+`python3 clock_probe.py serve --host 10.150.254.162`，HA 电脑运行
+`python3 clock_probe.py client --host 10.150.254.162`。记录输出的偏差和不确定度，
+只有偏差连同不确定度小于 500 毫秒时，才允许自动候选金标准关联。
+
+正式模式需要当前进程拥有 `wireshark` 组权限；加入组后重新登录，或使用 `sg wireshark`
+启动命令。先运行 `doctor` 和 `preflight`，再用同一会话连续抓取每类 20 次：
+
+```bash
+./iot-exp-local.sh --experiment experiment/xiaomi_touchscreen_speaker_music.yaml --runtime runtime/ubuntu-speaker-lab.yaml doctor
+./iot-exp-local.sh --experiment experiment/xiaomi_touchscreen_speaker_music.yaml --runtime runtime/ubuntu-speaker-lab.yaml preflight --udid LMV405UAd6421e56
+./iot-exp-local.sh --experiment experiment/xiaomi_touchscreen_speaker_music.yaml --runtime runtime/ubuntu-speaker-lab.yaml run --udid LMV405UAd6421e56 --repetitions 20 --session-id speaker_formal_001
+```
+
+会话结束后在采集机取得精确 UTC 查询范围：
+
+```bash
+./iot-exp-local.sh ha-window runs/sessions/speaker_formal_001
+```
+
+在 **HA 电脑**上使用 [历史导出脚本](../legacy/get_device_log.py)，以输出的
+`entity_id`、`start`、`end` 运行；令牌只从该电脑的环境变量 `HA_TOKEN` 读取，
+不得贴入仓库或发给他人。旧脚本曾有明文令牌，须先在 HA 撤销并换新。
+`--ha-url` 默认为 `http://localhost:8123`：
+
+```bash
+python3 get_device_log.py --entity-id media_player.xiaomi_cn_636575596_lx04 --start '<ha-window 的 start>' --end '<ha-window 的 end>' --output speaker_ha_history.json
+```
+
+将 JSON 复制回采集机，再执行：
+
+```bash
+./iot-exp-local.sh review-pcap runs/sessions/speaker_formal_001
+./iot-exp-local.sh reconcile-ha runs/sessions/speaker_formal_001 speaker_ha_history.json --clock-offset-ms <实测偏差> --clock-uncertainty-ms <测量不确定度>
+```
+
+关联结果写入会话中的 `ha_reconciliation.json`，保留原始动作日志和 PCAP。
+报告中的每条事件都需要人工核对 App、HA 与对应 PCAP；缺失、重复或时间范围外的
+HA 状态均保持待复核，不能自动当作确认事件。该流程直接导出 JSON，无需手工 CSV。
+
+如果 HA 电脑接入采集机热点，可使用以下一次性配对后的自动协作方式。先等正在运行的
+正式会话结束，再让 HA 电脑连接该热点，以免中途改变网络条件。采集机地址为
+`10.42.0.1`；服务只绑定这个热点地址。采集机启动：
+
+```bash
+./.tools/uv/uv run --project . python ha_bridge_server.py runs/sessions/speaker_formal_001
+```
+
+首次启动会生成权限为 `0600` 的 `runs/ha_bridge.key`。把该密钥文件以本地方式
+复制到 HA 电脑并只允许该电脑用户读取。在 HA 电脑中撤销旧长期访问令牌、
+生成新令牌并只在该电脑设置环境变量 `HA_TOKEN`；两个密钥都不要写入仓库或聊天记录。
+可把 [HA 端协作脚本](ha_companion.py) 和配对密钥打包后复制到 HA 电脑。
+在 HA 电脑运行：
+
+```bash
+python3 ha_companion.py --bridge-url http://10.42.0.1:8767 --ha-url http://localhost:8123 --key-file ha_bridge.key
+```
+
+脚本会等待采集机发布已完成会话的实体 ID 和 UTC 范围，测量两机时差，通过 HA 官方历史
+接口导出 JSON，在 HA 电脑留一份私有副本，并向采集机上传历史 JSON 与时钟测量值。
+采集机验证会话和时钟范围后生成 `ha_history.json`、`ha_clock_probe.json`、
+`pcap_review.json` 与 `ha_reconciliation.json`。配对请求使用消息签名，HA 令牌
+不会发给采集机。上传后每条关联仍为待人工复核；自动报告只列候选事件和逐事件双向包数。
 
 ## 11. 常见故障
 

@@ -1,0 +1,41 @@
+experiment_id: xiaomi_touchscreen_speaker_music_v1
+adapter: mi_home_touchscreen_speaker
+phone:
+  phone_id: lg_v405_speaker_control
+  udid: LMV405UAd6421e56
+  network: public_wifi
+  experiment_network_forbidden: true
+app:
+  vendor: xiaomi
+  package: com.xiaomi.smarthome
+  version: 11.8.703
+  selectors:
+    device_entry:
+      - {strategy: accessibility_id, value: "小爱触屏音箱"}
+      - {strategy: text, value: "小爱触屏音箱"}
+    device_page_marker:
+      - {strategy: xpath, value: "//android.widget.ScrollView//android.widget.TextView[@text='小爱触屏音箱']"}
+    playback_button:
+      - {strategy: xpath, value: "//android.widget.ScrollView//android.view.ViewGroup[@clickable='true' and .//android.widget.TextView]/android.view.ViewGroup[@clickable='true']"}
+device:
+  device_id: xiaomi_cn_636575596_lx04
+  display_name: 小爱触屏音箱 LX04
+  entity_id: media_player.xiaomi_cn_636575596_lx04
+  firmware: 2.42.112
+network:
+  forbidden_cidrs: [10.42.0.0/24]
+  target_device_ip: 10.42.0.196
+  require_no_usb_tethering: true
+sessions:
+  count: 1
+  repetitions_per_event: 20
+  idle_range_seconds: [3, 6]
+  cooldown_seconds: 2
+  max_attempts: 3
+events:
+  - event_type: play_music
+    required_state: paused
+    expected_state: playing
+  - event_type: pause_music
+    required_state: playing
+    expected_state: paused

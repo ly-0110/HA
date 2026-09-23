@@ -131,6 +131,9 @@ class ExperimentRunner:
             self._sleep(self.runtime.pre_roll_seconds)
             self._run_events()
             self._sleep(self.runtime.post_roll_seconds)
+        except KeyboardInterrupt:
+            outcome = "cancelled"
+            run_error = RunCancelled("experiment interrupted by operator")
         except Exception as exc:  # noqa: BLE001 - outcome and evidence must be persisted.
             outcome = "cancelled" if isinstance(exc, RunCancelled) else "failed"
             run_error = exc
@@ -191,6 +194,7 @@ class ExperimentRunner:
     def _run_events(self) -> None:
         remaining = Counter({event.event_type.value: self.experiment.sessions.repetitions_per_event for event in self.experiment.events})
         sequence = 0
+        changed_during_idle = 0
         while any(remaining.values()):
             if self.cancel_requested():
                 raise RunCancelled("experiment cancelled by user")
@@ -219,10 +223,25 @@ class ExperimentRunner:
                 )
                 self._persist_record(record)
                 break
-            sequence += 1
-            remaining[spec.event_type.value] -= 1
             idle = self.rng.uniform(*self.experiment.sessions.idle_range_seconds)
             self._sleep(idle)
+            current_state = self.adapter.read_state()
+            if current_state is not spec.required_state:
+                changed_during_idle += 1
+                self.journal.append({
+                    "kind": "precommand_state_changed",
+                    "planned_event_type": spec.event_type.value,
+                    "before": state_before.value,
+                    "after": current_state.value,
+                    "at_unix_ns": time.time_ns(),
+                })
+                if changed_during_idle >= 10:
+                    raise RunError("device state changed during idle ten times; stop and inspect music source")
+                continue
+            changed_during_idle = 0
+            sequence += 1
+            remaining[spec.event_type.value] -= 1
+            state_before = current_state
             record = None
             for attempt in range(1, self.experiment.sessions.max_attempts + 1):
                 if self.cancel_requested():
@@ -294,6 +313,13 @@ class ExperimentRunner:
             state_after = ack.observed_state
             error_code = None if ack.acknowledged else "app_ack_timeout"
             notes = ack.message
+            capture_ack = getattr(self.adapter, "capture_ack_evidence", None)
+            if callable(capture_ack):
+                try:
+                    capture_ack(self.paths.screenshots, event_id)
+                except Exception as evidence_exc:  # noqa: BLE001 - preserve the observed App result.
+                    error_code = "app_evidence_capture_failed"
+                    notes = f"{notes}; app_evidence_capture_failed={evidence_exc}"
         except AdapterError as exc:
             t_after = time.time_ns()
             ack = AckEvidence(acknowledged=False, message=str(exc))
