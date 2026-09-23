@@ -10,12 +10,16 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 class DeviceState(str, Enum):
     ON = "on"
     OFF = "off"
+    PLAYING = "playing"
+    PAUSED = "paused"
     UNKNOWN = "unknown"
 
 
 class EventType(str, Enum):
     TURN_ON = "turn_on"
     TURN_OFF = "turn_off"
+    PLAY_MUSIC = "play_music"
+    PAUSE_MUSIC = "pause_music"
 
 
 class EventResult(str, Enum):
@@ -83,8 +87,13 @@ class EventSpec(BaseModel):
 
     @model_validator(mode="after")
     def validate_transition(self) -> EventSpec:
-        expected = DeviceState.ON if self.event_type is EventType.TURN_ON else DeviceState.OFF
-        required = DeviceState.OFF if self.event_type is EventType.TURN_ON else DeviceState.ON
+        transitions = {
+            EventType.TURN_ON: (DeviceState.OFF, DeviceState.ON),
+            EventType.TURN_OFF: (DeviceState.ON, DeviceState.OFF),
+            EventType.PLAY_MUSIC: (DeviceState.PAUSED, DeviceState.PLAYING),
+            EventType.PAUSE_MUSIC: (DeviceState.PLAYING, DeviceState.PAUSED),
+        }
+        required, expected = transitions[self.event_type]
         if self.expected_state is not expected or self.required_state is not required:
             raise ValueError(f"invalid transition for {self.event_type.value}")
         return self

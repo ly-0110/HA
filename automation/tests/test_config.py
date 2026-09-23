@@ -45,3 +45,31 @@ events:
     runtime.write_text("mode: dev\n", encoding="utf-8")
     with pytest.raises(ConfigError):
         load_configuration(experiment, runtime)
+
+
+def test_speaker_configuration_has_real_music_transitions():
+    experiment, _runtime = load_configuration(
+        ROOT / "experiment" / "xiaomi_touchscreen_speaker_music.yaml",
+        ROOT / "runtime" / "ubuntu-dev.yaml",
+    )
+    assert experiment.device.entity_id == "media_player.xiaomi_cn_636575596_lx04"
+    assert [(event.event_type, event.required_state, event.expected_state) for event in experiment.events] == [
+        (EventType.PLAY_MUSIC, DeviceState.PAUSED, DeviceState.PLAYING),
+        (EventType.PAUSE_MUSIC, DeviceState.PLAYING, DeviceState.PAUSED),
+    ]
+
+
+def test_speaker_event_cannot_use_lamp_state(tmp_path):
+    experiment = tmp_path / "speaker.yaml"
+    experiment.write_text(
+        """experiment_id: speaker
+phone: {phone_id: p, udid: u}
+app: {package: com.x}
+device: {device_id: d}
+events:
+  - {event_type: play_music, required_state: "off", expected_state: "on"}
+""",
+        encoding="utf-8",
+    )
+    with pytest.raises(ConfigError):
+        load_configuration(experiment, ROOT / "runtime" / "ubuntu-dev.yaml")

@@ -11,11 +11,32 @@ doc/中期报告Iot（更新）.docx
 
 # Automation environment and generated sessions
 .venv/
+.tools/
 .uv-cache/
 .pytest_cache/
 .pytest_tmp*/
 .ruff_cache/
 runs/
+
+# Share the reviewed LX04 session while keeping other generated runs private.
+!/automation/runs/
+/automation/runs/*
+!/automation/runs/sessions/
+/automation/runs/sessions/*
+!/automation/runs/sessions/speaker_formal_retries_20260923/
+/automation/runs/sessions/speaker_formal_retries_20260923/*
+!/automation/runs/sessions/speaker_formal_retries_20260923/actions.jsonl
+!/automation/runs/sessions/speaker_formal_retries_20260923/traffic.pcapng
+!/automation/runs/sessions/speaker_formal_retries_20260923/ha_history.json
+!/automation/runs/sessions/speaker_formal_retries_20260923/ha_clock_probe.json
+!/automation/runs/sessions/speaker_formal_retries_20260923/ha_reconciliation.json
+!/automation/runs/sessions/speaker_formal_retries_20260923/pcap_review.json
+!/automation/runs/sessions/speaker_formal_retries_20260923/session.yaml
+!/automation/runs/sessions/speaker_formal_retries_20260923/quality_report.json
+!/automation/runs/sessions/speaker_formal_retries_20260923/run_journal.jsonl
+!/automation/runs/sessions/speaker_formal_retries_20260923/clock_sync.json
+!/automation/runs/sessions/speaker_formal_retries_20260923/network_isolation_check.json
+!/automation/runs/sessions/speaker_formal_retries_20260923/full_chain_review.md
 
 # Node.js dependencies and package-manager caches
 node_modules/

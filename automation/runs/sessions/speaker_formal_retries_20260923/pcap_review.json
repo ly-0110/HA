@@ -1,0 +1,462 @@
+{
+  "schema": "iot_exp_pcap_review_v1",
+  "session_id": "speaker_formal_retries_20260923",
+  "target_device_ip": "10.42.0.196",
+  "pcap_sha256": "212498d87ac02fd4185f8b9ca72f367fa1647a77f733e46e5bd88ec43eb1d725",
+  "packets_from_device_total": 6243,
+  "packets_to_device_total": 7450,
+  "event_count": 45,
+  "bidirectional_event_count": 45,
+  "events": [
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000001_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156122217763592,
+      "window_end_unix_ns": 1790156131971476298,
+      "packets_from_device": 61,
+      "packets_to_device": 53,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000002_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156133652840971,
+      "window_end_unix_ns": 1790156149070772185,
+      "packets_from_device": 69,
+      "packets_to_device": 60,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000003_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156152413657415,
+      "window_end_unix_ns": 1790156162055856759,
+      "packets_from_device": 59,
+      "packets_to_device": 52,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000004_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156165753757343,
+      "window_end_unix_ns": 1790156175023030675,
+      "packets_from_device": 58,
+      "packets_to_device": 53,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000005_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156178157677884,
+      "window_end_unix_ns": 1790156187360048252,
+      "packets_from_device": 56,
+      "packets_to_device": 50,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000006_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156190573411207,
+      "window_end_unix_ns": 1790156199830509477,
+      "packets_from_device": 63,
+      "packets_to_device": 53,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000007_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156202580414255,
+      "window_end_unix_ns": 1790156212269241651,
+      "packets_from_device": 25,
+      "packets_to_device": 20,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000008_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156214515779048,
+      "window_end_unix_ns": 1790156224250483618,
+      "packets_from_device": 58,
+      "packets_to_device": 52,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000009_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156226325931269,
+      "window_end_unix_ns": 1790156235513792508,
+      "packets_from_device": 59,
+      "packets_to_device": 51,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000010_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156238988507279,
+      "window_end_unix_ns": 1790156254305763436,
+      "packets_from_device": 99,
+      "packets_to_device": 89,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000011_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156256655170757,
+      "window_end_unix_ns": 1790156265832194432,
+      "packets_from_device": 59,
+      "packets_to_device": 53,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000012_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156268127208668,
+      "window_end_unix_ns": 1790156276246873608,
+      "packets_from_device": 46,
+      "packets_to_device": 38,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000012_attempt_02",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156282196188342,
+      "window_end_unix_ns": 1790156291324399699,
+      "packets_from_device": 69,
+      "packets_to_device": 65,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000013_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156293113964611,
+      "window_end_unix_ns": 1790156302356886155,
+      "packets_from_device": 48,
+      "packets_to_device": 42,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000014_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156304269227120,
+      "window_end_unix_ns": 1790156313391677273,
+      "packets_from_device": 32,
+      "packets_to_device": 27,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000015_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156316518582143,
+      "window_end_unix_ns": 1790156325652680019,
+      "packets_from_device": 57,
+      "packets_to_device": 48,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000016_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156327823182948,
+      "window_end_unix_ns": 1790156336897478376,
+      "packets_from_device": 55,
+      "packets_to_device": 49,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000017_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156339091939003,
+      "window_end_unix_ns": 1790156347288447648,
+      "packets_from_device": 68,
+      "packets_to_device": 67,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000017_attempt_02",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156353571987008,
+      "window_end_unix_ns": 1790156361714270484,
+      "packets_from_device": 46,
+      "packets_to_device": 44,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000017_attempt_03",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156367866228196,
+      "window_end_unix_ns": 1790156376842867689,
+      "packets_from_device": 61,
+      "packets_to_device": 53,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000018_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156380840406568,
+      "window_end_unix_ns": 1790156389974729335,
+      "packets_from_device": 60,
+      "packets_to_device": 55,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000019_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156391264867197,
+      "window_end_unix_ns": 1790156400432034909,
+      "packets_from_device": 58,
+      "packets_to_device": 54,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000020_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156404011765578,
+      "window_end_unix_ns": 1790156413082421650,
+      "packets_from_device": 56,
+      "packets_to_device": 53,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000021_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156424857820711,
+      "window_end_unix_ns": 1790156433984854780,
+      "packets_from_device": 61,
+      "packets_to_device": 52,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000022_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156435103737816,
+      "window_end_unix_ns": 1790156444163121549,
+      "packets_from_device": 44,
+      "packets_to_device": 37,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000023_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156447131696451,
+      "window_end_unix_ns": 1790156455186743221,
+      "packets_from_device": 21,
+      "packets_to_device": 17,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000023_attempt_02",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156460722735628,
+      "window_end_unix_ns": 1790156469802294116,
+      "packets_from_device": 53,
+      "packets_to_device": 48,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000024_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156472093914788,
+      "window_end_unix_ns": 1790156480981679944,
+      "packets_from_device": 53,
+      "packets_to_device": 48,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000025_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156483704816533,
+      "window_end_unix_ns": 1790156492781574669,
+      "packets_from_device": 56,
+      "packets_to_device": 50,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000026_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156496233067692,
+      "window_end_unix_ns": 1790156505250626701,
+      "packets_from_device": 32,
+      "packets_to_device": 26,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000027_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156508926930214,
+      "window_end_unix_ns": 1790156525029398728,
+      "packets_from_device": 81,
+      "packets_to_device": 73,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000028_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156527409287551,
+      "window_end_unix_ns": 1790156536405484329,
+      "packets_from_device": 61,
+      "packets_to_device": 52,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000029_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156539933758671,
+      "window_end_unix_ns": 1790156549316460136,
+      "packets_from_device": 60,
+      "packets_to_device": 53,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000030_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156552528998686,
+      "window_end_unix_ns": 1790156561561315500,
+      "packets_from_device": 57,
+      "packets_to_device": 52,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000031_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156563263572233,
+      "window_end_unix_ns": 1790156572254235404,
+      "packets_from_device": 52,
+      "packets_to_device": 45,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000032_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156575630723119,
+      "window_end_unix_ns": 1790156585031913486,
+      "packets_from_device": 58,
+      "packets_to_device": 51,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000033_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156587409895694,
+      "window_end_unix_ns": 1790156596902917203,
+      "packets_from_device": 44,
+      "packets_to_device": 37,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000034_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156598398993923,
+      "window_end_unix_ns": 1790156607512318814,
+      "packets_from_device": 67,
+      "packets_to_device": 59,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000035_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156609969893241,
+      "window_end_unix_ns": 1790156619072009101,
+      "packets_from_device": 797,
+      "packets_to_device": 1319,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000036_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156622715848453,
+      "window_end_unix_ns": 1790156631786093345,
+      "packets_from_device": 50,
+      "packets_to_device": 44,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000037_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156633560763485,
+      "window_end_unix_ns": 1790156642699823196,
+      "packets_from_device": 58,
+      "packets_to_device": 53,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000038_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156645130549965,
+      "window_end_unix_ns": 1790156654123508732,
+      "packets_from_device": 65,
+      "packets_to_device": 55,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000039_attempt_01",
+      "event_type": "play_music",
+      "window_start_unix_ns": 1790156658113518751,
+      "window_end_unix_ns": 1790156667139478054,
+      "packets_from_device": 30,
+      "packets_to_device": 25,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000040_attempt_01",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156670635554755,
+      "window_end_unix_ns": 1790156678808586524,
+      "packets_from_device": 60,
+      "packets_to_device": 52,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    },
+    {
+      "event_id": "speaker_formal_retries_20260923_event_000040_attempt_02",
+      "event_type": "pause_music",
+      "window_start_unix_ns": 1790156684588169659,
+      "window_end_unix_ns": 1790156699640460904,
+      "packets_from_device": 95,
+      "packets_to_device": 88,
+      "manual_review": "pending",
+      "has_bidirectional_packets": true
+    }
+  ]
+}

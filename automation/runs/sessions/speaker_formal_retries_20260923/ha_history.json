@@ -1,0 +1,501 @@
+{
+  "schema": "iot_exp_ha_history_v1",
+  "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+  "start_time": "2026-09-23T09:34:35.904649+00:00",
+  "end_time": "2026-09-23T09:45:32.972899+00:00",
+  "exported_at": "2026-09-23T09:46:11.726439+00:00",
+  "events": [
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:34:35.904649+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:35:26.705315+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:35:38.002664+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:35:57.273288+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:36:10.128132+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:36:22.212051+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:36:34.164747+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:36:46.487287+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:36:59.512249+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:37:10.607723+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:37:22.732247+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:37:40.746888+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:38:05.937623+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:38:17.055942+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:38:27.958698+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:38:40.006536+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:38:52.111964+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:39:32.367785+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:39:44.514405+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:39:55.611056+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:40:08.720632+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:40:28.947720+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:40:38.937844+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:41:05.018478+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:41:16.283777+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:41:27.201498+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:41:40.348368+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:41:53.485210+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:42:11.494653+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:42:24.534196+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:42:36.573270+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:42:46.773574+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:42:59.754486+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:43:11.916839+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:43:21.871691+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:43:34.055484+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:43:47.084242+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:43:57.101203+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:44:09.208104+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "playing",
+      "last_changed": "2026-09-23T09:44:22.263155+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    },
+    {
+      "entity_id": "media_player.xiaomi_cn_636575596_lx04",
+      "state": "paused",
+      "last_changed": "2026-09-23T09:44:48.371279+00:00",
+      "attributes": {
+        "volume_level": 0.0,
+        "is_volume_muted": true,
+        "media_content_type": "music",
+        "device_class": "speaker",
+        "friendly_name": "小爱触屏音箱  音箱"
+      }
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+session_id: speaker_formal_retries_20260923
+random_seed: 51
+experiment:
+  experiment_id: xiaomi_touchscreen_speaker_music_v1
+  adapter: mi_home_touchscreen_speaker
+  phone:
+    phone_id: lg_v405_speaker_control
+    udid: LMV405UAd6421e56
+    network: public_wifi
+    experiment_network_forbidden: true
+    model: LM_V405
+    product: judypn_lao_com
+    device: judypn
+    transport_id: '10'
+    manufacturer: LGE
+    android_version: '10'
+    sdk_level: '29'
+  app:
+    vendor: xiaomi
+    package: com.xiaomi.smarthome
+    version: 11.8.703
+    selectors:
+      device_entry:
+      - strategy: accessibility_id
+        value: 小爱触屏音箱
+      - strategy: text
+        value: 小爱触屏音箱
+      device_page_marker:
+      - strategy: xpath
+        value: //android.widget.ScrollView//android.widget.TextView[@text='小爱触屏音箱']
+      playback_button:
+      - strategy: xpath
+        value: //android.widget.ScrollView//android.view.ViewGroup[@clickable='true'
+          and .//android.widget.TextView]/android.view.ViewGroup[@clickable='true']
+  device:
+    device_id: xiaomi_cn_636575596_lx04
+    display_name: 小爱触屏音箱 LX04
+    entity_id: media_player.xiaomi_cn_636575596_lx04
+    firmware: 2.42.112
+  network:
+    forbidden_cidrs:
+    - 10.42.0.0/24
+    target_device_ip: 10.42.0.196
+    require_no_usb_tethering: true
+  sessions:
+    count: 1
+    repetitions_per_event: 20
+    idle_range_seconds:
+    - 3.0
+    - 6.0
+    cooldown_seconds: 2.0
+    max_attempts: 3
+  events:
+  - event_type: play_music
+    required_state: paused
+    expected_state: playing
+  - event_type: pause_music
+    required_state: playing
+    expected_state: paused
+runtime:
+  mode: formal
+  output_root: /home/collapse/HA/automation/runs
+  appium_url: http://127.0.0.1:4723
+  uiautomator2_system_port: 8200
+  appium_managed: true
+  appium_executable: npx
+  adb_executable: adb
+  android_sdk_root: /home/collapse/HA/automation/.tools/android-sdk
+  dumpcap_executable: dumpcap
+  capture_mode: dumpcap
+  capture_interface: wlp2s0
+  capture_filter: host 10.42.0.196
+  pre_roll_seconds: 5.0
+  post_roll_seconds: 5.0
+  min_free_space_gb: 10.0
+  timezone: Asia/Shanghai
+tool_checks:
+- name: adb
+  ok: true
+  detail: /home/collapse/HA/automation/.tools/android-sdk/platform-tools/adb
+- name: node
+  ok: true
+  detail: /home/collapse/HA/automation/.tools/node22/bin/node
+- name: java
+  ok: true
+  detail: /home/collapse/HA/automation/.tools/jre21/bin/java
+- name: android_sdk_root
+  ok: true
+  detail: /home/collapse/HA/automation/.tools/android-sdk
+- name: npx
+  ok: true
+  detail: /home/collapse/HA/automation/.tools/node22/lib/node_modules/npm/bin/npx-cli.js
+- name: dumpcap
+  ok: true
+  detail: /usr/bin/dumpcap
+- name: platform
+  ok: true
+  detail: Linux-6.17.0-14-generic-x86_64-with-glibc2.39
+created_at_unix_ns: 1790156105902028184

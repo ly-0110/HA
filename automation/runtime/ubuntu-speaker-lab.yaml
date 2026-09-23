@@ -1,0 +1,16 @@
+mode: formal
+output_root: runs
+appium_url: http://127.0.0.1:4723
+uiautomator2_system_port: 8200
+appium_managed: true
+appium_executable: npx
+adb_executable: adb
+android_sdk_root: .tools/android-sdk
+dumpcap_executable: dumpcap
+capture_mode: dumpcap
+capture_interface: wlp2s0
+capture_filter: "host 10.42.0.196"
+pre_roll_seconds: 5
+post_roll_seconds: 5
+min_free_space_gb: 10
+timezone: Asia/Shanghai

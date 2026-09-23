@@ -26,16 +26,16 @@
 - Appium 服务管理与 UiAutomator2 连接；
 - 实验配置和运行配置；
 - 适配器协议；
-- 二态事件的会话编排、日志、质量报告和校验；
+- 开关和音乐播放/暂停二态事件的会话编排、日志、质量报告和校验；
 - Disabled/Dumpcap 抓包后端；
 - 可替换的独立状态观测协议；
 - Windows 开发模式和 Ubuntu 正式模式。
 
 ### 2.2 当前仍是专用实现的部分
 
-- `EventType` 只有 `turn_on` 和 `turn_off`；
-- `DeviceState` 只有 `on`、`off` 和 `unknown`；
-- CLI 当前直接创建 `MiHomeDeskLamp1SAdapter`，没有适配器注册表；
+- `EventType` 支持 `turn_on`、`turn_off`、`play_music` 和 `pause_music`；
+- `DeviceState` 支持 `on`、`off`、`playing`、`paused` 和 `unknown`；
+- CLI 通过设备适配器注册表选择米家台灯或小爱触屏音箱；
 - 当前独立状态提供者是 `DisabledHaProvider`；
 - 多手机并行是一进程一手机，不是单编排器统一调度。
 
@@ -111,7 +111,7 @@ events: []
 
 事件建模规则：
 
-- 当前平台只接受 `turn_on: off -> on` 和 `turn_off: on -> off`；
+- 当前平台接受 `turn_on: off -> on`、`turn_off: on -> off`、`play_music: paused -> playing` 和 `pause_music: playing -> paused`；
 - 如果新设备不能自然表示为二态，不得把多状态事件伪装成开/关；先扩展 `EventType`、`DeviceState`、验证器、编排器和测试；
 - 每个事件类型在一个实验中只能出现一次，重复次数由 `sessions.repetitions_per_event` 控制；
 - `device_id`、`experiment_id` 和 `phone_id` 应稳定、可机器解析；
@@ -143,7 +143,7 @@ Android SDK 解析顺序：
 - 唯一 UiAutomator2 `systemPort`；
 - 唯一会话 ID。
 
-同一个镜像口只允许一个连续抓包所有者。
+同一个镜像口或热点 AP 接口只允许一个连续抓包所有者。
 
 通过条件：`doctor` 能找到 ADB、SDK、Java、Node、Appium；正式模式还能找到 Dumpcap 和有效接口。
 
@@ -340,6 +340,7 @@ uv run iot-exp run --udid <serial> --repetitions 10
 - 恢复流程没有掩盖持续性选择器失败。
 
 用户定义的验收阈值优先于默认建议。
+如果用户明确要求把失败尝试也作为试采集样本，成功率只作结果统计，不作为中途停止条件。
 
 通过条件：`quality_report.json` 达到阈值，失败样本有诊断证据。
 
@@ -353,7 +354,9 @@ uv run iot-exp run --udid <serial> --repetitions 10
 - `target_device_ip` 是真实目标；
 - `capture_filter` 不含占位值；
 - `capture_interface` 是镜像口或指定接口；
+- 若抓包主机兼作 IoT 热点，`capture_interface` 必须是 AP 接口，目标 IP 必须是设备在热点侧的 IP；正式采集前用短时试抓包验证双向流量，不能只依据外网上行接口或手机 `ping` 结果；
 - Dumpcap 权限和磁盘空间充足；
+- HA 不在采集机上时，记录两机实测时钟偏差及测量不确定度；会话后按独立历史 JSON 关联，不能用 App 页面回执代替 HA 证据；
 - 会话前后保护时间符合实验设计；
 - 同一接口只有一个抓包所有者。
 
@@ -366,6 +369,8 @@ uv run iot-exp --runtime runtime/ubuntu-lab.yaml run --udid <serial> --repetitio
 ```
 
 通过条件：连续 PCAP、动作日志、时钟信息、网络检查和质量报告来自同一会话。
+对于音箱等可能发生曲目自然结束或版权限制的设备，保留未收到回执的尝试及其数据包；
+只有点击前状态、点击后 App 回执、HA 状态和事件时间窗都能对上时，才列为候选确认事件。
 
 ## 5. 多手机和混杂流量工作流
 
@@ -383,7 +388,7 @@ Process B: --udid SERIAL_B --phone-id phone_b --appium-port 4725 --system-port 8
 3. 每个控制进程使用唯一会话 ID；
 4. 先分别完成单手机最小闭环；
 5. 再并行启动控制进程；
-6. 同一镜像口仅保留一个 Dumpcap 进程；
+6. 同一镜像口或热点 AP 接口仅保留一个 Dumpcap 进程；
 7. 使用 `phone_udid`、事件时间戳和 `clock_sync.json` 与共享 PCAP 对齐；
 8. 记录每个控制进程的随机种子和启动时间。
 
