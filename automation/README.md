@@ -2,7 +2,7 @@
 
 本目录提供一个跨平台实验框架，用真实 Android 厂商 App 触发 IoT 设备事件，并将 App 操作、状态回执、网络隔离检查、可选连续抓包和可选独立状态观测整理为可验证的实验会话。
 
-平台核心面向复用；当前已有米家台灯的 `turn_on`/`turn_off` 和小爱触屏音箱的 `play_music`/`pause_music` 两组二态事件。接入更多状态或事件时仍需扩展事件模型和编排器，不能只增加选择器。
+平台核心面向复用；当前已有米家台灯的 `turn_on`/`turn_off` 和小爱触屏音箱的 `play_music`/`pause_music` 两组二态事件，以及米家台灯的亮度、色温、六种情景模式和专注模式四类参数化事件（见 [10.2 节](#102-米家台灯1s-增强版亮度色温情景与专注模式参数化事件)）。接入更多状态或事件时仍需扩展事件模型和编排器，不能只增加选择器。
 
 供模型或自动化代理执行完整接入任务时，必须同时阅读 [AGENTS.md](AGENTS.md)。该文件定义了从实验建模到正式采集的可复用工作流、证据要求、停止条件和最少必要测试。
 
@@ -278,6 +278,8 @@ uv run iot-exp validate-session runs/sessions/dry_run_001
 ```
 
 预期：每种事件生成一条记录，结果为 `app_ack_only`，事件 ID 唯一，会话校验为 `ok: true`。
+参数化事件（亮度/色温/情景/专注）的干运行见 [10.2 节](#102-米家台灯1s-增强版亮度色温情景与专注模式参数化事件)，
+同样不连接真机，且不要求 HA 日志。
 
 ### 7.2 真机无抓包验证
 
@@ -470,16 +472,9 @@ runs/inspect/inspect_failure.png
 ./iot-exp-local.sh ha-window runs/sessions/speaker_formal_001
 ```
 
-在 **HA 电脑**上使用 [历史导出脚本](../legacy/get_device_log.py)，以输出的
-`entity_id`、`start`、`end` 运行；令牌只从该电脑的环境变量 `HA_TOKEN` 读取，
-不得贴入仓库或发给他人。旧脚本曾有明文令牌，须先在 HA 撤销并换新。
-`--ha-url` 默认为 `http://localhost:8123`：
-
-```bash
-python3 get_device_log.py --entity-id media_player.xiaomi_cn_636575596_lx04 --start '<ha-window 的 start>' --end '<ha-window 的 end>' --output speaker_ha_history.json
-```
-
-将 JSON 复制回采集机，再执行：
+在 HA 电脑上用独立的数据处理仓库导出对应 `entity_id`、`start`、`end` 的历史记录；
+令牌只从该电脑的环境变量 `HA_TOKEN` 读取，不得贴入仓库或发给他人。将导出的 JSON
+复制回采集机，再执行：
 
 ```bash
 ./iot-exp-local.sh review-pcap runs/sessions/speaker_formal_001
@@ -514,6 +509,128 @@ python3 ha_companion.py --bridge-url http://10.42.0.1:8767 --ha-url http://local
 `pcap_review.json` 与 `ha_reconciliation.json`。配对请求使用消息签名，HA 令牌
 不会发给采集机。上传后每条关联仍为待人工复核；自动报告只列候选事件和逐事件双向包数。
 
+## 10.2 米家台灯1S 增强版：亮度、色温、情景与专注模式（参数化事件）
+
+使用 [mi_desk_lamp_1s_advanced.yaml](experiment/mi_desk_lamp_1s_advanced.yaml) 在已验证的开灯/关灯之外
+定义四类带目标的事件：`set_brightness`（亮度数值）、`set_color_temperature`（色温数值）、
+`select_scene`（六种情景之一）和 `set_focus_mode`（专注开关布尔目标）。这些事件的执行、回执
+判定、证据和校验与二态事件不同：每次尝试都必须在动作前后各读取一次目标维度的页面状态，
+只有"动作后读值命中目标且动作前未达目标"才记为成功。
+
+### 参数化事件 YAML 字段
+
+实验级 `parameters:` 块声明各维度的合法边界；对应事件出现时该声明必须存在，否则配置被拒绝：
+
+```yaml
+parameters:
+  brightness: {range: [1, 100], unit: "%", tolerance: 2}          # 范围、单位、允许误差
+  color_temperature: {range: [2600, 5100], unit: "K", tolerance: 100}
+  scene:
+    scenes: [电脑模式, 温馨模式, 休闲模式, 办公模式, 阅读模式, 娱乐模式]
+    presets:  # 真机逐一选择后的亮度/色温回读；六组必须覆盖 scenes 且在误差内互不重叠
+      电脑模式: {brightness: 50, color_temperature: 2700}
+      温馨模式: {brightness: 60, color_temperature: 3500}
+      休闲模式: {brightness: 50, color_temperature: 4000}
+      办公模式: {brightness: 100, color_temperature: 4500}
+      阅读模式: {brightness: 100, color_temperature: 5000}
+      娱乐模式: {brightness: 80, color_temperature: 3000}
+events:
+  - {event_type: set_brightness, target: 30}          # target 必须是整数且落在 range 内
+  - {event_type: set_color_temperature, target: 3500} # 同上，单位与 range 来自 parameters
+  - {event_type: select_scene, target: 阅读模式}       # target 必须是 scenes 候选之一
+  - {event_type: set_focus_mode, target: true}        # target 必须是布尔值
+```
+
+- 事件唯一性按 `(event_type, target)` 判定：六个不同情景目标可以共存，重复声明同一目标被拒绝；
+  二态事件（无目标）仍按 `event_type` 判定，旧台灯和音箱 YAML 原样可用。
+- 亮度、色温、情景事件的 `required_state` 默认为 `on`（台灯须已开启），可显式声明 `on`/`off`；
+  `set_focus_mode` 不接受电源前置条件，其前置判据是开关自身状态。
+- 数值目标越界、情景目标不在候选集、目标类型不匹配或缺少 `parameters` 声明都会在运行前被拒绝，
+  不会向设备发送动作。
+- 情景 ID 与设备页按钮文字一一对应（`scene_<ID>_button` 选择器）。本机 App 不暴露选中属性，
+  运行时改用设备页的亮度与色温文字回读匹配 `presets`，无需识别截图；两者有一项不可读或
+  同时匹配多个预设时返回未知。可读但不匹配任何预设时返回空值。
+
+### 运行语义：目标已达到不算状态变化
+
+1. 调度器为每个 `(event_type, target)` 身份单独计数并随机选择；选择时读取目标维度，
+   目标已达到或状态不可读的事件本轮不参选，并在 `run_journal.jsonl` 记录
+   `target_already_reached` / `parameter_read_failed`。
+2. 随机等待结束后、动作前再次复核电源前置条件与目标维度：期间目标被达成会记录
+   `precommand_target_reached` 并改选其他事件；期间状态变化记录 `precommand_state_changed`。
+3. 动作后轮询回读（超时由 `sessions.parameter_ack_timeout_seconds` 控制，默认 15 秒）：
+   读值命中目标且动作前未达目标 → `app_ack_only`；读值可解析但未命中 → `timeout`；
+   页面不可解析 → `failed`（`parameter_unreadable`）。滑块不可读时拒绝盲滑（不发送动作）。
+4. 若剩余事件全部无法合法执行（例如目标已被达成且无其他事件可改变状态），运行器记录
+   `no_legal_transition` 并以未完成会话结束；不无限等待，也不把重复操作凑成成功数。
+5. 同一配置含滑块和情景事件时，先完成可执行的亮度与色温目标，再随机选择情景；情景预设
+   可能接管滑块。每个情景身份至少需要两个可区分的情景目标才能往返。
+
+### 日志字段、证据级别与会话校验
+
+参数化事件的 `actions.jsonl` 记录在既有字段之外新增：
+
+| 字段 | 含义 |
+|---|---|
+| `dimension` | 目标维度（brightness / color_temperature / scene / focus_mode） |
+| `target_value` | 声明的目标值（数值、情景 ID 或布尔值） |
+| `unit` / `tolerance` | 数值维度的单位与允许误差 |
+| `observed_before` / `observed_after` | 动作前后页面观察：`value`、`known`、`unit`、`readback_values`、`observed_at_unix_ns`、`source`、`evidence_files` |
+
+- 每次尝试在命令前后各保存与同一 `event_id` 关联的页面 XML 和截图（截图仅作事后审计，
+  情景模式的运行判定不读取截图）
+  （`screenshots/<event_id>_before.*`、`<event_id>_after.*`）；失败时的诊断保存为
+  `<event_id>.*`，不会覆盖前后证据。重试使用新的 `attempt` 和唯一 `event_id`。
+- 没有独立设备观测时，成功一律为 `app_ack_only`（App 页面回执，`source=vendor_app`），
+  不会写 `confirmed`，也不要求 HA 日志即可验证本阶段功能行为。
+- `validate-session` 对参数化记录追加检查：目标必须属于会话计划且在声明范围内；成功记录
+  必须有可读的前后观察、动作前未达目标、动作后命中目标、时间戳有序、引用的证据文件存在；
+  对情景事件还核对前后亮度/色温回读与预设以及 XML 文字证据；
+  任何被篡改的记录（删除后读值、改成 `confirmed`、伪造目标）都会被拒绝。质量报告按事件
+  身份给出 `planned_by_identity`、`completed_by_identity` 和 `results_by_identity`，六个情景
+  不会被同名事件相互覆盖。
+
+干运行与校验：
+
+```powershell
+uv run iot-exp --experiment experiment/mi_desk_lamp_1s_advanced.yaml run --dry-run --repetitions 1 --seed 42 --session-id advanced_dry_001
+uv run iot-exp validate-session runs/sessions/advanced_dry_001
+```
+
+### 已核实与未核实的真机字段
+
+以下字段来自 2026-09-24 真机（LG LM-V405，1440px 宽，米家 11.8.703）只读页面检查与最小真机
+闭环（会话 `advanced_real_001`/`advanced_real_002`/`advanced_real_003`，原始页面证据
+保留在本地 `runs/sessions/`，不纳入功能开发代码提交）：
+
+- 设备页标题与开关语义："米家台灯1S 增强版"；显示"关灯"= 当前开启，"开灯"= 当前关闭；
+- 亮度、色温以文字回显（如 `60%`、`5078K`），单位为 `%` 与 `K`；
+- 亮度滑条实测范围 `[1, 100]`、色温滑条实测范围约 `[2600, 5100]K`（超出该范围的声明目标
+  无法达到，YAML 已按实测回填）；
+- 滑块轨道像素校准值 `track_start_px: 142` / `track_end_px: 1179`（由前后读值证据拟合），
+  换机或 App 升级后必须重新校准；
+- 六个情景按钮文字与定位：电脑模式、温馨模式、休闲模式、办公模式、阅读模式、娱乐模式
+  （`我的模式` 区域，可点击 ViewGroup 含图标与文字；区域滚出屏幕时由
+  `scrollIntoView` 自动滚入）；
+- 专注模式开关位于"更多设置"二级设置页，`checked` 属性可读；开/关闭环在真机三次会话中
+  均得到 `app_ack_only`；
+- 亮度 30 与色温 4600/3200 的"滑动-回读"闭环在真机得到 `app_ack_only`（允许误差内命中）。
+
+真机核实的限制（未完成项，按规格如实报告）：
+
+- **情景控件不提供当前选中属性**：2026-09-25 真机逐一选择六种情景后，六组控件 XML 的
+  `selected` / `checked` 均为 `false`，但亮度与色温分别变为上表六组互不混淆的预设值。
+  运行时在命令前后读取这两个数值，并按声明误差匹配唯一预设；动作后匹配目标且动作前
+  未匹配目标才记 `app_ack_only`。此方法基于本次工作流程无手动操作的约束；若 App 版本、
+  设备固件或预设发生变化，须重新校准。它是 App 回执，不等于独立设备状态确认。
+  真机最小闭环 `scene_preset_real_20260925_02` 已验证电脑模式（50%/2700K）→阅读模式
+  （100%/5000K）→温馨模式（60%/3500K）；两次结果均为 `app_ack_only`，`validate-session`
+  报告 `ok: true`，运行判定没有读取截图。
+- **情景模式会接管亮度与色温**：点击任一情景后，滑块拖动不再改变回读值；混合会话现先执行
+  亮度/色温，再执行情景，若剩余目标无法合法执行则记 `incomplete`。
+- 左屏幕边缘起滑会触发系统返回手势：滑块轨道校准值已避开边缘区域，请勿在未校准的设备上
+  直接使用本模板。
+
 ## 11. 常见故障
 
 | 现象 | 处理顺序 |
@@ -530,6 +647,17 @@ python3 ha_companion.py --bridge-url http://10.42.0.1:8767 --ha-url http://local
 | formal preflight 失败 | 查看 `runs/preflight_latest.json`，修复前不得采集 |
 | Dumpcap 启动失败 | 核对接口、权限、过滤器和磁盘空间 |
 | 操作成功但不是 `confirmed` | 独立观测未启用时 `app_ack_only` 是正确结果 |
+| 参数化事件一直 `timeout` | 页面读值未命中目标；核对滑块范围声明与回显文字，查看前后证据 |
+| 情景事件全部 `failed` | 核对亮度、色温读值及六组 `presets` 是否仍与当前 App 一致；查看前后 XML |
+
+## 11.1 参数化事件故障排查
+
+| 现象 | 处理顺序 |
+|---|---|
+| `parameter_unreadable` | 页面结构变化导致读值失败；运行 `inspect-app` 更新读值选择器 |
+| `parameter_target_timeout` | 动作已执行但目标未命中：检查 range/步进声明与真实滑块是否一致 |
+| `no_legal_transition` 提前结束 | 剩余目标均已达成或不可读；核对计划目标组合（见 10.2 运行语义） |
+| `parameter_unconfigured` | 事件存在但 `parameters` 未声明；补齐声明后再运行 |
 
 ## 12. 安全与数据要求
 
@@ -539,3 +667,9 @@ python3 ha_companion.py --bridge-url http://10.42.0.1:8767 --ha-url http://local
 - 正式采集前必须确认目标 IP、抓包接口和过滤器；
 - 保留失败证据，禁止为了“通过”而改写原始事件结果；
 - 新适配器不得直接修改旧 PCAP、模型权重或 `legacy/` 数据。
+
+实验及产物整理完成后、提交报告、数据集说明、PR 或其他实验内容前，按 [AGENTS.md §6.1](AGENTS.md) 一次性向用户确认时钟对齐是否可接受，以及 `manual_review` 是否可确认通过。两项均得到明确肯定答复后，直接将本次交付确认记为通过；原始会话/对账文件中的 `manual_review` 状态保持原样，用户确认另记于交付或派生清单。若任一项未获肯定答复，不得标记通过或提交相关内容。
+
+## 13. 实验数据处理
+
+会话采集、抓包质量检查和 HA 状态对账由本平台负责。PCAP/HA 数据清洗、P/U 数据集构造、特征提取和模型训练脚本已迁移至独立仓库；请在那里执行离线处理和训练流程。
