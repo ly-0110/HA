@@ -18,6 +18,7 @@ def create_adapter(experiment: ExperimentConfig, runtime: RuntimeConfig, **kwarg
         experiment.phone,
         appium_url=runtime.appium_url,
         system_port=runtime.uiautomator2_system_port,
+        parameters=experiment.parameters,
         **kwargs,
     )
 

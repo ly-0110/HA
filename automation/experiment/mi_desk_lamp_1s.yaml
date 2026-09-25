@@ -11,10 +11,13 @@ app:
   version: 11.8.703
   selectors:
     device_entry:
-      - {strategy: accessibility_id, value: "米家台灯1S 增强版"}
-      - {strategy: text, value: "米家台灯1S 增强版"}
+      # 列表卡片描述为"米家台灯1S 增强版宿舍60%已开启 "，须用包含匹配。
+      - {strategy: description_contains, value: "米家台灯1S 增强版"}
+      - {strategy: text, value: "台灯1S 增强版"}
     device_page_marker:
-      - {strategy: text, value: "米家台灯1S 增强版"}
+      # 设备名文字在二级设置页也会出现；电源按钮文字只在设备页存在。
+      - {strategy: text, value: "关灯"}
+      - {strategy: text, value: "开灯"}
     power_toggle: []
     state_on:
       - {strategy: text, value: "关灯"}

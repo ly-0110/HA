@@ -279,6 +279,7 @@ def cmd_inspect(experiment, runtime, dry_run: bool) -> int:
         runtime.output_root / "appium_inspect.log",
         project_root=_automation_root(),
     )
+    inspect_root = runtime.output_root / "inspect"
     try:
         if runtime.appium_managed:
             server.start()
@@ -287,9 +288,17 @@ def cmd_inspect(experiment, runtime, dry_run: bool) -> int:
             adapter.launch_and_open_device()
             state = adapter.read_state()
         except Exception:
-            adapter.capture_diagnostics(runtime.output_root / "inspect", "inspect_failure")
+            adapter.capture_diagnostics(inspect_root, "inspect_failure")
             raise
         print(f"current_state={state.value}; configure selectors in experiment YAML")
+        inspect_pages = getattr(adapter, "inspect_pages", None)
+        if callable(inspect_pages):
+            summary = inspect_pages(inspect_root)
+            summary_path = inspect_root / "page_summary.json"
+            summary_path.write_text(
+                json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
+            )
+            print(f"page inspection written to {summary_path}")
         return 0
     finally:
         adapter.close()
@@ -303,8 +312,7 @@ def cmd_run(args, experiment, runtime) -> int:
         print(json.dumps(preflight_report, ensure_ascii=False, indent=2), file=sys.stderr)
         return 2
     if args.dry_run:
-        initial_state = experiment.events[0].required_state
-        adapter = SimulatedLampAdapter(initial_state)
+        adapter = SimulatedLampAdapter.for_experiment(experiment)
         capture = DisabledCaptureBackend()
         ha = DisabledHaProvider()
         server = None
