@@ -51,6 +51,23 @@ def _safe_config(root: Path, folder: str, config_id: str) -> Path:
     return path
 
 
+def template_payload(path: Path, runtime_path: Path) -> dict[str, Any]:
+    """Summarize an experiment template for the console, including event targets."""
+    experiment, _runtime = load_configuration(path, runtime_path)
+    return {
+        "id": path.stem,
+        "experiment_id": experiment.experiment_id,
+        "adapter": experiment.adapter,
+        "adapter_available": experiment.adapter in available_adapters(),
+        "device_id": experiment.device.device_id,
+        "display_name": experiment.device.display_name,
+        "app": {"vendor": experiment.app.vendor, "package": experiment.app.package, "version": experiment.app.version},
+        "events": [event.model_dump(mode="json") for event in experiment.events],
+        "defaults": experiment.sessions.model_dump(mode="json"),
+        "network": experiment.network.model_dump(mode="json"),
+    }
+
+
 def create_app(root: Path | None = None) -> FastAPI:
     root = (root or automation_root()).resolve()
     store = TaskStore(root / "runs" / "console.sqlite3")
@@ -85,22 +102,6 @@ def create_app(root: Path | None = None) -> FastAPI:
                 return HTMLResponse("控制令牌无效，请刷新控制台", status_code=403)
         return await call_next(request)
 
-    def template_payload(path: Path) -> dict[str, Any]:
-        runtime_path = root / "runtime" / f"{default_runtime_id(root)}.yaml"
-        experiment, _runtime = load_configuration(path, runtime_path)
-        return {
-            "id": path.stem,
-            "experiment_id": experiment.experiment_id,
-            "adapter": experiment.adapter,
-            "adapter_available": experiment.adapter in available_adapters(),
-            "device_id": experiment.device.device_id,
-            "display_name": experiment.device.display_name,
-            "app": {"vendor": experiment.app.vendor, "package": experiment.app.package, "version": experiment.app.version},
-            "events": [event.model_dump(mode="json") for event in experiment.events],
-            "defaults": experiment.sessions.model_dump(mode="json"),
-            "network": experiment.network.model_dump(mode="json"),
-        }
-
     @app.get("/api/v1/bootstrap")
     def bootstrap():
         return {
@@ -111,7 +112,8 @@ def create_app(root: Path | None = None) -> FastAPI:
 
     @app.get("/api/v1/experiments")
     def experiments():
-        return [template_payload(path) for path in sorted((root / "experiment").glob("*.yaml"))]
+        runtime_path = root / "runtime" / f"{default_runtime_id(root)}.yaml"
+        return [template_payload(path, runtime_path) for path in sorted((root / "experiment").glob("*.yaml"))]
 
     @app.get("/api/v1/devices")
     async def devices(template_id: str | None = None):

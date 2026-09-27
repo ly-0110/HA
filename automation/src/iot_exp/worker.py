@@ -119,7 +119,7 @@ def run_task(db_path: Path, task_id: str, root: Path, parent_pid: int | None = N
         store.update(task_id, status="starting", stage="starting")
         store.add_log(task_id, "info", "starting", "正在准备实验进程")
         if request.mode == "simulate":
-            adapter = SimulatedLampAdapter(experiment.events[0].required_state)
+            adapter = SimulatedLampAdapter.for_experiment(experiment)
             capture = DisabledCaptureBackend()
         else:
             configure_android_environment(runtime.adb_executable, runtime.android_sdk_root)
@@ -140,7 +140,12 @@ def run_task(db_path: Path, task_id: str, root: Path, parent_pid: int | None = N
             cancel_requested=cancel_path.exists,
             progress_callback=lambda event: (
                 store.update(task_id, completed_events=event["completed"]),
-                store.add_log(task_id, "info", "running", f"事件 {event['event_id']}：{event['result']}"),
+                store.add_log(
+                    task_id,
+                    "info",
+                    "running",
+                    f"事件 {event.get('label') or event['event_id']}：{event['result']}",
+                ),
             ),
         )
         store.update(

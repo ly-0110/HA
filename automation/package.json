@@ -8,7 +8,8 @@
     "appium": "appium",
     "web:dev": "vite web --config web/vite.config.ts",
     "web:build": "tsc -p web/tsconfig.json && vite build web --config web/vite.config.ts",
-    "web:check": "tsc -p web/tsconfig.json --noEmit"
+    "web:check": "tsc -p web/tsconfig.json --noEmit",
+    "web:test": "node --test web/tests/*.test.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
