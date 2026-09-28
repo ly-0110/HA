@@ -5,13 +5,14 @@
 ```text
 HA/
 ├─ automation/  泛用的 IoT 厂商 App 自动化实验、连续抓包和会话记录平台
+│  └─ results/  正式实验归档；每个实验编号一个目录
 ├─ legacy/      原始模型代码、历史采集数据、PCAP、HA 导出和模型权重
 └─ doc/         实验设计、项目报告和其他文档
 ```
 
 ## 推荐入口
 
-新实验统一从 `automation/` 开始。平台使用说明见 [automation/README.md](automation/README.md)；供模型和自动化代理执行新实验接入时，另见 [automation/AGENTS.md](automation/AGENTS.md)。当前米家台灯是第一个已验证适配器案例，不代表平台只支持米家。
+新实验统一从 `automation/` 开始。平台使用说明见 [automation/README.md](automation/README.md)；供模型和自动化代理执行新实验接入时，另见 [automation/AGENTS.md](automation/AGENTS.md)。当前米家台灯是第一个已验证适配器案例，不代表平台只支持米家。正式实验结果统一见 [结果索引](automation/results/README.md)。
 
 场地受限时，抓包主机可通过独立外网上行和 Wi-Fi 热点为 IoT 设备提供网络。正式采集的接口选择、试抓包和隔离验收见 [热点部署说明](automation/README.md#74-抓包主机提供-iot-热点)；对旧镜像拓扑的数据可比性见 [实验设计](doc/厂商App异网自动化实验设计.md#32-场地受限时抓包主机兼作实验热点)。
 

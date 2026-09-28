@@ -1,0 +1,205 @@
+experiment:
+  experiment_id: mi_desk_lamp_1s_advanced_v1
+  adapter: mi_home_desk_lamp_1s
+  phone:
+    phone_id: lm_v405_d6421e56
+    udid: LMV405UAd6421e56
+    network: public_wifi
+    experiment_network_forbidden: true
+    model: null
+    product: null
+    device: null
+    transport_id: null
+    manufacturer: null
+    android_version: null
+    sdk_level: null
+  app:
+    vendor: xiaomi
+    package: com.xiaomi.smarthome
+    version: 11.8.703
+    selectors:
+      device_entry:
+      - strategy: description_contains
+        value: 米家台灯1S 增强版
+      - strategy: text
+        value: 台灯1S 增强版
+      device_page_marker:
+      - strategy: text
+        value: 关灯
+      - strategy: text
+        value: 开灯
+      scene_area_marker:
+      - strategy: text
+        value: 我的模式
+      dismiss_popup:
+      - strategy: text
+        value: 取消
+      power_toggle: []
+      state_on:
+      - strategy: text
+        value: 关灯
+      state_off:
+      - strategy: text
+        value: 开灯
+      turn_on:
+      - strategy: text
+        value: 开灯
+      turn_off:
+      - strategy: text
+        value: 关灯
+      brightness_value:
+      - strategy: text_matches
+        value: \d+%
+      color_temperature_value:
+      - strategy: text_matches
+        value: \d+K
+      brightness_slider:
+      - strategy: xpath
+        value: //android.view.ViewGroup[.//android.widget.TextView[@text='亮度']]
+      color_temperature_slider:
+      - strategy: xpath
+        value: //android.view.ViewGroup[.//android.widget.TextView[@text='色温']]
+      scene_电脑模式_button:
+      - strategy: text
+        value: 电脑模式
+      scene_温馨模式_button:
+      - strategy: text
+        value: 温馨模式
+      scene_休闲模式_button:
+      - strategy: text
+        value: 休闲模式
+      scene_办公模式_button:
+      - strategy: text
+        value: 办公模式
+      scene_阅读模式_button:
+      - strategy: text
+        value: 阅读模式
+      scene_娱乐模式_button:
+      - strategy: text
+        value: 娱乐模式
+      focus_entry:
+      - strategy: description_contains
+        value: 更多设置
+      focus_page_marker:
+      - strategy: text
+        value: 设备设置
+      focus_switch:
+      - strategy: android_uiautomator
+        value: new UiSelector().descriptionContains("专注模式").childSelector(new UiSelector().checkable(true))
+  device:
+    device_id: desk_lamp_1s
+    display_name: 米家台灯1S 增强版
+    entity_id: null
+    firmware: REPLACE_WITH_FIRMWARE_VERSION
+  network:
+    forbidden_cidrs:
+    - 10.42.0.0/24
+    target_device_ip: 10.42.0.250
+    require_no_usb_tethering: true
+  sessions:
+    count: 1
+    repetitions_per_event: 1
+    idle_range_seconds:
+    - 1.0
+    - 3.0
+    cooldown_seconds: 1.0
+    max_attempts: 2
+    parameter_ack_timeout_seconds: 15.0
+  parameters:
+    brightness:
+      range:
+      - 1
+      - 100
+      unit: '%'
+      tolerance: 3
+      track_start_px: 142
+      track_end_px: 1179
+    color_temperature:
+      range:
+      - 2600
+      - 5100
+      unit: K
+      tolerance: 100
+      track_start_px: 142
+      track_end_px: 1179
+    scene:
+      scenes:
+      - 电脑模式
+      - 温馨模式
+      - 休闲模式
+      - 办公模式
+      - 阅读模式
+      - 娱乐模式
+      presets:
+        电脑模式:
+          brightness: 50
+          color_temperature: 2700
+        温馨模式:
+          brightness: 60
+          color_temperature: 3500
+        休闲模式:
+          brightness: 50
+          color_temperature: 4000
+        办公模式:
+          brightness: 100
+          color_temperature: 4500
+        阅读模式:
+          brightness: 100
+          color_temperature: 5000
+        娱乐模式:
+          brightness: 80
+          color_temperature: 3000
+  events:
+  - event_type: set_brightness
+    target: 30
+    required_state: 'on'
+  - event_type: set_brightness
+    target: 80
+    required_state: 'on'
+  - event_type: set_color_temperature
+    target: 3200
+    required_state: 'on'
+  - event_type: set_color_temperature
+    target: 4600
+    required_state: 'on'
+  - event_type: select_scene
+    target: 电脑模式
+    required_state: 'on'
+  - event_type: select_scene
+    target: 温馨模式
+    required_state: 'on'
+  - event_type: select_scene
+    target: 休闲模式
+    required_state: 'on'
+  - event_type: select_scene
+    target: 办公模式
+    required_state: 'on'
+  - event_type: select_scene
+    target: 阅读模式
+    required_state: 'on'
+  - event_type: select_scene
+    target: 娱乐模式
+    required_state: 'on'
+  - event_type: set_focus_mode
+    target: true
+    required_state: null
+  - event_type: set_focus_mode
+    target: false
+    required_state: null
+runtime:
+  mode: formal
+  output_root: /home/collapse/HA/automation/runs
+  appium_url: http://127.0.0.1:4723
+  uiautomator2_system_port: 8200
+  appium_managed: true
+  appium_executable: npx
+  adb_executable: adb
+  android_sdk_root: .tools/android-sdk
+  dumpcap_executable: dumpcap
+  capture_mode: dumpcap
+  capture_interface: wlp2s0
+  capture_filter: host 10.42.0.250
+  pre_roll_seconds: 5.0
+  post_roll_seconds: 5.0
+  min_free_space_gb: 1.0
+  timezone: UTC

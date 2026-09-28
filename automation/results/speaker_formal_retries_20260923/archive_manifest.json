@@ -1,0 +1,60 @@
+{
+  "schema": "experiment_archive_v1",
+  "experiment_id": "speaker_formal_retries_20260923",
+  "original_root": "automation/runs/sessions/speaker_formal_retries_20260923",
+  "archive_root": "automation/results/speaker_formal_retries_20260923",
+  "raw_files_byte_preserved": true,
+  "original_local_file_count": 105,
+  "published_files": {
+    "actions.jsonl": {
+      "bytes": 32194,
+      "sha256": "1d7669412bf5a7fb5c98cb6000696c4ae653028d79eb9325649098b049be1648"
+    },
+    "traffic.pcapng": {
+      "bytes": 7544144,
+      "sha256": "212498d87ac02fd4185f8b9ca72f367fa1647a77f733e46e5bd88ec43eb1d725"
+    },
+    "ha_history.json": {
+      "bytes": 15705,
+      "sha256": "c8c1afc8e2071582fc18d7d9abfdb3e499d07f6b082aa4a46ed0dacee1b01ae7"
+    },
+    "ha_clock_probe.json": {
+      "bytes": 180,
+      "sha256": "ab97e0d03ba771639ae18ba5e12cea40afadeff758b392fea70debdf81f5a193"
+    },
+    "ha_reconciliation.json": {
+      "bytes": 26805,
+      "sha256": "4c9fc62eff2ea190d53482afadb6f8f2eaef22668b40735b1dd764fa091c0dd3"
+    },
+    "pcap_review.json": {
+      "bytes": 16675,
+      "sha256": "f76d41fd6e0935406deccfaaa6460255ade9862a9c6ba1a8beed8b7cc4283c43"
+    },
+    "session.yaml": {
+      "bytes": 2838,
+      "sha256": "eb4ac8c1549039a5ee5c51a4fc149183c74ccf61e47ec6ec8369695398218eb1"
+    },
+    "quality_report.json": {
+      "bytes": 776,
+      "sha256": "455faf982c0a6a651e19d2fce94f0c1a3eef6d8b6fdc4928c473875ca7da4f18"
+    },
+    "run_journal.jsonl": {
+      "bytes": 18362,
+      "sha256": "ab531a28653bef7aad4af79a6d2aaf152aec00d4785bc2d6b831899d1464ca1e"
+    },
+    "clock_sync.json": {
+      "bytes": 165,
+      "sha256": "712f3e415f3d5261bda168cd6df886e93527abc137abcdc6f38cae422dd6b2d9"
+    },
+    "network_isolation_check.json": {
+      "bytes": 3021,
+      "sha256": "b869b2c9a1d129972b8201162d41f3ec57541b7752bbf1d07b2db6c2db3ec7f2"
+    },
+    "full_chain_review.md": {
+      "bytes": 2159,
+      "sha256": "f60ff6e9c6a8a377aa3cc73aa64e397ea2cf238533fd44724c273f369e92d463"
+    }
+  },
+  "local_evidence": "Screenshots, page XML and Appium diagnostics remain in the same archive locally; not included in the published file list.",
+  "path_mapping": "Replace original_root with archive_root for historical file paths; original contents remain unchanged."
+}

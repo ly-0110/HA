@@ -1,0 +1,835 @@
+{
+  "group": "focus_mode",
+  "operations": [
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 1
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 2
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 3
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 4
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 5
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 6
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 7
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 8
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 9
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 10
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 11
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 12
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 13
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 14
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 15
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 16
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 17
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 18
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 19
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 20
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 21
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 22
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 23
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 24
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 25
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 26
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 27
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 28
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 29
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 30
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 31
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 32
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 33
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 34
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 35
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 36
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 37
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 38
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 39
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 40
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 41
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 42
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 43
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 44
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 45
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 46
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 47
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 48
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 49
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 50
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 51
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 52
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 53
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 54
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 55
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 56
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 57
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 58
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 59
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 60
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 61
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 62
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 63
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 64
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 65
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 66
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 67
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 68
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 69
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 70
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 71
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 72
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 73
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 74
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 75
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 76
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 77
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 78
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 79
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 80
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 81
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 82
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 83
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 84
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 85
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 86
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 87
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 88
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 89
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 90
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 91
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 92
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 93
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 94
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 95
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 96
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 97
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 98
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 99
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 100
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 101
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 102
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 103
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 104
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 105
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 106
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 107
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 108
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 109
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 110
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_off",
+      "target": null
+    },
+    {
+      "role": "u_source",
+      "event_type": "turn_on",
+      "target": null
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 111
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 112
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 113
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 114
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 115
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 116
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 117
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 118
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": true,
+      "target_index": 119
+    },
+    {
+      "role": "target",
+      "event_type": "set_focus_mode",
+      "target": false,
+      "target_index": 120
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "ipv4_packet_count": 1320,
+  "pcap_bytes": 233212,
+  "target_dispatched": 120,
+  "u_dispatched": 22,
+  "unique_event_ids": 142,
+  "wait_range_seconds": [
+    5.057402607484242,
+    9.995491560732017
+  ],
+  "u_operation_windows": [
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0011",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0012",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0023",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0024",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 8,
+      "outgoing": 4,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0035",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0036",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 23,
+      "outgoing": 10,
+      "incoming": 13
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0047",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0048",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0059",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 8,
+      "outgoing": 4,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0060",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0071",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0072",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0083",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0084",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0095",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 12,
+      "outgoing": 6,
+      "incoming": 6
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0096",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0107",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0108",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0119",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 8,
+      "outgoing": 4,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0120",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0131",
+      "event_type": "turn_off",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    },
+    {
+      "event_id": "lamp_pu_20260927_2139_focus_mode_0132",
+      "event_type": "turn_on",
+      "packets_in_operation_window": 7,
+      "outgoing": 3,
+      "incoming": 4
+    }
+  ],
+  "note": "Window counts describe temporal coverage of other-event operations; raw packets remain unlabeled."
+}

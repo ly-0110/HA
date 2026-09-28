@@ -1,0 +1,50 @@
+{
+  "focus_mode": {
+    "ipv4_packet_count": 1320,
+    "pcap_bytes": 233212,
+    "target_dispatched": 120,
+    "u_dispatched": 22,
+    "unique_event_ids": 142,
+    "wait_range_seconds": [
+      5.057402607484242,
+      9.995491560732017
+    ],
+    "u_windows_with_bidirectional_traffic": 22
+  },
+  "scene": {
+    "ipv4_packet_count": 1236,
+    "pcap_bytes": 226048,
+    "target_dispatched": 120,
+    "u_dispatched": 22,
+    "unique_event_ids": 142,
+    "wait_range_seconds": [
+      5.003861445764843,
+      9.964375960354849
+    ],
+    "u_windows_with_bidirectional_traffic": 22
+  },
+  "brightness": {
+    "ipv4_packet_count": 2370,
+    "pcap_bytes": 403100,
+    "target_dispatched": 120,
+    "u_dispatched": 22,
+    "unique_event_ids": 142,
+    "wait_range_seconds": [
+      5.035296050209639,
+      9.963679658585447
+    ],
+    "u_windows_with_bidirectional_traffic": 22
+  },
+  "color_temperature": {
+    "ipv4_packet_count": 2283,
+    "pcap_bytes": 391028,
+    "target_dispatched": 120,
+    "u_dispatched": 22,
+    "unique_event_ids": 142,
+    "wait_range_seconds": [
+      5.0060226779036645,
+      9.996572640490072
+    ],
+    "u_windows_with_bidirectional_traffic": 22
+  }
+}
