@@ -1,0 +1,95 @@
+diff --git a/src/config/datasets.py b/src/config/datasets.py
+--- a/src/config/datasets.py
++++ b/src/config/datasets.py
+@@ -1,6 +1,8 @@
+ """Dataset-independent paths and experiment configuration."""
+ 
+-from dataclasses import dataclass
++import json
++import os
++from dataclasses import dataclass, replace
+ from pathlib import Path
+ from typing import Optional
+ 
+@@ -111,6 +113,55 @@
+ }
+ 
+ 
++
++def _external_path(manifest_path: Path, value: str) -> Path:
++    path = Path(value).expanduser()
++    return (path if path.is_absolute() else manifest_path.parent / path).resolve()
++
++
++def _load_external_training_views() -> None:
++    manifest_value = os.environ.get("IOT_EVENT_DATASET_MANIFEST")
++    if not manifest_value:
++        return
++    manifest_path = Path(manifest_value).expanduser().resolve(strict=True)
++    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
++    if manifest.get("schema_version") != "iot_exp_training_views_manifest_v1":
++        raise ValueError("unsupported external training-view manifest")
++    session_id = manifest["session_id"]
++    for view in manifest["event_views"]:
++        name = f"lx04_{view['name']}_{session_id}"
++        if name in DATASETS:
++            raise ValueError(f"duplicate dataset name: {name}")
++        processed_dir = _external_path(manifest_path, view["processed_dir"])
++        pcap = _external_path(manifest_path, view["source_pcapng_path"])
++        positive = _external_path(manifest_path, view["positive_bags_path"])
++        unlabeled = _external_path(manifest_path, view["unlabeled_bags_path"])
++        valid = _external_path(manifest_path, view["valid_bags_path"])
++        for required in (pcap, positive, unlabeled, valid):
++            if not required.is_file():
++                raise FileNotFoundError(f"external dataset input missing: {required}")
++        config = _build_config(
++            name,
++            processed_dir,
++            pcap,
++            processed_dir / "not_used_aligned_events.csv",
++            manifest_path.parent / "event_decisions.jsonl",
++            "not_used_prebuilt_bags",
++            name,
++            view["event_type"],
++            device_ip=view["device_ip"],
++        )
++        DATASETS[name] = replace(
++            config,
++            positive_bags=positive,
++            unlabeled_bags=unlabeled,
++            valid_bags=valid,
++        )
++
++
++_load_external_training_views()
++
++
+ def get_dataset(name: str = "light") -> DatasetConfig:
+     """Return a dataset configuration with a useful error message."""
+ 
+diff --git a/src/feature_extraction/packet_features.py b/src/feature_extraction/packet_features.py
+--- a/src/feature_extraction/packet_features.py
++++ b/src/feature_extraction/packet_features.py
+@@ -46,7 +46,7 @@
+     """Infer a device/server pair when a dataset has no fixed IP config."""
+ 
+     global DEVICE_IP, SERVER_IP
+-    if DEVICE_IP and SERVER_IP:
++    if DEVICE_IP:
+         return
+ 
+     ip_addresses = set()
+@@ -95,6 +95,13 @@
+ 
+     src_ip = packet[IP].src
+     dst_ip = packet[IP].dst
++
++    if DEVICE_IP and not SERVER_IP:
++        if src_ip == DEVICE_IP:
++            return 1
++        if dst_ip == DEVICE_IP:
++            return -1
++        return 0
+ 
+     if src_ip == DEVICE_IP and dst_ip == SERVER_IP:
+         return 1

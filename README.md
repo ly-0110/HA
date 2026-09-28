@@ -37,13 +37,4 @@ Windows 默认使用 `runtime/windows-dev.yaml`；Ubuntu 本地入口使用 `run
 两者均为不抓包开发配置。Ubuntu 的 USB 权限、持久 udev 规则和真机验证步骤见
 [automation/README.md](automation/README.md)。
 
-旧版模型代码位于 `legacy/`，其路径配置和运行方式保持历史状态，不会被新的自动化程序自动读取。不要把新会话产物放入 `legacy/`，也不要让自动化程序直接修改旧 PCAP 或模型权重。
-
-如需复查旧版原型，请先进入 `legacy/` 再运行旧入口：
-
-```powershell
-Set-Location C:\Users\Administrator\Desktop\HA\legacy
-python main.py
-```
-
-旧版模型仍是历史基线，不属于新的跨平台自动化验收流程。
+`legacy/` 仅保留历史实验数据、PCAP、HA 导出和模型权重；实验数据处理脚本已迁移至其他仓库，本项目不再提供旧模型训练或离线数据集构造入口。

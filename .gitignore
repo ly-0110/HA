@@ -102,3 +102,5 @@ htmlcov/
 Thumbs.db
 .idea/
 .vscode/
+.agents/
+.zcode/
