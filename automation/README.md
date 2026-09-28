@@ -59,7 +59,8 @@ HA/
 │  ├─ runtime/              # Windows/Ubuntu 运行环境
 │  ├─ src/iot_exp/          # 平台核心与适配器
 │  ├─ tests/                # 必要的单元与契约测试
-│  └─ runs/                 # 自动生成，不提交 Git
+│  ├─ results/              # 正式实验归档；每个实验编号一个目录
+│  └─ runs/                 # 临时运行与本机服务文件，不提交 Git
 ├─ legacy/                  # 旧模型、历史 PCAP、旧数据和权重
 └─ doc/                     # 实验设计与项目文档
 ```
@@ -466,10 +467,12 @@ runs/inspect/inspect_failure.png
 ./iot-exp-local.sh --experiment experiment/xiaomi_touchscreen_speaker_music.yaml --runtime runtime/ubuntu-speaker-lab.yaml run --udid LMV405UAd6421e56 --repetitions 20 --session-id speaker_formal_001
 ```
 
-会话结束后在采集机取得精确 UTC 查询范围：
+会话结束后先整体归档，再在采集机取得精确 UTC 查询范围：
 
 ```bash
-./iot-exp-local.sh ha-window runs/sessions/speaker_formal_001
+mkdir -p results
+mv runs/sessions/speaker_formal_001 results/speaker_formal_001
+./iot-exp-local.sh ha-window results/speaker_formal_001
 ```
 
 在 HA 电脑上用独立的数据处理仓库导出对应 `entity_id`、`start`、`end` 的历史记录；
@@ -477,8 +480,8 @@ runs/inspect/inspect_failure.png
 复制回采集机，再执行：
 
 ```bash
-./iot-exp-local.sh review-pcap runs/sessions/speaker_formal_001
-./iot-exp-local.sh reconcile-ha runs/sessions/speaker_formal_001 speaker_ha_history.json --clock-offset-ms <实测偏差> --clock-uncertainty-ms <测量不确定度>
+./iot-exp-local.sh review-pcap results/speaker_formal_001
+./iot-exp-local.sh reconcile-ha results/speaker_formal_001 speaker_ha_history.json --clock-offset-ms <实测偏差> --clock-uncertainty-ms <测量不确定度>
 ```
 
 关联结果写入会话中的 `ha_reconciliation.json`，保留原始动作日志和 PCAP。
@@ -490,7 +493,7 @@ HA 状态均保持待复核，不能自动当作确认事件。该流程直接�
 `10.42.0.1`；服务只绑定这个热点地址。采集机启动：
 
 ```bash
-./.tools/uv/uv run --project . python ha_bridge_server.py runs/sessions/speaker_formal_001
+./.tools/uv/uv run --project . python ha_bridge_server.py results/speaker_formal_001
 ```
 
 首次启动会生成权限为 `0600` 的 `runs/ha_bridge.key`。把该密钥文件以本地方式
@@ -630,6 +633,32 @@ uv run iot-exp validate-session runs/sessions/advanced_dry_001
   亮度/色温，再执行情景，若剩余目标无法合法执行则记 `incomplete`。
 - 左屏幕边缘起滑会触发系统返回手势：滑块轨道校准值已避开边缘区域，请勿在未校准的设备上
   直接使用本模板。
+
+## 10.3 台灯固定 P/U 采集
+
+台灯四类事件的固定 P/U 采集可使用 `capture_lamp_pu.py`（从 `automation/` 运行，并加载本地
+Node、Java、ADB 环境）。命令参数为 `--root results/<实验编号> --udid <手机序列号>
+--ip <台灯IP> --interface <抓包接口>`；省略 `--root` 时默认保存到
+`results/lamp_pu_<时间戳>/`。它依次采集亮度、色温、专注和情景四组连续 PCAP：
+前三类各 60 轮往返（120 次控制动作），六种情景各 20 次（合计 120 次）；每 10 次目标操作
+之间插入一次关灯→开灯，共 22 次其他事件操作作为每组 U 流量来源。每次操作完成后等待
+5–10 秒，单次滑动或点击后只回读一次，不以回执成功率重跑，不要求时钟同步或 HA 日志导入。
+`campaign.json` 保存实时进度，每组包含 `capture_plan.json`、`actions.jsonl`、前后页面证据、
+`traffic.pcapng` 和 `acquisition_report.json`。动作角色 `target` / `u_source` 仅说明采集安排，
+不标注原始 PCAP 中的数据包；这属于固定采集协议，不能用常规调度器的 `validate-session`
+冒充验证。报告分别记录已发送动作和错误；“已发送”不表示设备状态成功变化。
+
+### 结果目录约定
+
+正式实验统一归档到 `results/<实验编号>/`；组名只用于同一次实验的子目录。CLI/控制台产生的
+`runs/sessions/<实验编号>/` 是临时工作目录，采集结束后整体迁移到 `results/<实验编号>/`。
+`runs/` 只保留本机服务数据库、锁、连接凭据及辅助程序，开发干运行、探针、预检和页面检查
+目录在开发结束后删除。测试代码继续保留在 `tests/`。
+
+正式结果索引见 [results/README.md](results/README.md)，本次台灯数据见
+[四组采集说明](results/lamp_pu_20260927_2139/README.md)。发布文件由 `.gitignore` 中每个实验的
+清单明确列出；截图/XML 和 Appium 日志保留在对应实验目录本地。迁移时保持原始日志和 PCAP
+内容不变，旧路径按 `archive_manifest.json` 的原目录映射到新目录。
 
 ## 11. 常见故障
 

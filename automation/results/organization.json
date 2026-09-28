@@ -1,0 +1,105 @@
+{
+  "organized_on": "2026-09-28",
+  "results_root": "automation/results",
+  "moved_experiments": [
+    {
+      "original_root": "automation/runs/campaigns/lamp_pu_20260927_2139",
+      "destination_root": "automation/results/lamp_pu_20260927_2139",
+      "file_count": 2305,
+      "byte_integrity_verified": true
+    },
+    {
+      "original_root": "automation/runs/sessions/speaker_formal_20260923",
+      "destination_root": "automation/results/speaker_formal_20260923",
+      "file_count": 45,
+      "byte_integrity_verified": true
+    },
+    {
+      "original_root": "automation/runs/sessions/speaker_formal_fast_20260923",
+      "destination_root": "automation/results/speaker_formal_fast_20260923",
+      "file_count": 86,
+      "byte_integrity_verified": true
+    },
+    {
+      "original_root": "automation/runs/sessions/speaker_formal_full_20260923",
+      "destination_root": "automation/results/speaker_formal_full_20260923",
+      "file_count": 15,
+      "byte_integrity_verified": true
+    },
+    {
+      "original_root": "automation/runs/sessions/speaker_formal_retries_20260923",
+      "destination_root": "automation/results/speaker_formal_retries_20260923",
+      "file_count": 105,
+      "byte_integrity_verified": true
+    }
+  ],
+  "deleted_development_outputs": [
+    {
+      "path": "automation/runs/sessions/env_verify_dry",
+      "file_count": 7
+    },
+    {
+      "path": "automation/runs/sessions/first_real_no_capture_001",
+      "file_count": 8
+    },
+    {
+      "path": "automation/runs/sessions/speaker_dry_20260923",
+      "file_count": 7
+    },
+    {
+      "path": "automation/runs/sessions/speaker_packet_probe_20260923",
+      "file_count": 12
+    },
+    {
+      "path": "automation/runs/sessions/speaker_real_one_20260923",
+      "file_count": 8
+    },
+    {
+      "path": "automation/runs/sessions/speaker_post_failure_check_20260923",
+      "file_count": 20
+    },
+    {
+      "path": "automation/runs/sessions/speaker_final_adapter_check_20260923",
+      "file_count": 12
+    },
+    {
+      "path": "automation/runs/sessions/speaker_repeat_ten_20260923",
+      "file_count": 8
+    },
+    {
+      "path": "automation/runs/sessions/speaker_filter_probe_20260923",
+      "file_count": 8
+    },
+    {
+      "path": "automation/runs/inspect",
+      "file_count": 9
+    },
+    {
+      "path": "automation/runs/probes",
+      "file_count": 5
+    },
+    {
+      "path": "automation/runs/lamp_capture_20260927_preparation",
+      "file_count": 4
+    },
+    {
+      "path": "automation/runs/runs",
+      "file_count": 1
+    },
+    {
+      "path": "automation/runs/appium_inspect.log",
+      "file_count": 1
+    },
+    {
+      "path": "automation/runs/preflight_latest.json",
+      "file_count": 1
+    },
+    {
+      "path": "automation/runs/ha_companion_bundle_20260923 (2)",
+      "file_count": 2,
+      "reason": "identical setup bundle duplicate"
+    }
+  ],
+  "historical_paths": "Original capture and operation records are byte-preserved. Resolve old experiment roots using moved_experiments.",
+  "runtime_root": "automation/runs; runtime database, locks, credentials and setup helpers remain local."
+}
