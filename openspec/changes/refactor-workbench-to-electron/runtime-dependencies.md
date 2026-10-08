@@ -1,6 +1,6 @@
 # 运行环境与发行依赖
 
-本文是 [design.md](design.md) 的依赖细化。2026-10-04已生成Windows Squirrel和WSL Ubuntu Deb内部测试制品；“安装后可用”仍须以目标系统实际验收为准。2026-10-06用户取消干净系统断网安装、升级/卸载深度演练、分发签名/维护和多入口并行专项验收；这些不是当前交付前置，也未计为通过。私有依赖、不在线安装的核心运行契约与组件许可边界继续保留；原生Ubuntu正式采集尚未通过。具体结果见verification/implementation.md。
+本文是 [design.md](design.md) 的依赖细化。2026-10-04已生成Windows Squirrel和WSL Ubuntu Deb内部测试制品；“安装后可用”仍须以目标系统实际验收为准。2026-10-06用户取消干净系统断网安装、升级/卸载深度演练、分发签名/维护和多入口并行专项验收；这些不是当前交付前置，也未计为通过。私有依赖、不在线安装的核心运行契约与组件许可边界继续保留；原生Ubuntu正式采集尚未通过。当前交付见automation/desktop/releases/windows-0.1.3，剩余任务见tasks.md。
 
 2026-10-07用户进一步排除不必要检查：1.4以来源/版本/上游声明/既有通知、实际SBOM与默认包边界的基础审查验收，该范围已完成。全面对外分发条件证明、逐库源码缓存与重链接专项移出本轮；现有材料缺项仍如实保留。SDK采用已验证固定准备清单，不穷尽最小集合。安装资源不写入的契约保持，以正常安装运行和载荷散列核查验收，不追加Windows ACL专项。Windows已有实际证据，余下为原生Ubuntu部分。
 
@@ -54,7 +54,7 @@ resources/
 
 此处采用官方安装/复用策略，不向用户承诺“所有 SDK 都可免费随包复制”。[Android SDK terms](https://developer.android.com/studio/terms)、[sdkmanager](https://developer.android.com/tools/sdkmanager)
 
-固定清单按实际安装版本、driver doctor和目标手机结果记录，不逐一删除包或穷尽版本证明最小集合。Windows已记录Platform Tools36.0.0、Build Tools36.1.0，现有Platforms34/36与doctor检查使用的Emulator36.2.12；这是已验证准备记录，不宣称每个包都是实机必需。原生Ubuntu对应清单及权限待实测，见verification/sdk-20261006.md。
+固定清单按实际安装版本、driver doctor和目标手机结果记录，不逐一删除包或穷尽版本证明最小集合。Windows已记录Platform Tools36.0.0、Build Tools36.1.0，现有Platforms34/36与doctor检查使用的Emulator36.2.12；这是已验证准备记录，不宣称每个包都是实机必需。原生Ubuntu对应清单及权限待实测，按任务1.3/7.2推进。
 
 ## 4. 抓包及系统权限
 

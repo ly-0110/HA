@@ -19,17 +19,6 @@
 
 JDK源码对应其固定发行版本，保留上游legal材料并记录官方源码发行获取方式。组件许可和适用源码提供条件须根据实际载荷核对；仅保留legal目录或一般项目链接不表示这些条件已全部满足。2026-10-06用户取消分发签名和长期维护专项验收，该取消不被记录为第三方资产许可审核通过。
 
-## 当前材料核查状态
+## 使用范围
 
-2026-10-06核查现有Windows nupkg与Linux Deb：默认载荷未发现Google SDK、Npcap、USB驱动或实验会话文件。Windows unpacked目录包含Electron通知，但旧Squirrel nupkg遗漏顶层LICENSES.chromium.html；Linux Deb保留该文件。build_notices.py已增加resources/licenses/electron显式副本，旧安装包未被重写，新载荷须重新核对。现有旧制品SBOM按npm完整锁解析树计数，含未安装可选平台包，不能用该条目数作为实际安装数。脚本现仅列实际package.json及版本匹配的载荷，并生成component-materials.json记录每个npm包的许可材料位置及未安装锁条目；它不自动把未发现材料判断为无许可，也不声明资产已获完整审核。
-
-JDK17包含GPL-2.0 WITH Classpath-exception-2.0声明；sharp/libvips预编译库包含多个LGPL/MPL依赖。现有记录尚未核实这些具体二进制的对应源码提供方式及完整第三方许可文本。若向其他实验者提供载荷，须先明确与实际版本对应的材料，不能从“内部使用人数少”或取消签名任务推定条件免除。定向核查与未闭合项见OpenSpec verification/assets-20261006.md；本说明不提供泛化法律结论。
-
-官方依据：
-
-- https://github.com/astral-sh/python-build-standalone/blob/main/docs/running.rst
-- https://nodejs.org/en/about/previous-releases
-- https://adoptium.net/docs/faq
-- https://github.com/appium/appium
-- https://developer.android.com/studio/terms
-- https://github.com/nmap/npcap/blob/master/LICENSE
+随包保留已有LICENSE、NOTICE和第三方材料。项目用于有限实验者；默认包不夹带Google SDK/Npcap/USB驱动或实验数据。具体对外提供方式改变时，依据相应许可证核对适用条件。过程资产核查记录按用户要求清理；原通知和构建来源清单保留。

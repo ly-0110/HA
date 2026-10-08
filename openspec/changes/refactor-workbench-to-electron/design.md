@@ -2,7 +2,7 @@
 
 ## Context
 
-动机和能力范围见 [proposal.md](proposal.md)。本方案以当前工作区已经完成的工作台改进为起点。2026-10-04已有内部测试制品及Windows无抓包真机闭环；实现和验收事实以[verification/implementation.md](verification/implementation.md)为准。
+动机和能力范围见 [proposal.md](proposal.md)。本方案以当前工作区已经完成的工作台改进为起点。2026-10-04已有内部测试制品及Windows无抓包真机闭环；Windows交付文件位于automation/desktop/releases/windows-0.1.3；原生Ubuntu剩余条件见tasks.md。
 
 当前 React/Vite 工作台通过 FastAPI 操作 SQLite 任务库，scheduler 以 `sys.executable -m iot_exp.worker` 启动独立 worker。CLI 与采集脚本复用实验模型、适配器和编排器。桌面改造必须解决下列源码目录假设：
 

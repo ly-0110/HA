@@ -108,3 +108,7 @@ Thumbs.db
 .vscode/
 .agents/
 .zcode/
+
+# Manually installable release binaries
+automation/desktop/releases/**/*.exe
+automation/desktop/releases/**/*.msi
