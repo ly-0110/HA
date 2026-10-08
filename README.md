@@ -17,10 +17,9 @@
 
 | 系统 | 安装包 |
 |---|---|
-| Windows 11 x64 | `IoTExperimentWorkbench-0.1.4-Setup.exe` |
 | Ubuntu 24.04 x64 桌面版 | `iot-experiment-workbench_0.1.4_amd64.deb` |
 
-Windows：双击 EXE，按安装提示完成安装，然后打开桌面上的 **IoTExperimentWorkbench** 快捷方式（IoT 实验工作台）。
+Windows：使用 Windows 安装包，双击 EXE，按安装提示完成安装，然后打开桌面上的 **IoTExperimentWorkbench** 快捷方式（IoT 实验工作台）。
 
 Ubuntu：在安装包所在目录打开终端，执行：
 

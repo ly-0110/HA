@@ -1,0 +1,24 @@
+{
+  "name": "iot-experiment-workbench",
+  "productName": "IoT 实验工作台",
+  "version": "0.1.4",
+  "private": true,
+  "description": "本地厂商 App 实验工作台",
+  "author": "IoT Experiment Workbench maintainers",
+  "license": "UNLICENSED",
+  "main": "src/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs",
+    "package": "electron-forge package",
+    "make": "node scripts/prepare_maker.cjs && electron-forge make"
+  },
+  "devDependencies": {
+    "electron": "44.5.1",
+    "@electron-forge/cli": "8.0.1",
+    "@electron-forge/maker-squirrel": "8.0.1",
+    "@electron-forge/maker-deb": "8.0.1",
+    "@electron/fuses": "1.8.0"
+  },
+  "desktopName": "iot-experiment-workbench.desktop"
+}

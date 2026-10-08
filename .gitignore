@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.tools/
+runs/
+.npm-cache/
+.uv-cache*/
+automation/desktop/out/
+automation/desktop/build-resources/
+automation/desktop/release-assets/
+*.deb
+*.exe
