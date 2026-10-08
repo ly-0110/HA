@@ -13,19 +13,19 @@
 
 ## 下载与安装
 
-从 [0.1.4 发布页面](https://github.com/ly-0110/HA/releases/tag/v0.1.4) 的 **Assets** 下载对应安装包。
+从 [0.1.5 发布页面](https://github.com/ly-0110/HA/releases/tag/v0.1.5) 的 **Assets** 下载对应安装包。
 
 | 系统 | 安装包 |
 |---|---|
-| Windows 11 x64 | `IoTExperimentWorkbench-0.1.4-Setup.exe` |
-| Ubuntu 24.04 x64 桌面版 | `iot-experiment-workbench_0.1.4_amd64.deb` |
+| Windows 11 x64 | `IoTExperimentWorkbench-0.1.5-Setup.exe` |
+| Ubuntu 24.04 x64 桌面版 | `iot-experiment-workbench_0.1.5_amd64.deb` |
 
 Windows：双击 EXE，按安装提示完成安装，然后打开桌面上的 **IoTExperimentWorkbench** 快捷方式（IoT 实验工作台）。
 
 Ubuntu：在安装包所在目录打开终端，执行：
 
 ```bash
-sudo apt install ./iot-experiment-workbench_0.1.4_amd64.deb
+sudo apt install ./iot-experiment-workbench_0.1.5_amd64.deb
 ```
 
 安装后从应用菜单打开 **IoT 实验工作台**。升级时先在工作台结束当前实验并关闭窗口，再安装新版本。

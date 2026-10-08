@@ -47,7 +47,7 @@ jobs:
         run: python automation/desktop/scripts/ci_release.py
       - uses: actions/upload-artifact@v4
         with:
-          name: desktop-${{ matrix.target }}-0.1.4
+          name: desktop-${{ matrix.target }}-0.1.5
           path: automation/desktop/release-assets/*
           compression-level: 0
           if-no-files-found: error
@@ -61,7 +61,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/download-artifact@v4
         with:
-          pattern: desktop-*-0.1.4
+          pattern: desktop-*-0.1.5
           merge-multiple: true
           path: release-assets
       - name: Publish desktop installers

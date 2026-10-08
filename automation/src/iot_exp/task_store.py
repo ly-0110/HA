@@ -274,9 +274,10 @@ class TaskStore:
             ).fetchall()
             return [dict(row) for row in rows]
 
-    def interrupt_unfinished(self) -> None:
+    def interrupt_unfinished(self) -> list[dict]:
+        interrupted = []
         with self.connect() as db:
-            for row in db.execute("SELECT id,pid,process_start_token,owned_processes_json FROM tasks WHERE source='console' AND status NOT IN ('completed','failed','cancelled','interrupted')").fetchall():
+            for row in db.execute("SELECT * FROM tasks WHERE source='console' AND status NOT IN ('completed','failed','cancelled','interrupted')").fetchall():
                 if process_is_running(row["pid"], row["process_start_token"]) or any(
                     process_is_running(child.get("pid"), child.get("token"))
                     for child in json.loads(row["owned_processes_json"] or "[]")
@@ -286,6 +287,8 @@ class TaskStore:
                 "UPDATE tasks SET status='interrupted',stage='interrupted',error='控制台重启，任务未自动恢复',updated_at_ns=? "
                 "WHERE id=?", (time.time_ns(), row["id"]),
                 )
+                interrupted.append(self._row(row))
+        return interrupted
 
     def adopt_cleanup_tasks(self) -> list[dict]:
         """Recover cleanup ownership only after its recorded worker or sidecar died."""

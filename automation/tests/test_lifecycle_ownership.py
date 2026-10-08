@@ -148,7 +148,8 @@ def test_drain_is_idempotent_and_never_dispatches_queued_tasks(tmp_path, monkeyp
     assert len(store.logs(task["id"])) == 1
 
 
-def test_recovery_adopts_dead_workers_orphan_and_releases_exact_lease(tmp_path):
+@pytest.mark.parametrize("exit_between_checks", [False, True])
+def test_recovery_adopts_dead_workers_orphan_and_releases_exact_lease(tmp_path, monkeypatch, exit_between_checks):
     first = TaskStore(tmp_path / "db.sqlite3", owner_instance="old")
     task = first.create_batch("actual-orphan-recovery", [TaskRequest(template_id="x")], {"x": 2})[0]
     output, locks, ready = tmp_path / "output", tmp_path / "locks", tmp_path / "fixture.json"
@@ -194,6 +195,21 @@ time.sleep(120)
         layout = replace(layout, lock_root=locks)
         current = TaskStore(first.path, owner_instance="new")
         scheduler = TaskScheduler(current, tmp_path, layout=layout)
+        if exit_between_checks:
+            # The child exits after the cleanup scan, before the final task scan.
+            # Keep real process identities and real leases for this boundary.
+            interrupt = current.interrupt_unfinished
+            monkeypatch.setattr("iot_exp.scheduler.stop_orphaned_child", lambda _child: None)
+
+            def interrupt_after_child_exit():
+                if process_is_running(child["pid"], child["token"]):
+                    terminate_owned_tree(child["pid"], child["token"])
+                    deadline = time.monotonic() + 5
+                    while process_is_running(child["pid"], child["token"]) and time.monotonic() < deadline:
+                        time.sleep(0.01)
+                return interrupt()
+
+            monkeypatch.setattr(current, "interrupt_unfinished", interrupt_after_child_exit)
         scheduler.start()
         try:
             deadline = time.monotonic() + 5

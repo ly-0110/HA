@@ -97,3 +97,5 @@
 9.3正式会话为session_20261008T144944Z_987eaef0，任务c206094e1a5347d19161b6d14ab3f129，由安装版main/preload/前端及私有后台经真实Electron界面的“启动实验”提交，无手机或API夹具。会话位于automation/runs/ubuntu-electron-final-20261008/workspace/runs/sessions/session_20261008T144944Z_987eaef0，包含traffic.pcapng、actions.jsonl、session.yaml、clock_sync.json、network_isolation_check.json、quality_report.json及诊断文件。动作分别off→on、on→off，均为app_ack_only；计划及完成2/2、成功率100%、会话校验ok:true。PCAP共27包，IP目标方向统计发出11/收到12；开灯窗口7/8、关灯窗口4/5，两事件均有双向包。PCAP SHA-256为8d8ef6a86bf479f42878b062cfcf1d582c2711075e8d2a33519f1daefd523bab，预览及校验不改变原文件。Electron安全退出成功，所属worker及共享锁已清理，原来的普通工作台未被终止。
 
 时钟、动作和PCAP来自同一Ubuntu主机；clock_sync保留host_system_clock/UTC及单调时钟采样。系统当前未报告NTP同步，未执行跨机HA对时或HA确认，不宣称独立金标准通过。pcap_review中的manual_review保持pending。以上为应用技术验收，不提交或发布本次实验数据，不把自动包数统计当作人工内容复核。
+
+2026-10-08发布整理：主规格同步完成后归档，发布分支仅包含操作员README、版本清单和校验文件，安装包通过GitHub Releases分发。原生CI发现故障恢复中所属进程恰在清理扫描与中断扫描之间退出时可能遗漏旧租约，已让中断扫描返回实际中断的任务并释放其精确租约，并加入真实进程/租约的确定时序回归。最终发布版提升为0.1.5，便于已安装0.1.4的机器正常升级；CI截图使用离屏渲染并设置有限完成时间。

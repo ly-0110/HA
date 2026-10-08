@@ -3,8 +3,8 @@ import hashlib,json,os,subprocess
 from pathlib import Path
 
 REPO='ly-0110/HA'
-BRANCH='codex/release-desktop-v0.1.4'
-VERSION='0.1.4'
+BRANCH='codex/release-desktop-v0.1.5'
+VERSION='0.1.5'
 TAG='v'+VERSION
 
 def run(args,**kwargs):return subprocess.run(args,check=True,text=True,**kwargs)
@@ -27,7 +27,7 @@ def main():
     run(['git','add','release.json','SHA256SUMS.txt'])
     changed=subprocess.run(['git','diff','--cached','--quiet']).returncode
     if changed:
-        run(['git','-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit','-m','记录双端0.1.4安装包与校验值'])
+        run(['git','-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit','-m','记录双端0.1.5安装包与校验值'])
         run(['git','push','origin',BRANCH])
     exists=subprocess.run(['gh','release','view',TAG,'--repo',REPO],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0
     if not exists:

@@ -33,11 +33,15 @@ class TaskScheduler:
 
     def start(self) -> None:
         self._reconcile_cleanup()
-        self.store.interrupt_unfinished()
+        self._interrupt_unfinished()
         self.recovering = self.store.live_console_processes()
         self._stop.clear()
         self._thread = threading.Thread(target=self._loop, name="iot-task-scheduler", daemon=True)
         self._thread.start()
+
+    def _interrupt_unfinished(self) -> None:
+        for task in self.store.interrupt_unfinished():
+            release_dead_task_leases(self.layout.lock_root, task)
 
     def close(self) -> None:
         self.begin_drain()
@@ -121,7 +125,7 @@ class TaskScheduler:
                 release_dead_task_leases(self.layout.lock_root, task)
                 self.store.update(task["id"], status="interrupted", stage="interrupted", error="工作进程异常退出，所属进程已清理；产物保留待核查")
         if self.recovering:
-            self.store.interrupt_unfinished()
+            self._interrupt_unfinished()
             self.recovering = self.store.live_console_processes()
         if self.draining or self.recovering or len(self.processes) >= self.max_parallel:
             return

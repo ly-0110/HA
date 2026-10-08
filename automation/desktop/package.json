@@ -1,7 +1,7 @@
 {
   "name": "iot-experiment-workbench",
   "productName": "IoT 实验工作台",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "description": "本地厂商 App 实验工作台",
   "author": "IoT Experiment Workbench maintainers",

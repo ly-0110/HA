@@ -5,8 +5,8 @@ from pathlib import Path
 DESKTOP=Path(__file__).resolve().parents[1]
 AUTOMATION=DESKTOP.parent
 
-def run(args,cwd=None,env=None):
-    subprocess.run([str(x) for x in args],cwd=cwd or DESKTOP,env=env,check=True)
+def run(args,cwd=None,env=None,timeout=None):
+    subprocess.run([str(x) for x in args],cwd=cwd or DESKTOP,env=env,check=True,timeout=timeout)
 
 def main():
     sys.path.insert(0,str(DESKTOP/'scripts'))
@@ -29,14 +29,14 @@ def main():
     run([*npm,'run','package'])
     packaged=next(p for p in (DESKTOP/'out').iterdir() if p.is_dir() and p.name.endswith('win32-x64' if os.name=='nt' else 'linux-x64'))
     state=AUTOMATION/'runs/ci-smoke-state';workspace=AUTOMATION/'runs/ci-smoke-workspace'
-    env={**os.environ,'IOT_EXP_DESKTOP_STATE':str(state),'IOT_EXP_DESKTOP_WORKSPACE':str(workspace),'IOT_EXP_LOCK_ROOT':str(AUTOMATION/'runs/ci-smoke-locks')}
+    env={**os.environ,'IOT_EXP_CI_HEADLESS':'1','IOT_EXP_DESKTOP_STATE':str(state),'IOT_EXP_DESKTOP_WORKSPACE':str(workspace),'IOT_EXP_LOCK_ROOT':str(AUTOMATION/'runs/ci-smoke-locks')}
     binary=packaged/('IoTExperimentWorkbench.exe' if os.name=='nt' else 'IoTExperimentWorkbench')
     if os.name=='nt':
-        run([binary,'--smoke-test'],env=env)
+        run([binary,'--smoke-test','--disable-gpu'],env=env,timeout=240)
     else:
         helper=packaged/'chrome-sandbox'
         run(['sudo','chown','root:root',helper]);run(['sudo','chmod','4755',helper])
-        run(['xvfb-run','-a',binary,'--smoke-test'],env=env)
+        run(['xvfb-run','-a',binary,'--smoke-test','--disable-gpu'],env=env,timeout=240)
     smoke=json.loads((state/'smoke-result.json').read_text())
     assert smoke['ready'] and smoke['simulation']=='completed' and smoke['events']==2,smoke
     assert smoke['text_preview'] and smoke['image_preview'] and smoke['original_file_unchanged'],smoke
