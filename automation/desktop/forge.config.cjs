@@ -10,7 +10,7 @@ module.exports={
     appBundleId:'org.iotexp.workbench',
     download:{cacheRoot:path.join(__dirname,'../runs/electron-package-cache')},
     extraResource:[path.join(__dirname,'build-resources/web'),path.join(__dirname,'build-resources/templates'),path.join(__dirname,'build-resources/runtime'),path.join(__dirname,'build-resources/runtime-manifest.json'),path.join(__dirname,'build-resources/licenses'),path.join(__dirname,'build-resources/sbom.json'),path.join(__dirname,'build-resources',process.platform==='win32'?'iot-exp.cmd':'iot-exp.sh')],
-    ignore:[/^\/build-resources/,/^\/runtime-appium/,/^\/scripts/,/^\/tests/,/^\/out/],
+    ignore:[/^\/build-resources/,/^\/runtime-appium/,/^\/scripts/,/^\/tests/,/^\/out/,/^\/releases/],
   },
   makers:[
     {name:'@electron-forge/maker-squirrel',config:{name:'IoTExperimentWorkbench',setupIcon:path.join(__dirname,'assets/workbench.ico'),...(signed?{windowsSign:{}}:{})}},

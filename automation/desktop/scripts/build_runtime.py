@@ -169,10 +169,11 @@ def main() -> None:
     npm_marker = appium_source / ".lock-sha256"
     if not (appium_source / "node_modules").is_dir() or not npm_marker.is_file() or npm_marker.read_text() != locks["appium"]:
         full_node = cache / "build-node" / inputs["node"]["sha256"][:12]
-        npm_cli = next(full_node.glob("*/node_modules/npm/bin/npm-cli.js"), None)
+        npm_pattern = "*/node_modules/npm/bin/npm-cli.js" if os.name == "nt" else "*/lib/node_modules/npm/bin/npm-cli.js"
+        npm_cli = next(full_node.glob(npm_pattern), None)
         if npm_cli is None:
             extract(download(inputs["node"], cache), full_node)
-            npm_cli = next(full_node.glob("*/node_modules/npm/bin/npm-cli.js")) if os.name == "nt" else next(full_node.glob("*/lib/node_modules/npm/bin/npm-cli.js"))
+            npm_cli = next(full_node.glob(npm_pattern))
         environment["PATH"] = str(node.parent) + os.pathsep + str(java.parent) + os.pathsep + environment.get("PATH", "")
         environment.update(NODE_OPTIONS="", NODE_PATH="", APPIUM_HOME=str(appium_source))
         run([str(node), str(npm_cli), "ci", "--omit=dev", "--no-audit", "--no-fund"],

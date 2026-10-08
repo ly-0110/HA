@@ -1,0 +1,3 @@
+# Preserve Unix entry points on every checkout, including Windows.
+*.sh text eol=lf
+automation/desktop/installer/preinst text eol=lf

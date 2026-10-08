@@ -31,4 +31,4 @@ npm run make --prefix desktop
 
 固定版本资产由维护者在构建阶段准备。终端应用启动不在线安装依赖。重建图标使用node desktop/scripts/build_app_icon.cjs，预生成图标已纳入Git。
 
-Ubuntu须在Linux文件系统运行prepare_linux_build.py与prepare_linux_desktop.py，并用同版本Linux Electron生成通知及Deb；WSL仅用于预验证。
+Ubuntu在自己的Linux文件系统克隆目录继续开发。完整准备、启动、Deb构建与剩余任务见[Ubuntu接续开发](UBUNTU_DEVELOPMENT.md)；脚本复用当前源码，不另复制桌面工程。WSL仅用于预验证。

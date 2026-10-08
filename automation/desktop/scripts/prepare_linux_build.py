@@ -16,10 +16,8 @@ def main() -> None:
     args = parser.parse_args()
     lock_path = DESKTOP / "runtime-inputs.lock.json"
     lock = json.loads(lock_path.read_text())
-    uv = {"version": "0.12.12", "url": "https://github.com/astral-sh/uv/releases/download/0.12.12/uv-x86_64-unknown-linux-gnu.tar.gz",
-          "sha256": "ab9b309d4586403f024e100abaceb396616e178a553e2500c36087d180f09509"}
-    lock.setdefault("build_tools", {})["linux_uv"] = uv
-    lock_path.write_text(json.dumps(lock, indent=2) + "\n")
+    uv = lock["build_tools"]["linux_uv"]
+    args.output = args.output.expanduser().resolve()
     args.output.mkdir(parents=True, exist_ok=True)
     cache = AUTOMATION / "runs/runtime-assets"
     for name, item in (("uv", uv), ("node", lock["platforms"]["linux-x64"]["node"])):
