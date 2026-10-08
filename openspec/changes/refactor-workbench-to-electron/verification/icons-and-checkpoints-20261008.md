@@ -9,3 +9,5 @@
 Git检查确认未提交node_modules、私有运行时、安装包、PCAP或任务数据库。主目录共享该仓库的分支与提交，可查看工作分支，但其develop检出文件不会自动变化。
 
 用户随后要求回到主目录：原工作树在bff5e90处解除分支占用，主目录已检出codex/electron-workbench并核对相同HEAD。原package-lock状态保存为stash4959282；其内容blob与原develop相同，未发现实际内容变更，主目录干净。已完成构建的out和build-resources通过同盘Move-Item迁至主目录，没有再复制运行时或安装包；旧工作树中的验收原始记录尚保留，未直接删除。后续源码编辑以主目录为准。
+
+0.1.3已从主目录的安装包执行安装，入口返回0，SHA-256为86dce7af1484b861f8ef4bcfc03c54406e7d8bbd7fb1aaa1da517fe8724fb309。实际程序PE关联图标已提取并目视核对为Workflow蓝紫徽标；ICO含7个尺寸。通过computer-use发现已安装0.1.3窗口；用户在窗口操作，激活被输入保护拒绝，因此没有抢占输入，也不把完整界面复验记为完成。
