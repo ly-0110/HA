@@ -106,7 +106,7 @@ htmlcov/
 Thumbs.db
 .idea/
 .vscode/
-.agents/
+
 .zcode/
 
 # Manually installable release binaries
