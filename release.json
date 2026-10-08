@@ -1,6 +1,43 @@
 {
   "product": "IoT 实验工作台",
   "version": "0.1.5",
-  "source_commit": "d1592b54ff1c1f842b60cbb866fd02a436789883",
-  "installers": []
+  "source_commit": "4f2f51f188c94c6697073b1a69840cb70a8fb134",
+  "installers": [
+    {
+      "product": "IoT 实验工作台",
+      "version": "0.1.5",
+      "platform": "linux-x64",
+      "installer": "iot-experiment-workbench_0.1.5_amd64.deb",
+      "bytes": 399360068,
+      "sha256": "8b1ac272ae853b1ed7376f518ccef2eda75c5f93d71d3c41cafaaa6eb7e4d961",
+      "source_commit": "4f2f51f188c94c6697073b1a69840cb70a8fb134",
+      "runtime_versions": {
+        "python": "3.13.16",
+        "node": "24.21.0",
+        "java": "17.0.20.1+1",
+        "appium": "3.7.0",
+        "uiautomator2": "6.9.3",
+        "electron": "44.5.1"
+      },
+      "bundle_id": "308c4dcf8f1035f4d467"
+    },
+    {
+      "product": "IoT 实验工作台",
+      "version": "0.1.5",
+      "platform": "windows-x64",
+      "installer": "IoTExperimentWorkbench-0.1.5-Setup.exe",
+      "bytes": 481713664,
+      "sha256": "7f6f7b96a0dc8d56611cf27271c2d2b682c818669f0014fdf76c2fa1e664415a",
+      "source_commit": "4f2f51f188c94c6697073b1a69840cb70a8fb134",
+      "runtime_versions": {
+        "python": "3.13.16",
+        "node": "24.21.0",
+        "java": "17.0.20.1+1",
+        "appium": "3.7.0",
+        "uiautomator2": "6.9.3",
+        "electron": "44.5.1"
+      },
+      "bundle_id": "01d0d28b30567c2a77a4"
+    }
+  ]
 }
