@@ -22,8 +22,8 @@ def main():
     run([uv,'run','ruff','check','src','tests'],AUTOMATION)
     run([uv,'run','pytest'],AUTOMATION)
     run([uv,'run','python',DESKTOP/'scripts/build_runtime.py','--uv',uv],AUTOMATION)
-    run([uv,'run','python',DESKTOP/'scripts/build_notices.py'],AUTOMATION)
     run([uv,'run','python',DESKTOP/'scripts/collect_python_licenses.py'],AUTOMATION)
+    run([uv,'run','python',DESKTOP/'scripts/build_notices.py'],AUTOMATION)
     npm_path=Path(shutil.which('npm.cmd' if os.name=='nt' else 'npm'))
     npm=[shutil.which('node'),npm_path.parent/'node_modules/npm/bin/npm-cli.js'] if os.name=='nt' else [npm_path]
     run([*npm,'run','package'])
