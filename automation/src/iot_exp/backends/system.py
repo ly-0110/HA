@@ -13,6 +13,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from ..process_cleanup import terminate_owned_tree
+from ..process_identity import process_start_token
+
 
 class SystemCommandError(RuntimeError):
     pass
@@ -129,8 +132,8 @@ class AdbClient:
 
 def resolve_executable(name: str) -> Path | None:
     candidate = Path(name).expanduser()
-    if candidate.parent != Path(".") and candidate.exists():
-        return candidate.resolve()
+    if candidate.parent != Path(".") or candidate.is_absolute():
+        return candidate.resolve() if candidate.is_file() else None
     located = shutil.which(name)
     if located:
         return Path(located).resolve()
@@ -168,6 +171,30 @@ def discover_android_sdk(
     return None
 
 
+def installed_android_sdks(environment: dict[str, str] | None = None) -> list[dict[str, str]]:
+    """Suggest existing SDKs without silently changing the selected tool."""
+    env = os.environ if environment is None else environment
+    candidates = [(env.get("ANDROID_SDK_ROOT"), "ANDROID_SDK_ROOT"),
+                  (env.get("ANDROID_HOME"), "ANDROID_HOME")]
+    if os.name == "nt":
+        if env.get("LOCALAPPDATA"):
+            candidates.append((str(Path(env["LOCALAPPDATA"]) / "Android/Sdk"), "Windows SDK目录"))
+        candidates.append((str(Path.home() / "AppData/Local/Android/Sdk"), "用户SDK目录"))
+    else:
+        candidates.append((str(Path.home() / "Android/Sdk"), "用户SDK目录"))
+    result, seen = [], set()
+    for candidate, source in candidates:
+        if not candidate:
+            continue
+        root = Path(candidate).expanduser().resolve()
+        identity = os.path.normcase(str(root))
+        adb = root / "platform-tools" / ("adb.exe" if os.name == "nt" else "adb")
+        if identity not in seen and adb.is_file():
+            result.append({"path": str(root), "source": source, "adb": str(adb)})
+            seen.add(identity)
+    return result
+
+
 def configure_android_environment(adb: str, configured: str | Path | None = None) -> Path:
     sdk_root = discover_android_sdk(adb, configured)
     if sdk_root is None:
@@ -176,17 +203,20 @@ def configure_android_environment(adb: str, configured: str | Path | None = None
             "ANDROID_SDK_ROOT, or ANDROID_HOME"
         )
     os.environ["ANDROID_SDK_ROOT"] = str(sdk_root)
-    os.environ.setdefault("ANDROID_HOME", str(sdk_root))
+    os.environ["ANDROID_HOME"] = str(sdk_root)
     return sdk_root
 
 
 class AppiumServer:
-    def __init__(self, executable: str, url: str, log_path: Path, project_root: Path | None = None):
+    def __init__(self, executable: str, url: str, log_path: Path, project_root: Path | None = None,
+                 *, process_callback=None):
         self.executable = executable
         self.url = url
         self.log_path = log_path
         self.project_root = project_root
         self.process: subprocess.Popen[str] | None = None
+        self.process_token: str | None = None
+        self.process_callback = process_callback
 
     def start(self) -> None:
         if self.process is not None and self.process.poll() is None:
@@ -204,8 +234,13 @@ class AppiumServer:
             elif not os.environ.get("IOT_EXP_WORKER_GROUP"):
                 kwargs["start_new_session"] = True
             executable_name = Path(self.executable).stem.lower()
+            private_entry = os.environ.get("IOT_EXP_APPIUM_ENTRY")
             command = [self.executable]
-            if executable_name == "npx":
+            if private_entry:
+                if not Path(private_entry).is_file():
+                    raise SystemCommandError("私有Appium运行时未准备或损坏")
+                command = [os.environ["IOT_EXP_NODE_EXECUTABLE"], private_entry]
+            elif executable_name == "npx":
                 if self.project_root is None:
                     raise SystemCommandError("project_root is required for project-local Appium")
                 command = ["node", str(self.project_root / "node_modules" / "appium" / "index.js")]
@@ -216,6 +251,9 @@ class AppiumServer:
             if self.project_root is not None:
                 kwargs["cwd"] = str(self.project_root)
             self.process = subprocess.Popen(command, **kwargs)
+            self.process_token = process_start_token(self.process.pid)
+            if self.process_callback:
+                self.process_callback(self.process)
         except FileNotFoundError as exc:
             log_handle.close()
             raise SystemCommandError(f"Appium executable not found: {self.executable}") from exc
@@ -244,12 +282,7 @@ class AppiumServer:
             return
         if self.process.poll() is None:
             if os.name == "nt":
-                subprocess.run(
-                    ["taskkill", "/PID", str(self.process.pid), "/T", "/F"],
-                    capture_output=True,
-                    text=True,
-                    check=False,
-                )
+                terminate_owned_tree(self.process.pid, self.process_token)
             else:
                 self.process.send_signal(signal.SIGINT)
             try:
@@ -280,16 +313,24 @@ def collect_system_checks(
     require_capture: bool,
     android_sdk_root: str | Path | None = None,
 ) -> list[SystemCheck]:
-    checks = [check_executable(adb), check_executable("node"), check_executable("java")]
+    checks = []
+    for name, executable in (("adb", adb), ("node", os.environ.get("IOT_EXP_NODE_EXECUTABLE", "node")),
+                             ("java", os.environ.get("IOT_EXP_JAVA_EXECUTABLE", "java"))):
+        check = check_executable(executable)
+        checks.append(SystemCheck(name, check.ok, check.detail))
     sdk_root = discover_android_sdk(adb, android_sdk_root)
     checks.append(SystemCheck(
         "android_sdk_root",
         sdk_root is not None and sdk_root.exists(),
         str(sdk_root) if sdk_root is not None else "not determined",
     ))
-    checks.append(check_executable(appium))
+    check = check_executable(os.environ.get("IOT_EXP_APPIUM_ENTRY", appium))
+    appium_error = os.environ.get("IOT_EXP_APPIUM_ERROR")
+    checks.append(SystemCheck("appium", check.ok,
+                              f"内置Appium初始化失败：{appium_error}" if not check.ok and appium_error else check.detail))
     if require_capture:
-        checks.append(check_executable(dumpcap))
+        check = check_executable(dumpcap)
+        checks.append(SystemCheck("dumpcap", check.ok, check.detail))
     checks.append(SystemCheck("platform", platform.system() in {"Windows", "Linux"}, platform.platform()))
     return checks
 

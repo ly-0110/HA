@@ -5,6 +5,8 @@ import time
 from pathlib import Path
 from typing import Any
 
+from selenium.common.exceptions import StaleElementReferenceException
+
 from ..models import (
     AckEvidence,
     AppConfig,
@@ -166,7 +168,10 @@ class MiHomeDeskLamp1SAdapter:
             return DeviceState.OFF
         toggle = self._find_optional("power_toggle")
         if toggle is not None:
-            checked = str(toggle.get_attribute("checked") or "").lower()
+            try:
+                checked = str(toggle.get_attribute("checked") or "").lower()
+            except StaleElementReferenceException:
+                return DeviceState.UNKNOWN
             if checked in {"true", "1", "on"}:
                 return DeviceState.ON
             if checked in {"false", "0", "off"}:
@@ -784,9 +789,14 @@ class MiHomeDeskLamp1SAdapter:
         try:
             if element.is_displayed():
                 return True
+        except StaleElementReferenceException:
+            return False
         except Exception:  # noqa: BLE001, S110 - a missing visibility attribute is non-fatal.
             pass
-        checked = str(element.get_attribute("checked") or "").lower()
+        try:
+            checked = str(element.get_attribute("checked") or "").lower()
+        except StaleElementReferenceException:
+            return False
         return checked in {"true", "1", "on"}
 
     def _dismiss_known_popups(self) -> None:

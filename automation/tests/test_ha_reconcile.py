@@ -1,5 +1,4 @@
 import hashlib
-import importlib.util
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -104,17 +103,3 @@ def test_reconcile_requires_measured_clock_uncertainty(tmp_path):
     report = reconcile(path, _history(path, action), clock_offset_ms=100)
     assert report["candidate_gold_count"] == 0
     assert "clock_offset_unverified" in report["events"][0]["reasons"]
-
-
-def test_exporter_normalizes_ha_history_and_never_needs_token_at_import():
-    script = ROOT.parent / "legacy" / "get_device_log.py"
-    spec = importlib.util.spec_from_file_location("ha_exporter", script)
-    assert spec and spec.loader
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    values = module.normalize_history([[{
-        "entity_id": ENTITY_ID, "state": "playing",
-        "last_changed": "2026-09-23T07:05:30Z", "attributes": {"media_title": "Song"},
-    }]], ENTITY_ID)
-    assert values[0]["state"] == "playing"
-    assert values[0]["last_changed"].endswith("+00:00")

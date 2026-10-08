@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import random
 import time
 import uuid
@@ -14,6 +15,7 @@ from typing import Any
 import yaml
 
 from .adapters.base import AdapterError, VendorAppAdapter
+from .adapters.simulated import SimulatedLampAdapter
 from .backends.capture import CaptureBackend
 from .backends.ha import HaObservationProvider
 from .backends.system import collect_system_checks
@@ -38,6 +40,7 @@ from .models import (
     identity_key,
     value_hits_target,
 )
+from .process_identity import process_start_token
 
 
 class RunError(RuntimeError):
@@ -57,7 +60,7 @@ def create_event_id(session_id: str, sequence: int, attempt: int) -> str:
     return f"{session_id}_event_{sequence:06d}_attempt_{attempt:02d}"
 
 
-def _utc_config_dump(experiment: ExperimentConfig, runtime: RuntimeConfig, session_id: str, seed: int) -> dict[str, Any]:
+def _utc_config_dump(experiment: ExperimentConfig, runtime: RuntimeConfig, session_id: str, seed: int, *, simulated: bool = False) -> dict[str, Any]:
     return {
         "session_id": session_id,
         "random_seed": seed,
@@ -71,6 +74,9 @@ def _utc_config_dump(experiment: ExperimentConfig, runtime: RuntimeConfig, sessi
             android_sdk_root=runtime.android_sdk_root,
         )],
         "created_at_unix_ns": time.time_ns(),
+        "process_id": os.getpid(),
+        "process_start_token": process_start_token(os.getpid()),
+        "simulated": simulated,
     }
 
 
@@ -117,7 +123,7 @@ class ExperimentRunner:
 
     def run(self) -> list[ActionRecord]:
         self.paths.session_yaml.write_text(
-            yaml.safe_dump(_utc_config_dump(self.experiment, self.runtime, self.session_id, self.seed), allow_unicode=True, sort_keys=False),
+            yaml.safe_dump(_utc_config_dump(self.experiment, self.runtime, self.session_id, self.seed, simulated=isinstance(self.adapter, SimulatedLampAdapter)), allow_unicode=True, sort_keys=False),
             encoding="utf-8",
         )
         self.journal.append({"kind": "session_started", "session_id": self.session_id, "at_unix_ns": time.time_ns()})

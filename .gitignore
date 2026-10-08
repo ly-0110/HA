@@ -13,6 +13,7 @@ doc/中期报告Iot（更新）.docx
 .venv/
 .tools/
 .uv-cache/
+.uv-cache-linux/
 .pytest_cache/
 .pytest_tmp*/
 .ruff_cache/
@@ -84,6 +85,9 @@ runs/
 
 # Node.js dependencies and package-manager caches
 node_modules/
+automation/desktop/build-resources/
+automation/desktop/out/
+.iot-exp-workspace/
 .npm/
 .npm-cache/
 npm-debug.log*

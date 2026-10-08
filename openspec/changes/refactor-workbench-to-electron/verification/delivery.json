@@ -1,0 +1,144 @@
+{
+  "classification": "internal_test_unsigned",
+  "windows": {
+    "file": "automation\\desktop\\out\\make\\squirrel.windows\\x64\\IoTExperimentWorkbench-Guarded-Setup.exe",
+    "bytes": 483175424,
+    "sha256": "0f20afea5f81084990427898d8e175dfd0f325fd1b83ff8d5a0a2457a5f1820e",
+    "bundle_id": "cbd2a4524aa9b7657351",
+    "app_version": "0.1.1",
+    "versions": {
+      "python": "3.13.16",
+      "node": "24.21.0",
+      "java": "17.0.20.1+1",
+      "appium": "3.7.0",
+      "uiautomator2": "6.9.3",
+      "electron": "44.5.1"
+    },
+    "user_level_install_validated": true,
+    "non_admin_token_launch_validated": true,
+    "installation_directory": "C:\\Users\\Administrator\\AppData\\Local\\IoTExperimentWorkbench\\app-0.1.1",
+    "evidence": "verification/package-20261006.json",
+    "desktop_exit_code": 0
+  },
+  "python_tests": 188,
+  "frontend_tests": 14,
+  "desktop_tests": 6,
+  "openspec_complete": 33,
+  "openspec_total": 37,
+  "scope_revision": {
+    "date": "2026-10-06",
+    "previous_total": 41,
+    "cancelled_task_ids": [
+      "8.2",
+      "8.3",
+      "8.4",
+      "9.1"
+    ],
+    "cancelled_tasks_counted_as_complete": false,
+    "upgrade_rollback_removed_from_task_9_4": true,
+    "operating_system_shutdown_acceptance_removed_from_task_ids": [
+      "5.5",
+      "9.4"
+    ],
+    "operating_system_shutdown_acceptance_reason": "User explicitly cancelled operating-system forced shutdown, logout or power interruption acceptance; normal lifecycle and explicit force-stop requirements retained",
+    "task_5_5_and_9_4_completed_from_existing_lifecycle_evidence": true,
+    "reason": "User limited application to a small experimenter audience and cancelled distribution maintenance and parallel-entry acceptance exercises",
+    "existing_safety_implementation_retained": true
+  },
+  "native_ubuntu_validated": false,
+  "clean_offline_install_validated": false,
+  "clean_offline_install_acceptance_required": false,
+  "review": {
+    "clock_alignment_accepted": true,
+    "manual_review_accepted": true,
+    "scope": "Windows LG lamp no-capture minimum loop only; host clock only; no cross-host offset measured",
+    "source_evidence_unchanged": true
+  },
+  "linux_wsl_prevalidation": {
+    "file": "automation/desktop/out/make/deb/x64/iot-experiment-workbench_0.1.1_amd64.deb",
+    "bytes": 399686464,
+    "sha256": "32b24eb6d2ea21cd9766bf463936fc7616f4301d345cc97c28133dbb4e115398",
+    "bundle_id": "978a2dc7ccf2f33c6fae",
+    "app_version": "0.1.1",
+    "native_validation": false,
+    "deb_installed": false,
+    "packaged_smoke_exit_code": 0,
+    "python_focused_passed": 31,
+    "broker_passed": 6,
+    "evidence": "verification/linux-20261006.md"
+  },
+  "historical_20261004": {
+    "windows": {
+      "file": "automation\\desktop\\out\\make\\squirrel.windows\\x64\\IoTExperimentWorkbench-Guarded-Setup.exe",
+      "bytes": 481299456,
+      "sha256": "90f0c47b4ff97bb6ca8a267bd3e3b4aeb246e813071e2cffb405672c24542d91",
+      "bundle_id": "f6105eef9523e90ae1ff",
+      "versions": {
+        "python": "3.13.16",
+        "node": "24.21.0",
+        "java": "17.0.20.1+1",
+        "appium": "3.7.0",
+        "uiautomator2": "6.9.3",
+        "electron": "44.5.1"
+      }
+    },
+    "linux_wsl_prevalidation": {
+      "file": "automation\\desktop\\out\\make\\deb\\x64\\iot-experiment-workbench_0.1.0_amd64.deb",
+      "bytes": 398975824,
+      "sha256": "6f9ff85c19ad0d39258ddee39b85919c9121136851feb59119261839876864b6",
+      "bundle_id": "32e19500d8fcde21243c",
+      "native_validation": false
+    },
+    "python_tests": 173,
+    "frontend_tests": 12,
+    "desktop_tests": 9
+  },
+  "date": "2026-10-06",
+  "desktop_lifecycle_integration_tests": 6,
+  "desktop_ui_acceptance_cases": 12,
+  "pending_task_ids": [
+    "1.3",
+    "7.2",
+    "8.1",
+    "9.3"
+  ],
+  "formal_iot_capture_validated": false,
+  "windows_owned_loopback_capture_validated": true,
+  "operating_system_forced_shutdown_validated": false,
+  "operating_system_forced_shutdown_acceptance_required": false,
+  "historical_windows_0_1_0_20261006": {
+    "file": "automation\\desktop\\out\\make\\squirrel.windows\\x64\\IoTExperimentWorkbench-Guarded-Setup.exe",
+    "bytes": 483167232,
+    "sha256": "2ba626c038e9e7b1490d54b4c0817c891b85f82b46e6cd2366b9709083c9fb18",
+    "bundle_id": "011d11521f1c9d30ff22",
+    "versions": {
+      "python": "3.13.16",
+      "node": "24.21.0",
+      "java": "17.0.20.1+1",
+      "appium": "3.7.0",
+      "uiautomator2": "6.9.3",
+      "electron": "44.5.1"
+    },
+    "user_level_install_validated": true,
+    "non_admin_token_launch_validated": true,
+    "installation_directory": "C:\\Users\\Administrator\\AppData\\Local\\IoTExperimentWorkbench\\app-0.1.0",
+    "evidence": "verification/package-20261006.json"
+  },
+  "remaining_license_materials_review_complete": false,
+  "scope_updated_on": "2026-10-07",
+  "pending_task_platform": "native_ubuntu_24_04_x64",
+  "basic_asset_provenance_review_complete": true,
+  "comprehensive_external_distribution_review_required": false,
+  "source_cache_and_relink_rehearsal_required": false,
+  "exhaustive_minimal_sdk_validation_required": false,
+  "windows_install_acl_restriction_rehearsal_required": false,
+  "windows_scope_complete": true,
+  "scope_revision_20261007": {
+    "reason": "User requested exclusion of unnecessary tasks for limited experiment use",
+    "task_1_4_completed_scope": "source/version/upstream declarations/existing notices/actual SBOM/external tool boundaries",
+    "task_1_3_scope": "fixed verified SDK preparation list, no exhaustive minimal set proof",
+    "task_8_1_scope": "normal installation, non-admin run, separated data and unchanged installation payload",
+    "unperformed_extended_checks_counted_as_passed": false,
+    "original_binary_and_test_records_unchanged": true
+  }
+}

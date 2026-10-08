@@ -14,12 +14,15 @@ dependencies = [
   "pydantic>=2.7,<3.0",
   "uvicorn>=0.30,<1.0",
   "pillow>=10,<12",
+  "psutil>=7.0,<8.0",
 ]
 
 [project.optional-dependencies]
 dev = [
   "pytest>=8.0,<9.0",
   "ruff>=0.8,<1.0",
+  "httpx>=0.28,<1.0",
+  "httpx2>=2.0,<3.0",
 ]
 
 [project.scripts]

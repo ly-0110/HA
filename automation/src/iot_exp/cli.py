@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from dataclasses import asdict
@@ -18,10 +19,17 @@ from .backends import (
     DumpcapCaptureBackend,
 )
 from .backends.system import configure_android_environment, discover_android_sdk
-from .config import ConfigError, apply_runtime_paths, is_placeholder, load_configuration
+from .config import (
+    ConfigError,
+    apply_runtime_paths,
+    configuration_provenance,
+    is_placeholder,
+    load_configuration,
+)
 from .ha_reconcile import export_window, reconcile
 from .models import CaptureMode
 from .orchestrator import ExperimentRunner, validate_session
+from .paths import PathLayout, app_state_root, current_layout, source_root
 from .pcap_review import review_pcap
 from .preflight import run_preflight, write_preflight_report
 from .registry import create_adapter
@@ -30,21 +38,26 @@ from .resources import ResourceLease, experiment_resource_keys
 
 def _automation_root() -> Path:
     """Return the source checkout's automation directory."""
-    return Path(__file__).resolve().parents[2]
+    return current_layout().resources_root
 
 
 def _default_path(relative: str) -> Path:
     """Allow commands from either the repository root or automation/."""
     from_cwd = Path(relative)
-    if from_cwd.exists():
+    layout = current_layout()
+    if from_cwd.exists() and not layout.desktop:
         return from_cwd
-    return _automation_root() / relative
+    return layout.config_root / relative
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="iot-exp", description="IoT vendor-app automation experiment runner")
-    parser.add_argument("--experiment", type=Path, default=_default_path("experiment/mi_desk_lamp_1s.yaml"))
-    parser.add_argument("--runtime", type=Path, default=_default_path("runtime/windows-dev.yaml"))
+    parser.add_argument("--experiment", type=Path)
+    parser.add_argument("--runtime", type=Path)
+    parser.add_argument("--workspace", type=Path)
+    parser.add_argument("--resources", type=Path)
+    parser.add_argument("--app-state", type=Path)
+    parser.add_argument("--lock-root", type=Path)
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("doctor", "inspect-app", "preflight", "run"):
         command = sub.add_parser(name)
@@ -89,6 +102,7 @@ def _parser() -> argparse.ArgumentParser:
 def _load(args: argparse.Namespace):
     experiment, runtime = load_configuration(args.experiment, args.runtime)
     runtime = apply_runtime_paths(runtime, config_dir=args.runtime.parent.parent.resolve())
+    runtime.tool_provenance["template"] = configuration_provenance(args.experiment, current_layout(args.runtime.parent.parent.resolve()))
     if getattr(args, "repetitions", None) is not None:
         if args.repetitions < 1:
             raise ConfigError("--repetitions must be at least 1")
@@ -271,6 +285,11 @@ def cmd_inspect(experiment, runtime, dry_run: bool) -> int:
     if dry_run:
         print("dry-run inspect does not require a real device; use run for the simulated contract")
         return 0
+    with ResourceLease(runtime.output_root, experiment_resource_keys(experiment, runtime), owner="inspect-app"):
+        return _inspect_owned(experiment, runtime)
+
+
+def _inspect_owned(experiment, runtime) -> int:
     configure_android_environment(runtime.adb_executable, runtime.android_sdk_root)
     adapter = create_adapter(experiment, runtime)
     server = AppiumServer(
@@ -364,6 +383,34 @@ def cmd_run(args, experiment, runtime) -> int:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
+        if args.lock_root:
+            os.environ["IOT_EXP_LOCK_ROOT"] = str(args.lock_root.resolve())
+        if args.workspace or args.resources:
+            resources = (args.resources or source_root()).resolve()
+            manifest_path = resources / "runtime-manifest.json"
+            manifest = json.loads(manifest_path.read_text()) if manifest_path.is_file() else None
+            state = args.app_state or (app_state_root() if manifest else (args.workspace or Path.home() / "IoTExperiments/default") / "app-state")
+            preferences_path = state / "preferences.json"
+            preferences = json.loads(preferences_path.read_text(encoding="utf-8")) if preferences_path.is_file() else {}
+            workspace = args.workspace or Path(preferences.get("workspace", Path.home() / "IoTExperiments/default"))
+            layout = PathLayout.workspace(resources, workspace,
+                                          state, lock_root=args.lock_root,
+                                          runtime=resources / "runtime" / manifest["target"] if manifest else None,
+                                          discovery_roots=tuple(Path(root) for root in preferences.get("discovery_roots", [])))
+            if args.command not in {"validate-session", "ha-window", "reconcile-ha", "review-pcap"}:
+                layout.initialize()
+            os.environ.update(layout.child_environment())
+            if manifest:
+                from .runtime_bundle import load_manifest, prepare_appium_home, private_environment
+                load_manifest(resources)
+                if args.command not in {"validate-session", "ha-window", "reconcile-ha", "review-pcap"} and not getattr(args, "dry_run", False):
+                    prepare_appium_home(resources, state, manifest)
+                    from .state_files import atomic_json
+                    atomic_json(state / "runtime-status.json", {"prepared": True, "bundle_id": manifest["bundle_id"]})
+                os.environ.update(private_environment(resources, state, manifest))
+        args.experiment = args.experiment or _default_path("experiment/mi_desk_lamp_1s.yaml")
+        runtime_id = "ubuntu-dev" if current_layout().desktop and os.name != "nt" else "windows-dev"
+        args.runtime = args.runtime or _default_path(f"runtime/{runtime_id}.yaml")
         if args.command == "validate-session":
             report = validate_session(args.session_root)
             print(json.dumps(report, ensure_ascii=False, indent=2))

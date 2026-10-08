@@ -81,6 +81,7 @@ def test_resolve_adb_from_standard_windows_sdk_location(tmp_path: Path, monkeypa
     monkeypatch.delenv("ANDROID_HOME", raising=False)
     monkeypatch.setenv("LOCALAPPDATA", str(tmp_path))
     assert resolve_executable("adb") == adb.resolve()
+    assert resolve_executable(str(tmp_path / "missing-sdk/platform-tools/adb.exe")) is None
 
 
 def test_appium_server_uses_port_from_runtime_url(tmp_path: Path, monkeypatch):
@@ -88,6 +89,7 @@ def test_appium_server_uses_port_from_runtime_url(tmp_path: Path, monkeypatch):
 
     class FakeProcess:
         returncode = None
+        pid = 99999999
 
         @staticmethod
         def poll():

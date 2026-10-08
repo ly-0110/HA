@@ -4,6 +4,7 @@ import os
 import signal
 import subprocess
 import time
+from collections.abc import Callable
 from pathlib import Path
 from typing import Protocol
 
@@ -28,13 +29,15 @@ class DisabledCaptureBackend:
 
 
 class DumpcapCaptureBackend:
-    def __init__(self, executable: str, interface: str, capture_filter: str | None = None):
+    def __init__(self, executable: str, interface: str, capture_filter: str | None = None,
+                 *, process_callback: Callable | None = None):
         self.executable = executable
         self.interface = interface
         self.capture_filter = capture_filter
         self.process: subprocess.Popen[str] | None = None
         self.output_path: Path | None = None
         self.started_at: int | None = None
+        self.process_callback = process_callback
 
     def start(self, output_path: Path) -> None:
         if self.process is not None:
@@ -50,6 +53,8 @@ class DumpcapCaptureBackend:
             kwargs["start_new_session"] = True
         try:
             self.process = subprocess.Popen(args, **kwargs)
+            if self.process_callback:
+                self.process_callback(self.process)
         except FileNotFoundError as exc:
             raise RuntimeError(f"Dumpcap executable not found: {self.executable}") from exc
         self.output_path = output_path
@@ -66,16 +71,15 @@ class DumpcapCaptureBackend:
         if process.poll() is None:
             if os.name == "nt":
                 try:
-                    process.send_signal(subprocess.CTRL_BREAK_EVENT)
-                except (AttributeError, OSError):
-                    process.terminate()
+                    process.send_signal(signal.CTRL_BREAK_EVENT)
+                except (AttributeError, OSError) as error:
+                    raise RuntimeError("无法向抓包进程发送安全停止信号；保留进程与产物，满60秒后可显式强制终止") from error
             else:
                 process.send_signal(signal.SIGINT)
             try:
                 process.wait(timeout=15)
             except subprocess.TimeoutExpired:
-                process.terminate()
-                process.wait(timeout=5)
+                raise RuntimeError("抓包进程尚未完成安全停止；保留进程与产物，满60秒后可显式强制终止") from None
         stderr = (process.stderr.read() if process.stderr else "").strip()
         result = CaptureResult(
             enabled=True,

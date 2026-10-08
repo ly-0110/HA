@@ -297,7 +297,9 @@ class ParameterizedEventSpec(BaseModel):
                 raise ValueError(f"{dimension.value} target must be an integer")
             if self.required_state is None:
                 self.required_state = DeviceState.ON
-        if self.required_state is not None and self.required_state is DeviceState.UNKNOWN:
+        if self.required_state is not None and self.required_state not in {
+            DeviceState.ON, DeviceState.OFF,
+        }:
             raise ValueError("required_state must be on or off")
         return self
 
@@ -396,6 +398,7 @@ class RuntimeConfig(BaseModel):
     post_roll_seconds: float = Field(default=2.0, ge=0)
     min_free_space_gb: float = Field(default=2.0, ge=0)
     timezone: str = "UTC"
+    tool_provenance: dict[str, Any] = Field(default_factory=dict)
 
     @model_validator(mode="after")
     def validate_formal_capture(self) -> RuntimeConfig:

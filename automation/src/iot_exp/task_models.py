@@ -5,6 +5,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from .models import EventSpec, ParameterizedEventSpec
+
 
 class TaskStatus(str, Enum):
     QUEUED = "queued"
@@ -42,6 +44,9 @@ class TaskRequest(BaseModel):
     capture_filter: str | None = None
     pre_roll_seconds: float | None = Field(default=None, ge=0, le=3600)
     post_roll_seconds: float | None = Field(default=None, ge=0, le=3600)
+    events: list[EventSpec | ParameterizedEventSpec] | None = Field(
+        default=None, min_length=1, max_length=256,
+    )
 
     @model_validator(mode="after")
     def validate_request(self):

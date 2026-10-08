@@ -261,3 +261,20 @@ def test_device_page_power_path_still_works(tmp_path):
     adapter.perform_event("turn_off")
     assert adapter.read_state() is DeviceState.OFF
     assert adapter.wait_for_ack(DeviceState.OFF, 1.0).acknowledged is True
+
+
+def test_ack_reloads_state_after_page_replaces_old_power_element(tmp_path, monkeypatch):
+    from selenium.common.exceptions import StaleElementReferenceException
+    driver = FakeDriver(power_on=False)
+    adapter = _adapter(driver, tmp_path)
+    stale_checks = []
+    class ReplacedElement:
+        def is_displayed(self):
+            stale_checks.append(True)
+            raise StaleElementReferenceException('power label replaced after click')
+        def get_attribute(self, _name):
+            pytest.fail('stale reference must not be queried again')
+    original = adapter._find_optional
+    monkeypatch.setattr(adapter, '_find_optional', lambda name: ReplacedElement() if name == 'state_on' else original(name))
+    assert adapter.wait_for_ack(DeviceState.OFF, 1.0).acknowledged
+    assert stale_checks

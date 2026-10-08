@@ -1,0 +1,196 @@
+{
+  "schema": "iot_exp_implementation_baseline_v1",
+  "recorded_at": "2026-10-03T11:59:56.8822702Z",
+  "source_head": "2318fd0323e9c57e2876464bbe3ec2b33094329f",
+  "modified_worktree": true,
+  "files": [
+    {
+      "path": "automation/src/iot_exp/__init__.py",
+      "sha256": "2ac2bc7211d4979164789c6a068618ad077fca0db816ae510725bfb3f621d5d4"
+    },
+    {
+      "path": "automation/src/iot_exp/__main__.py",
+      "sha256": "482b8693e2fe6dbd732e3d7961e03827d3efa187bad11d29da188be580ebbeea"
+    },
+    {
+      "path": "automation/src/iot_exp/artifacts.py",
+      "sha256": "3d3534103eb65ecae8b8a9923ec1e13c855a8ddae135e579e35091f3d664043c"
+    },
+    {
+      "path": "automation/src/iot_exp/cli.py",
+      "sha256": "52399a3ea893de4cb868d4ae3270cfcc4a4f83276be578a39c56fb33efe5fa82"
+    },
+    {
+      "path": "automation/src/iot_exp/config.py",
+      "sha256": "6de7db336cee10ae7f97c575106ede56bb866070bdaaea1fda3ceebeb0c70787"
+    },
+    {
+      "path": "automation/src/iot_exp/ha_reconcile.py",
+      "sha256": "ee43c26d3d84eb66f34706975c50a557b5428e7beb33aeb5f5344396349d6235"
+    },
+    {
+      "path": "automation/src/iot_exp/journal.py",
+      "sha256": "d3d8c275cd5fe01e928602978166a19cd4572cd852f027d69d01c9f0b130be97"
+    },
+    {
+      "path": "automation/src/iot_exp/models.py",
+      "sha256": "6112d1d8e9416d8524c86fb5b9b024d1d168ec20ff84194202a9726c61688e20"
+    },
+    {
+      "path": "automation/src/iot_exp/orchestrator.py",
+      "sha256": "7032c73ad36dcdf488a6884814410ff71128ea95d091a7e18f49d97d42be0ab4"
+    },
+    {
+      "path": "automation/src/iot_exp/pcap_review.py",
+      "sha256": "012c163f719043fe7ae1f737858a6c6285841421abe980e66f8cb7b0c5f8f2ad"
+    },
+    {
+      "path": "automation/src/iot_exp/preflight.py",
+      "sha256": "1edd0085d1538b24fe4e175dab518d331f2ad6dd4ba70f9394fdac466edb1bda"
+    },
+    {
+      "path": "automation/src/iot_exp/process_identity.py",
+      "sha256": "015bb5ce80228261c1c9440ade45abcab1cc101c304a309f608dfad84279c037"
+    },
+    {
+      "path": "automation/src/iot_exp/registry.py",
+      "sha256": "e31e604471a7f9d34de202aaa082eb9af5aa74a138b4d08470ef7352acdd9649"
+    },
+    {
+      "path": "automation/src/iot_exp/resources.py",
+      "sha256": "1b6ff4580f66da8286b904b22c8db17a260e83c0a23838518cc5691192272f2e"
+    },
+    {
+      "path": "automation/src/iot_exp/scheduler.py",
+      "sha256": "edadf2fd0d3a8a35dbe28a91969931230779a01e8237a5c7335461527204db94"
+    },
+    {
+      "path": "automation/src/iot_exp/task_discovery.py",
+      "sha256": "c7d8eeaaf615038c71c7481df148552b7dfa15d5b9265db9acbc659f73af3ed3"
+    },
+    {
+      "path": "automation/src/iot_exp/task_models.py",
+      "sha256": "018f721984a51c6d16bb728cd6418750330e2fa3ce44d9f68a2d9e1317e81a10"
+    },
+    {
+      "path": "automation/src/iot_exp/task_store.py",
+      "sha256": "2917096b55f809168521f3ffc8d18e748dbf056d5411af09322833c6ac7e6490"
+    },
+    {
+      "path": "automation/src/iot_exp/web.py",
+      "sha256": "173cdeb3f0e94e2d2f4ce23e9ac2cf977933528efdde9eb3a18d580779d7d275"
+    },
+    {
+      "path": "automation/src/iot_exp/worker.py",
+      "sha256": "156837858f42c7e0f54b3e36ff5ae46acc59fcc0ab7e9f16fe402410eda9a72f"
+    },
+    {
+      "path": "automation/src/iot_exp/adapters/__init__.py",
+      "sha256": "449f7a439307b6c8d2dca0682759325ea84690885fbb01bf174a40fe43423853"
+    },
+    {
+      "path": "automation/src/iot_exp/adapters/base.py",
+      "sha256": "63d9f1a2cde4dd2d9ff981c5d3b6da3f7270c2c86d28835d7c94feca1e0b16f8"
+    },
+    {
+      "path": "automation/src/iot_exp/adapters/mi_home_lamp.py",
+      "sha256": "3517d91458942b2fd1c08f92bc64929907db9b50c30c44ada469f09e4de585ea"
+    },
+    {
+      "path": "automation/src/iot_exp/adapters/mi_home_speaker.py",
+      "sha256": "47f3c47ea38f92bee61c3d1d0183a71c5c1ae1eac12127647b03293bf04b1943"
+    },
+    {
+      "path": "automation/src/iot_exp/adapters/simulated.py",
+      "sha256": "afa1ce250832f533b3082f7b55a23ed22c1e1e7147338a96fe6508bcb93cf86e"
+    },
+    {
+      "path": "automation/src/iot_exp/backends/__init__.py",
+      "sha256": "1f3ae53c79eb2a83d09fc69304d9ab00564594fd1620d1e1a6357605b11784bb"
+    },
+    {
+      "path": "automation/src/iot_exp/backends/capture.py",
+      "sha256": "63b1c513bd710681fd9dabb74da2ae7d96782634735f82fb4da64548d5ab324f"
+    },
+    {
+      "path": "automation/src/iot_exp/backends/ha.py",
+      "sha256": "3cbfa958531e5e4ab56877162f394cc912d375f7d69dfb1c15e101e7a5e58d66"
+    },
+    {
+      "path": "automation/src/iot_exp/backends/system.py",
+      "sha256": "8d0648152e86de22bf7a5673a48c044fd7c2a42e68590a7f83ab33069ea4224f"
+    },
+    {
+      "path": "automation/web/src/EventEditor.tsx",
+      "sha256": "f7892d7a42597df268bb94e1f9f776d3af3499b8af9008e68f431b85c81b12b4"
+    },
+    {
+      "path": "automation/web/src/eventLabels.ts",
+      "sha256": "21d3a2be3adc179b410e6981f10ac025f1419d0a8be02919942a90de373c58f7"
+    },
+    {
+      "path": "automation/web/src/eventPlan.ts",
+      "sha256": "13ad7beb82065d9965a4f326ed80e68ba381b6f4d332d05ff7ff1c85ee8e505b"
+    },
+    {
+      "path": "automation/web/src/icons.tsx",
+      "sha256": "d795bb5b4799174b742409f92c650ae7c6918a17d5d34cde623ff9a0c201bc96"
+    },
+    {
+      "path": "automation/web/src/main.tsx",
+      "sha256": "01f57d9603ab0fe5a269e8f2393facb45495dfe47408bdffab52bced839ccc4f"
+    },
+    {
+      "path": "automation/web/src/styles.css",
+      "sha256": "b150aa36fba3691cde1f53889d70643391819a6be55094abe8c2f1f08029eb01"
+    },
+    {
+      "path": "automation/web/src/types.ts",
+      "sha256": "36c197e902600a58414c78e6c904fc2a5dc569b2d7e95bfbbadc8ffe81fc1bce"
+    },
+    {
+      "path": "automation/experiment/mi_desk_lamp_1s_advanced.yaml",
+      "sha256": "371ced8071d84a8898e2ffe80b6891bca4f453e5ee5100f5fb40cf97ea1c6971"
+    },
+    {
+      "path": "automation/experiment/mi_desk_lamp_1s.yaml",
+      "sha256": "f109fe8a4066d19cf0de6bb851897c246394f24c197fff042095eccfaf62c3d4"
+    },
+    {
+      "path": "automation/experiment/xiaomi_touchscreen_speaker_music.yaml",
+      "sha256": "83bc42be0576538cdb9506d62cdd9e5e690d60c619a644bc96e273cc903c1b1a"
+    },
+    {
+      "path": "automation/runtime/ubuntu-dev.yaml",
+      "sha256": "5e49f8f7ffe804646d90daac7d86b4ce820490255b7a5c2dfa36ebe1d20843a5"
+    },
+    {
+      "path": "automation/runtime/ubuntu-lab.yaml",
+      "sha256": "596c71c639a2bf587e2ec7e3c74855383759ee5c680af5c70c575c487af1bfb4"
+    },
+    {
+      "path": "automation/runtime/ubuntu-speaker-lab.yaml",
+      "sha256": "c263c3fcfeef69436d808654d2072c21dc7bab837c12cb31672da8f7d52461f8"
+    },
+    {
+      "path": "automation/runtime/windows-dev.yaml",
+      "sha256": "ac74dde2deb4a5f53bd7d8b5f6536a26a5295ae2755d633bca87a3eddd9d635a"
+    },
+    {
+      "path": "automation/pyproject.toml",
+      "sha256": "2bc082c70d3aa4e5832815cebc0fd7a7b3f0e9230193db0b83822372b3f709ed"
+    },
+    {
+      "path": "automation/uv.lock",
+      "sha256": "1fbfddc3cfa37da9d1ac8f9020c883a076fc7f15b5ada8d1b0ff1f60071b55fa"
+    },
+    {
+      "path": "automation/package.json",
+      "sha256": "0acc3b51e4ec6cdf2d6a6972c4f42d41f8f494037742efe240b886204d80b639"
+    },
+    {
+      "path": "automation/package-lock.json",
+      "sha256": "f6223b6c038c419c37ac0522fc80ca1f99c00fcc60e33368e2b7065e575d8da3"
+    }
+  ]
+}
