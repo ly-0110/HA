@@ -21,11 +21,12 @@ def main():
     run([uv,'sync','--extra','dev','--locked'],AUTOMATION)
     run([uv,'run','ruff','check','src','tests'],AUTOMATION)
     run([uv,'run','pytest'],AUTOMATION)
-    run([sys.executable,DESKTOP/'scripts/build_runtime.py','--uv',uv])
-    run([sys.executable,DESKTOP/'scripts/build_notices.py'])
-    run([sys.executable,DESKTOP/'scripts/collect_python_licenses.py'])
-    npm=shutil.which('npm.cmd' if os.name=='nt' else 'npm')
-    run([npm,'run','package'])
+    run([uv,'run','python',DESKTOP/'scripts/build_runtime.py','--uv',uv],AUTOMATION)
+    run([uv,'run','python',DESKTOP/'scripts/build_notices.py'],AUTOMATION)
+    run([uv,'run','python',DESKTOP/'scripts/collect_python_licenses.py'],AUTOMATION)
+    npm_path=Path(shutil.which('npm.cmd' if os.name=='nt' else 'npm'))
+    npm=[shutil.which('node'),npm_path.parent/'node_modules/npm/bin/npm-cli.js'] if os.name=='nt' else [npm_path]
+    run([*npm,'run','package'])
     packaged=next(p for p in (DESKTOP/'out').iterdir() if p.is_dir() and p.name.endswith('win32-x64' if os.name=='nt' else 'linux-x64'))
     state=AUTOMATION/'runs/ci-smoke-state';workspace=AUTOMATION/'runs/ci-smoke-workspace'
     env={**os.environ,'IOT_EXP_DESKTOP_STATE':str(state),'IOT_EXP_DESKTOP_WORKSPACE':str(workspace),'IOT_EXP_LOCK_ROOT':str(AUTOMATION/'runs/ci-smoke-locks')}
@@ -39,7 +40,7 @@ def main():
     smoke=json.loads((state/'smoke-result.json').read_text())
     assert smoke['ready'] and smoke['simulation']=='completed' and smoke['events']==2,smoke
     assert smoke['text_preview'] and smoke['image_preview'] and smoke['original_file_unchanged'],smoke
-    run([npm,'run','make','--','--skip-package','--platform','win32' if os.name=='nt' else 'linux','--arch','x64'])
+    run([*npm,'run','make','--','--skip-package','--platform','win32' if os.name=='nt' else 'linux','--arch','x64'])
     version=json.loads((DESKTOP/'package.json').read_text())['version']
     output=DESKTOP/'release-assets';output.mkdir(exist_ok=True)
     if os.name=='nt':

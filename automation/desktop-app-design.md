@@ -1,7 +1,7 @@
 # Electron 桌面重构方案入口
 
 2026-10-03：已确定采用 Electron 重构工作台。完整方案建立为 OpenSpec 变更
-`refactor-workbench-to-electron`，本文件作为阅读索引。当前交付为规划文档，桌面代码和安装包尚未实施。
+`refactor-workbench-to-electron`，本文件作为阅读索引。桌面代码与37项验收已完成，变更已归档；安装操作见[操作员说明](desktop/OPERATOR_README.md)。
 
 ## 阅读顺序
 

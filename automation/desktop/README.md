@@ -18,7 +18,7 @@ Python、Node、Java、Appium/UiAutomator2均为私有运行时，不要求全�
 
 ## 开发与构建
 
-开发在主项目目录的codex/electron-workbench分支进行，完成阶段及时提交。源码和web/dist保留版本控制；测试输出、临时构建资源和安装二进制不入Git。原生Ubuntu剩余SDK/driver doctor和正式采集按OpenSpec任务执行。
+开发在主项目目录的codex/electron-workbench分支进行，完成阶段及时提交。源码和web/dist保留版本控制；测试输出、临时构建资源和安装二进制不入Git。原生Ubuntu SDK、driver doctor和正式最小闭环已完成。
 
 从automation目录准备开发环境后执行：
 
@@ -35,4 +35,4 @@ npm run make --prefix desktop
 
 固定版本资产由维护者在构建阶段准备。终端应用启动不在线安装依赖。重建图标使用node desktop/scripts/build_app_icon.cjs，预生成图标已纳入Git。
 
-Ubuntu在自己的Linux文件系统克隆目录继续开发。完整准备、启动、Deb构建与剩余任务见[Ubuntu接续开发](UBUNTU_DEVELOPMENT.md)；脚本复用当前源码，不另复制桌面工程。WSL仅用于预验证。
+Ubuntu在自己的Linux文件系统克隆目录继续开发。完整准备、启动、Deb构建与验收结果见[Ubuntu接续开发](UBUNTU_DEVELOPMENT.md)；脚本复用当前源码，不另复制桌面工程。WSL仅用于预验证。

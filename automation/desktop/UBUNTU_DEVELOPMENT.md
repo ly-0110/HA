@@ -79,7 +79,7 @@ find automation/desktop/out/make -type f -name '*.deb'
 
 用上述输出中的实际 Deb 路径进行人工安装，例如 `sudo apt install ./automation/desktop/out/make/deb/x64/<实际文件名>.deb`，然后从桌面菜单启动。Deb 生成不等于原生安装验收已完成。图标和预安装脚本均随源码保存；Linux 入口的可执行权限与 LF 换行也由 Git 保存。不要提交缓存、out、node_modules 或新产生的实验会话。
 
-## 4. 外部设备工具与剩余任务
+## 4. 外部设备工具与验收结果
 
 SDK/ADB、系统 USB 权限、Wireshark/Dumpcap仍需目标主机准备。在工作台环境设置中选择实际 SDK 根目录（必须含 `platform-tools/adb`）与 Dumpcap 路径。不能复制 Windows SDK、Java 或 Python 二进制给 Linux 使用。外部 SDK 准备与组件边界见 [运行环境与发行依赖](../../openspec/changes/archive/2026-10-08-refactor-workbench-to-electron/runtime-dependencies.md)。
 
