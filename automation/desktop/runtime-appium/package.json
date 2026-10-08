@@ -1,0 +1,10 @@
+{
+  "name": "iot-exp-private-appium-runtime",
+  "version": "0.1.0",
+  "private": true,
+  "description": "固定版本的桌面 Appium 与 UiAutomator2 运行时",
+  "dependencies": {
+    "appium": "3.7.0",
+    "appium-uiautomator2-driver": "6.9.3"
+  }
+}

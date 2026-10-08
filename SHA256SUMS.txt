@@ -1,2 +1,0 @@
-8b1ac272ae853b1ed7376f518ccef2eda75c5f93d71d3c41cafaaa6eb7e4d961  iot-experiment-workbench_0.1.5_amd64.deb
-7f6f7b96a0dc8d56611cf27271c2d2b682c818669f0014fdf76c2fa1e664415a  IoTExperimentWorkbench-0.1.5-Setup.exe
