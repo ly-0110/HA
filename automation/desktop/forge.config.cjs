@@ -14,7 +14,7 @@ module.exports={
   },
   makers:[
     {name:'@electron-forge/maker-squirrel',config:{name:'IoTExperimentWorkbench',setupIcon:path.join(__dirname,'assets/workbench.ico'),...(signed?{windowsSign:{}}:{})}},
-    {name:'@electron-forge/maker-deb',config:{options:{bin:'IoTExperimentWorkbench',icon:path.join(__dirname,'assets/workbench.png'),maintainer:'IoT Experiment Workbench maintainers',homepage:'https://github.com/ly-0110/HA',scripts:{preinst:path.join(__dirname,'installer/preinst'),prerm:path.join(__dirname,'installer/preinst')}}}},
+    {name:'@electron-forge/maker-deb',config:{options:{desktopTemplate:path.join(__dirname,'installer/workbench.desktop.ejs'),bin:'IoTExperimentWorkbench',icon:path.join(__dirname,'assets/workbench.png'),maintainer:'IoT Experiment Workbench maintainers',homepage:'https://github.com/ly-0110/HA',scripts:{preinst:path.join(__dirname,'installer/preinst'),prerm:path.join(__dirname,'installer/preinst')}}}},
   ],
   hooks:{postPackage:async(_configuration,result)=>{
     const {flipFuses,FuseVersion,FuseV1Options}=require('@electron/fuses');

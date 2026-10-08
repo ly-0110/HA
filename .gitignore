@@ -85,7 +85,7 @@ runs/
 
 # Node.js dependencies and package-manager caches
 node_modules/
-automation/desktop/build-resources/
+automation/desktop/build-resources
 automation/desktop/out/
 .iot-exp-workspace/
 .npm/
@@ -112,3 +112,4 @@ Thumbs.db
 # Manually installable release binaries
 automation/desktop/releases/**/*.exe
 automation/desktop/releases/**/*.msi
+automation/desktop/releases/**/*.deb

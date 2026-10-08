@@ -127,10 +127,10 @@ function App() {
       <header><h1>{nav.find(item => item.id === tab)?.label}</h1><div className="header-stats"><span><i className="status-dot" />{online} 台手机</span><span><Icon name="runs" size={15} />{running} 个运行任务</span></div></header>
       {bootstrapError ? <div className="panel"><div className="alert error">{bootstrapError}</div><button className="secondary" onClick={() => location.reload()}>重新连接</button></div> : !ready ? <Empty>正在加载工作台…</Empty> : <>
         {tab === "devices" && <Devices devices={devices} error={deviceError} templates={templates} onRefresh={refreshDevices} onCreate={id => { setPreset(blank(templates.find(template => template.id === id))); setTab("create"); }} />}
-        {tab === "create" && <Create templates={templates} devices={devices} preset={preset} onCreated={created => {
+        <div hidden={tab !== "create"}><Create templates={templates} devices={devices} preset={preset} onCreated={created => {
           setTasks(current => [...created, ...current.filter(task => !created.some(item => item.id === task.id))]);
           setCreatedTaskId(created[0]?.id || ""); setTab("runs");
-        }} notify={setToast} />}
+        }} notify={setToast} /></div>
         {tab === "runs" && <Runs tasks={tasks} templates={templates} initialTaskId={createdTaskId} notify={setToast} />}
         {tab === "history" && <History sessions={sessions} tasks={tasks} onRefresh={refreshSessions} notify={setToast} onReuse={value => { setPreset(value); setTab("create"); }} />}
         {tab === "settings" && <Settings data={environment} onRefresh={refreshEnvironment} />}

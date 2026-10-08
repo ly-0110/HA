@@ -119,9 +119,7 @@ async function setAria(label,value){
 }
 async function screenshot(name){
   await wait(250);
-  await main.webContents.capturePage(undefined,{stayHidden:false});
-  await wait(200);
-  const file=path.join(testRoot,name+'.png');fs.writeFileSync(file,(await main.webContents.capturePage(undefined,{stayHidden:true})).toPNG());result.screenshots.push(file);
+  const file=path.join(testRoot,name+'.png');fs.writeFileSync(file,(await main.webContents.capturePage()).toPNG());result.screenshots.push(file);
   fs.writeFileSync(path.join(testRoot,name+'.txt'),await body());
 }
 function passed(name,detail){result.checks.push({name,passed:true,detail});fs.writeFileSync(path.join(testRoot,'ui-progress.json'),JSON.stringify(result,null,2));console.log('UI check: '+name);}
@@ -152,6 +150,7 @@ function assertEventTargets(events,type,values){assert.deepEqual(events.filter(e
 app.whenReady().then(async()=>{
   try{
     await until(()=>{main=BrowserWindow.getAllWindows()[0];return !!main;},'No main window');
+    main.show();
     main.webContents.setBackgroundThrottling(false);
     assert.equal(process.argv.some(argument=>argument==='--no-sandbox' || argument==='--disable-sandbox'),false);
     assert.equal(await js(`typeof window.require==='undefined' && typeof window.process==='undefined' && !!window.iotDesktop`),true);
@@ -167,6 +166,29 @@ app.whenReady().then(async()=>{
     passed('startup_retry','Restoring only the independent manifest and clicking Retry establishes the real authenticated backend.');
 
     await openCreate();await setLabel('每个事件目标的次数',1);await zeroTiming();
+    await clickText('正式采集');
+    assert.equal(await js(`document.querySelector('.capture-config label:nth-child(1) input').value`),'10.42.0.250');
+    assert.equal(await js(`document.querySelector('.capture-config label:nth-child(2) input').value`),'wlp2s0');
+    assert.equal(await js(`document.querySelector('.capture-config label:nth-child(3) input').value`),'host 10.42.0.250');
+    await setLabel('目标设备 IP','10.42.0.123');await setLabel('抓包接口','draft-interface');
+    await setLabel('抓包过滤器','host 10.42.0.123');await setLabel('随机种子',12345);
+    await clickText('模拟运行');await clickText('加入批次');
+    const savedDraft=await js(`JSON.stringify([...document.querySelectorAll('.create-panel input,.create-panel select')].map(item=>[item.value,item.checked]))`);
+    const savedPlan=await js(`document.querySelector('.plan-preview').innerText`);
+    for(const tab of ['设备概览','运行中心','实验记录','环境设置']){
+      await clickText(tab);
+      assert.equal(await js(`document.querySelector('.create-panel').getBoundingClientRect().width`),0);
+      await clickText('新建实验');
+      assert.equal(await js(`JSON.stringify([...document.querySelectorAll('.create-panel input,.create-panel select')].map(item=>[item.value,item.checked]))`),savedDraft);
+      assert.equal(await js(`document.querySelector('.plan-preview').innerText`),savedPlan);
+      assert.equal(await js(`document.querySelectorAll('.queue-item').length`),1);
+    }
+    await clickText('正式采集');
+    assert.equal(await js(`document.querySelector('.capture-config label:nth-child(1) input').value`),'10.42.0.123');
+    assert.equal(await js(`document.querySelector('.capture-config label:nth-child(2) input').value`),'draft-interface');
+    await clickText('模拟运行');
+    await js(`document.querySelector('[aria-label="移除批次第 1 项"]').click()`);await wait(100);
+    passed('create_draft_survives_navigation','All four other tabs preserve edited fields, event plan and queued batch; formal defaults load and edited capture values survive navigation.');
     await clickText('检查配置');
     await until(async()=>(await body()).includes('预检通过'),'Simulated preflight did not pass');
     const power=await launchUI();const powerTask=await complete(power.id);
@@ -179,6 +201,9 @@ app.whenReady().then(async()=>{
     await openCreate('mi_desk_lamp_1s_advanced');await setLabel('每个事件目标的次数',1);await zeroTiming();
     await setAria('亮度目标 1',25);await setAria('亮度目标 2',75);
     await setAria('色温目标 1',3100);await setAria('色温目标 2',4700);
+    await clickText('设备概览');await clickText('新建实验');
+    assert.equal(await js(`document.querySelector('[aria-label="亮度目标 1"]').value`),'25');
+    assert.equal(await js(`document.querySelector('[aria-label="色温目标 2"]').value`),'4700');
     const beforeInvalid=result.tasks.length;
     await setAria('亮度目标 1',101);await clickText('启动实验');
     await until(async()=>(await body()).includes('亮度目标必须是范围内的整数'),'Invalid target did not produce a field error');

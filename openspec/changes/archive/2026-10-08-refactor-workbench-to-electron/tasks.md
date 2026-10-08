@@ -14,7 +14,7 @@
 
 - [x] 1.1 记录现有工作台、CLI、YAML、产物和测试基线，验证现有Python测试、前端测试/检查/构建通过并保存基线报告。
 - [x] 1.2 固定CPython3.13、Node24、TemurinJDK17、Electron/Forge和Appium3.7.0/UiAutomator2 6.9.3目标平台输入，生成版本/来源/散列清单，验证官方来源和平台资产一致。
-- [ ] 1.3 固定Windows/Ubuntu已验证的SDK/BuildTools/Platform版本、手机要求与可复现doctor准备清单，不要求穷尽最小集合；Windows已记录，原生Ubuntu依赖与手机验证待完成。
+- [x] 1.3 固定Windows/Ubuntu已验证的SDK/BuildTools/Platform版本、手机要求与可复现doctor准备清单，不要求穷尽最小集合；Ubuntu已验证Platform Tools37.0.1、Command-line Tools22.0、Build Tools36.1.0、Platform36 revision2、Emulator37.2.12以及LG Android10/API29，私有UiAutomator2 doctor无必需缺项，准备清单见runtime-dependencies.md。
 - [x] 1.4 核对内置组件来源、版本、上游许可声明、已有LICENSE/NOTICE与实际SBOM，记录上游材料缺项，确认默认制品未夹带SDK/Npcap/驱动或实验数据；不要求本轮完成全面对外分发审查。
 
 ## 2. 路径与运行上下文
@@ -59,19 +59,19 @@
 ## 7. 外部工具与工作区迁移
 
 - [x] 7.1 实现Core/Device/Capture环境向导及SDK复用/官方准备，验证缺抓包工具不阻止模拟，许可及安全授权不被自动确认。
-- [ ] 7.2 提供Windows驱动和Ubuntu权限指引，验证工具路径、driver doctor、ADB在线及手机版本可追溯；Windows已验证，原生Ubuntu USB/工具权限待完成。
+- [x] 7.2 提供Windows驱动和Ubuntu权限指引，验证工具路径、driver doctor、ADB在线及手机版本可追溯；原生Ubuntu已验证精确1004:631f udev、LG LMV405UAd6421e56在线、Android10/API29、米家11.8.703和普通用户Dumpcap权限，已安装版私有Node/Java/Appium的doctor与正式环境工具检查通过；未对另一台无权限手机扩大授权。
 - [x] 7.3 实现新工作区和旧automation目录登记，验证外部会话/采集只读、同名会话分根、移动/断开根诚实显示且不扫描legacy。
 - [x] 7.4 以SQLite一致备份和事务schema迁移旧任务状态，验证WAL、中断、磁盘满及回退可恢复，PCAP/报告字节不变。
 - [x] 7.5 实现配置导入与用户覆盖保护，验证内置模板更新不覆盖用户修改，文档化迁移、旧锁升级与备份回退路径。
 
 ## 8. 安装包与平台交付
 
-- [ ] 8.1 完成Windows11x64用户级安装包和Ubuntu24.04x64 Deb的正常安装运行验收，确认资产在ASAR外、资源与数据分离、运行不写安装资源及普通用户可用；Windows已完成，Ubuntu制品已生成但原生安装运行待完成。
+- [x] 8.1 完成Windows11x64用户级安装包和Ubuntu24.04x64 Deb的正常安装运行验收，确认资产在ASAR外、资源与数据分离、运行不写安装资源及普通用户可用；Windows已完成，Ubuntu24.04.3/Wayland普通用户安装0.1.3 Deb，隔离PATH下模拟/文本图片预览/安全退出通过，19,381个安装文件运行前后不变。
 
 ## 9. 最终集成与真实环境验收
 
 - [x] 9.2 在已授权Windows手机上执行无抓包最小真实闭环，核对版本、App回执和诊断；失败保留证据并明确真实能力未验收。
-- [ ] 9.3 在已授权Ubuntu正式环境验证接口短抓包、异网隔离和正式最小闭环，核对双向流量与同会话PCAP/动作/时钟/质量，不由模拟推定通过。
+- [x] 9.3 在已授权Ubuntu正式环境验证接口短抓包、异网隔离和正式最小闭环，核对双向流量与同会话PCAP/动作/时钟/质量，不由模拟推定通过；2026-10-08安装版main/preload及私有后台经真实Electron界面提交正式任务，台灯开关各一次成功，27包PCAP、2条动作、同主机时钟及质量/会话校验通过，安全退出及共享锁清理通过。
 - [x] 9.4 完成正常退出、各层进程崩溃及异常中断恢复集成演练，核对无自动重跑、外部误杀及证据重写后形成最终报告；不要求操作系统强制关机或升级回退演练。
 
 ## 用户取消的范围（2026-10-06）
@@ -86,3 +86,14 @@
 - 2026-10-07：全面对外分发许可条件证明、逐库源码缓存与重链接演练移出1.4；基础来源/通知/边界审查保留并已完成。SDK最小集合穷尽试验、人为收紧Windows安装目录ACL专项试验不再作为1.3/8.1完成前置；不以范围取消宣称这些专项已通过。
 
 2026-10-08用户确认Windows开发基本完成并要求清理过程文件。过程测试输出和验收记录移除，源码、规划与Ubuntu待办保留；Windows可人工安装的0.1.3自解压EXE与简明交付清单集中在主目录automation/desktop/releases/windows-0.1.3。未生成MSI，未将原生Ubuntu任务补勾。
+
+2026-10-08原生Ubuntu接续：在/home/collapse/HA的codex/electron-workbench完成8.1，修正Wayland隐藏窗口smoke截图停滞及Deb内上游许可文件可读权限，交付见automation/desktop/releases/ubuntu-0.1.3。SDK补齐选择及正式设备/IP/接口尚待用户确认，1.3、7.2、9.3不补勾；未发送真实设备事件或用模拟推定正式采集通过。
+
+2026-10-08原工作区体验修复：新建实验组件在导航切换时保留，表单、事件编辑及批次不再丢失；台灯模板与本机尚未配置的工作区字段按已有正式实验设置10.42.0.250/wlp2s0/host 10.42.0.250，原配置先备份，正式启动仍检查当前环境。Ubuntu 0.1.4已正常安装，Electron desktopName、Wayland实测app_id、StartupWMClass和desktop文件名一致，GTK3能解析到已安装图标。前端检查/14测试/构建、控制台8项回归、13项GUI验收及安装版模拟/文本图片预览/安全退出通过；修正GUI验证脚本的Wayland隐藏截图停滞。交付见automation/desktop/releases/ubuntu-0.1.4；1.3、7.2、9.3继续保留待办。
+
+
+2026-10-08剩余任务完成：1.3/7.2的原生SDK及权限准备见runtime-dependencies.md固定清单。LG手机LMV405UAd6421e56位于10.208.124.237，USB为charge_only,adb且无USB网络接口；台灯DHCP地址10.42.0.250、MAC d4:f0:ea:75:bc:72，wlp2s0为10.42.0.1/24热点AP，有线网络为独立上行。本次正式预检全部通过。先经安装版CLI完成无抓包开灯/关灯各一次，并核对热点短抓包的动作窗口双向包数6/8及4/5。
+
+9.3正式会话为session_20261008T144944Z_987eaef0，任务c206094e1a5347d19161b6d14ab3f129，由安装版main/preload/前端及私有后台经真实Electron界面的“启动实验”提交，无手机或API夹具。会话位于automation/runs/ubuntu-electron-final-20261008/workspace/runs/sessions/session_20261008T144944Z_987eaef0，包含traffic.pcapng、actions.jsonl、session.yaml、clock_sync.json、network_isolation_check.json、quality_report.json及诊断文件。动作分别off→on、on→off，均为app_ack_only；计划及完成2/2、成功率100%、会话校验ok:true。PCAP共27包，IP目标方向统计发出11/收到12；开灯窗口7/8、关灯窗口4/5，两事件均有双向包。PCAP SHA-256为8d8ef6a86bf479f42878b062cfcf1d582c2711075e8d2a33519f1daefd523bab，预览及校验不改变原文件。Electron安全退出成功，所属worker及共享锁已清理，原来的普通工作台未被终止。
+
+时钟、动作和PCAP来自同一Ubuntu主机；clock_sync保留host_system_clock/UTC及单调时钟采样。系统当前未报告NTP同步，未执行跨机HA对时或HA确认，不宣称独立金标准通过。pcap_review中的manual_review保持pending。以上为应用技术验收，不提交或发布本次实验数据，不把自动包数统计当作人工内容复核。

@@ -8,8 +8,9 @@ adb_executable: adb
 android_sdk_root: null
 dumpcap_executable: dumpcap
 capture_mode: dumpcap
-capture_interface: REPLACE_WITH_MIRROR_INTERFACE
-capture_filter: "host REPLACE_WITH_TARGET_DEVICE_IP"
+# Defaults from the lamp hotspot acquisition; recheck before a formal run.
+capture_interface: wlp2s0
+capture_filter: "host 10.42.0.250"
 pre_roll_seconds: 5
 post_roll_seconds: 5
 min_free_space_gb: 10

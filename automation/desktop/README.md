@@ -2,7 +2,11 @@
 
 复用React界面和Python实验核心。Windows交付版为0.1.3，安装包在[releases/windows-0.1.3](releases/windows-0.1.3/README.md)：双击自解压EXE人工安装，无需源码环境；当前没有MSI。
 
+Ubuntu 24.04 x64的0.1.4 Deb及安装说明在[releases/ubuntu-0.1.4](releases/ubuntu-0.1.4/README.md)。该版修复切换页面丢失新建实验草稿/批次、台灯抓包默认值和Wayland图标关联。已在原生Ubuntu普通用户会话验证安装、私有后台、模拟、文本/图片预览和安全退出；SDK完整准备和LG手机/台灯正式开关最小闭环已通过，原OpenSpec任务37/37完成；正式运行仍检查当前网络和抓包条件。
+
 ## 使用
+
+安装和实验操作步骤见[操作员说明](OPERATOR_README.md)。
 
 安装前安全退出工作台。安装后从桌面快捷方式启动；默认工作区在用户目录IoTExperiments/default，环境设置可选择工作区、登记历史目录和配置外部工具。
 
@@ -14,7 +18,7 @@ Python、Node、Java、Appium/UiAutomator2均为私有运行时，不要求全�
 
 ## 开发与构建
 
-开发在主项目目录的codex/electron-workbench分支进行，完成阶段及时提交。源码和web/dist保留版本控制；测试输出、临时构建资源和安装二进制不入Git。原生Ubuntu依赖、权限、安装运行和正式采集仍按OpenSpec任务执行。
+开发在主项目目录的codex/electron-workbench分支进行，完成阶段及时提交。源码和web/dist保留版本控制；测试输出、临时构建资源和安装二进制不入Git。原生Ubuntu剩余SDK/driver doctor和正式采集按OpenSpec任务执行。
 
 从automation目录准备开发环境后执行：
 

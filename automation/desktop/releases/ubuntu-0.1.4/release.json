@@ -1,0 +1,20 @@
+{
+  "product": "IoT 实验工作台",
+  "version": "0.1.4",
+  "platform": "Ubuntu 24.04 x64",
+  "installer": "iot-experiment-workbench_0.1.4_amd64.deb",
+  "installer_type": "Deb",
+  "bytes": 399361952,
+  "sha256": "1503bea307d18ca88d65c654c86f9e5828993cf7dc5922262daedaacdd84b1f1",
+  "bundle_id": "6cc05ffe9cb7095982de",
+  "runtime_versions": {
+    "python": "3.13.16",
+    "node": "24.21.0",
+    "java": "17.0.20.1+1",
+    "appium": "3.7.0",
+    "uiautomator2": "6.9.3",
+    "electron": "44.5.1"
+  },
+  "sdk_adb": "external SDK selected by the user",
+  "capture_tools": "external Wireshark/Dumpcap"
+}

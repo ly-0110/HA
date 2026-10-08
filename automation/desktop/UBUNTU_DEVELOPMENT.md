@@ -1,6 +1,6 @@
 # Ubuntu 接续开发
 
-目标为 Ubuntu 24.04 x64 原生桌面。当前 Windows 版本为 0.1.3；Ubuntu 原生安装、USB 和正式采集尚未完成。WSL 结果只用于预验证。开发沿用 `codex/electron-workbench`，无需创建第二份源码或独立 worktree。
+目标为 Ubuntu 24.04 x64 原生桌面。Windows交付版为0.1.3，Ubuntu修复版为0.1.4；Ubuntu原生Deb安装、普通用户核心运行及现有LG手机USB权限已验证，完整SDK/driver doctor以及Electron正式开关最小闭环已通过。交付见[Ubuntu安装包](releases/ubuntu-0.1.4/README.md)。WSL结果只用于预验证。开发沿用 `codex/electron-workbench`，无需创建第二份源码或独立worktree。
 
 ## 1. 获取工作分支
 
@@ -81,17 +81,18 @@ find automation/desktop/out/make -type f -name '*.deb'
 
 ## 4. 外部设备工具与剩余任务
 
-SDK/ADB、系统 USB 权限、Wireshark/Dumpcap仍需目标主机准备。在工作台环境设置中选择实际 SDK 根目录（必须含 `platform-tools/adb`）与 Dumpcap 路径。不能复制 Windows SDK、Java 或 Python 二进制给 Linux 使用。外部 SDK 准备与组件边界见 [运行环境与发行依赖](../../openspec/changes/refactor-workbench-to-electron/runtime-dependencies.md)。
+SDK/ADB、系统 USB 权限、Wireshark/Dumpcap仍需目标主机准备。在工作台环境设置中选择实际 SDK 根目录（必须含 `platform-tools/adb`）与 Dumpcap 路径。不能复制 Windows SDK、Java 或 Python 二进制给 Linux 使用。外部 SDK 准备与组件边界见 [运行环境与发行依赖](../../openspec/changes/archive/2026-10-08-refactor-workbench-to-electron/runtime-dependencies.md)。
 
 USB 权限和手机检查沿用 [平台 README](../README.md)，其中 `install-lg-udev.sh` 仅用于所注明的 LG 型号，不可把另一台手机当作同一个设备。正式抓包须在原生目标主机确认接口、权限、网络隔离与双向目标流量；已有 App 回执不作为独立状态确认。
 
-继续 [OpenSpec tasks](../../openspec/changes/refactor-workbench-to-electron/tasks.md) 中的四个未完成项：
+[OpenSpec tasks](../../openspec/changes/archive/2026-10-08-refactor-workbench-to-electron/tasks.md) 已完成37/37项；Windows保留原验收范围，Ubuntu本机完成剩余三项：
 
-| 任务 | 原生 Ubuntu 仍需完成 |
+| 任务 | 原生 Ubuntu 验证结果 |
 |---|---|
-| 1.3 | SDK/Build Tools/Platform 固定清单、doctor 与目标手机验证 |
-| 7.2 | USB/udev 与外部工具权限、ADB 在线及手机版本核对 |
-| 8.1 | Deb 普通用户安装启动、资源与数据分离、不写安装资源 |
-| 9.3 | 接口短抓包、手机异网隔离、正式最小闭环及同会话产物 |
+| 1.3 | Platform Tools37.0.1、Command-line Tools22.0、Build Tools36.1.0、Platform36 revision2、Emulator37.2.12固定清单；私有driver doctor无必需缺项 |
+| 7.2 | 精确1004:631f udev、LG Android10/API29与米家11.8.703、普通用户Dumpcap权限、私有工具与正式预检通过 |
+| 9.3 | 手机10.208.124.237与台灯热点10.42.0.0/24隔离，wlp2s0目标短抓包双向流量通过；安装版真实Electron界面提交正式任务，开关2/2、27包PCAP、动作/时钟/质量/会话校验及安全退出通过 |
+
+本机SDK的版本、归档和复现边界见运行依赖固定清单。正式会话保留于 `automation/runs/ubuntu-electron-final-20261008/workspace/runs/sessions/session_20261008T144944Z_987eaef0`，不纳入安装包或Git。确认级别为App回执，人工内容复核保持待办；同主机时间记录不代表跨机HA对时或NTP专项验收。
 
 不恢复用户已取消的边界演练，不以 WSL 预验证补勾原生任务。当前接续说明不包含过程测试输出或验收报告。正式实验数据仍按现有会话契约保存，遵守 [AGENTS.md](../AGENTS.md) 的真机操作与实验内容提交要求。

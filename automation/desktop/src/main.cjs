@@ -24,6 +24,7 @@ const appState=process.env.IOT_EXP_DESKTOP_STATE || path.join(app.getPath('appDa
 fs.mkdirSync(appState,{recursive:true});
 app.setPath('userData',appState);
 app.setAppUserModelId(APP_ID);
+if(process.platform==='linux')app.setDesktopName('iot-experiment-workbench.desktop');
 if(!app.requestSingleInstanceLock()) { app.quit(); } else {
 protocol.registerSchemesAsPrivileged([{scheme:'app',privileges:{standard:true,secure:true,supportFetchAPI:true,corsEnabled:true,stream:true,bypassCSP:false}}]);
 let window,backend,closing=false,exiting=false,startError='',starting=false;
@@ -175,6 +176,10 @@ app.whenReady().then(async()=>{
       const timer=setInterval(()=>{if(fs.existsSync(path.join(appState,'instance-probe-stop'))){clearInterval(timer);quitSafely();}},200);
     }
     if(process.argv.includes('--smoke-test')) {
+      // Wayland can stop producing frames for a hidden window after its preview
+      // closes. Exercise the ordinary visible window before capturing it again.
+      window.show();
+      window.webContents.setBackgroundThrottling(false);
       const response=await backend.request({url:'/api/v1/bootstrap'});
       const toolHealth=await backend.request({url:'/api/v1/environment'});
       const privateChecks=toolHealth.checks.filter(check=>['node','java','appium'].includes(check.name));
@@ -220,7 +225,7 @@ app.whenReady().then(async()=>{
       if(!imageLoaded)throw Error('实际图片证据流未完成解码');
       viewer.destroy();
       fs.writeFileSync(path.join(appState,'smoke-result.json'),JSON.stringify({ready:true,title,desktop:response.desktop,credential_exposed:'control_token' in response,rendered:true,simulation:task.status,events:task.completed_events,session:task.session_root,text_preview:true,image_preview:true,preview_isolated:true,original_file_unchanged:true,private_appium_prepared:true,private_tool_checks:privateChecks,sdk_candidates:toolHealth.sdk_candidates}));
-      await backend.stop();exiting=true;app.quit();
+      exiting=true;await backend.stop();app.quit();
     }
   } catch(error) {
     if(process.argv.includes('--smoke-test')){fs.writeFileSync(path.join(appState,'smoke-result.json'),JSON.stringify({ready:false,error:error.message}));exiting=true;app.exit(2);}

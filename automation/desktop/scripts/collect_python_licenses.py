@@ -38,6 +38,12 @@ def collect(resources: Path, cache: Path) -> dict:
     info = destination / "python/PYTHON.json"
     if not info.is_file() or not any((destination / "python/licenses").iterdir()):
         raise ValueError("上游Python许可/构建元数据未完整提取")
+    if os.name != "nt":
+        # The upstream archive uses group-only read permissions. A Deb installs
+        # these files as root, so ordinary users need readable notice materials.
+        destination.chmod(0o755)
+        for path in destination.rglob("*"):
+            path.chmod(0o755 if path.is_dir() else 0o644)
     shutil.copyfile(DESKTOP / "THIRD_PARTY_NOTICES.md", resources / "licenses/THIRD_PARTY_NOTICES.md")
     (destination / "source.json").write_text(json.dumps(item, indent=2), encoding="utf-8")
     if inputs.get("license_assets", {}).get(target) != item:

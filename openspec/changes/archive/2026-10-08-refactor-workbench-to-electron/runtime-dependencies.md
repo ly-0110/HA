@@ -54,7 +54,7 @@ resources/
 
 此处采用官方安装/复用策略，不向用户承诺“所有 SDK 都可免费随包复制”。[Android SDK terms](https://developer.android.com/studio/terms)、[sdkmanager](https://developer.android.com/tools/sdkmanager)
 
-固定清单按实际安装版本、driver doctor和目标手机结果记录，不逐一删除包或穷尽版本证明最小集合。Windows已记录Platform Tools36.0.0、Build Tools36.1.0，现有Platforms34/36与doctor检查使用的Emulator36.2.12；这是已验证准备记录，不宣称每个包都是实机必需。原生Ubuntu对应清单及权限待实测，按任务1.3/7.2推进。
+固定清单按实际安装版本、driver doctor和目标手机结果记录，不逐一删除包或穷尽版本证明最小集合。Windows已记录Platform Tools36.0.0、Build Tools36.1.0，现有Platforms34/36与doctor检查使用的Emulator36.2.12；这是已验证准备记录，不宣称每个包都是实机必需。原生Ubuntu已核对Platform Tools37.0.1、Command-line Tools22.0、LG LM-V405 Android10/API29和米家11.8.703，现有精确udev及普通用户抓包权限可用；现已补齐Build Tools36.1.0、Platform36 revision2、Emulator37.2.12（build16428233），UiAutomator2 doctor报告0项必需修复；缺少bundletool/ffmpeg只属于本轮未用功能的可选提示。私有Node24.21.0、Temurin17.0.20.1+1和Appium3.7.0/driver6.9.3加载已实测。
 
 ## 4. 抓包及系统权限
 
@@ -87,7 +87,24 @@ USB RSA、厂商 App 登录、Windows OEM USB 驱动、Linux udev 和网络隔�
 | 目标系统 | 私有核心运行/模拟 | 无抓包真机 | 正式抓包 | 能力声明 |
 |---|---|---|---|---|
 | Windows 11 x64 原生桌面 | 本机验证私有依赖、无全局PATH依赖、不在线安装；安装目录普通用户检查 | 独立授权手机验证 | Npcap/Dumpcap/接口另验收 | 仅声明已通过的能力；不宣称干净系统断网专项验收通过 |
-| Ubuntu 24.04 LTS x64 原生桌面 | 原生普通用户安装/运行待验收；WSL预验证独立标注 | USB/SDK/JDK/driver独立验证 | 权限、隔离及双向试抓包通过 | 仅声明已通过的能力；不以WSL推定原生通过 |
+| Ubuntu 24.04 LTS x64 原生桌面 | 0.1.3 Deb原生普通用户安装、隔离PATH下私有后台/模拟、文本图片预览和安全退出已通过；19,381个安装文件运行前后不变 | SDK固定清单及私有driver doctor已通过；LG Android10/API29、米家11.8.703、精确USB权限已验证 | 普通用户wlp2s0短抓包、手机异网隔离、Electron正式开关2/2及同会话产物校验已通过 | 仅声明已通过的能力；不以WSL或模拟推定硬件通过 |
 | Windows 10、Ubuntu 22.04、ARM/macOS/WSL | 另建后续矩阵 | 不从上述结果推定 | 不从上述结果推定 | 首版未验收支持 |
 
 保留中文/空格路径、安装资源与数据分离及不写安装资源、任意 cwd、子进程版本来源、无全局 PATH 污染、原文件打开无副本、安全退出、受控进程故障恢复和基础资产来源/通知检查。共享锁与外部不可控保持已有功能契约和局部证据，不要求另外进行多入口并行完整演练。干净系统断网安装、升级/卸载深度演练、发布签名、升级回滚及操作系统强制关机专项演练均记录为用户取消；至少60秒后显式强制终止、创建身份核对和不自动重跑保持原要求，原生Ubuntu真实采集仍为活动验收。真实实验报告必须区分模拟、App 页面回执、独立观测和正式捕获，不以模拟通过证明硬件就绪。
+
+
+## 原生 Ubuntu SDK 固定准备清单（2026-10-08）
+
+SDK 位于 `/home/collapse/HA/automation/.tools/android-sdk`，已由应用环境设置选用。现有许可文件保持原来的 `24333f8a63b6825ea9c5514f83c2829b004d1fee`，本次没有运行许可自动接受步骤。仅补齐项目目录中的包，不修改全局 PATH 或默认 Java。
+
+| 组件 | 已验证版本 | Google 官方归档 | 官方元数据 SHA-1 |
+|---|---|---|---|
+| Platform Tools | 37.0.1 | 既有安装；`platform-tools/source.properties` | 本轮未重新下载 |
+| Command-line Tools | 22.0 | 既有安装；`cmdline-tools/latest/source.properties` | 本轮未重新下载 |
+| Build Tools | 36.1.0 | `https://dl.google.com/android/repository/build-tools_r36.1_linux.zip` | `936a0d6bd5ae3e2118a7567dddbc95ff67ed46e9` |
+| Platform | API 36 / revision 2 / extension 17 | `https://dl.google.com/android/repository/platform-36_r02.zip` | `2c1a80dd4d9f7d0e6dd336ec603d9b5c55a6f576` |
+| Emulator | 37.2.12 / build 16428233 | `https://dl.google.com/android/repository/emulator-linux_x64-16428233.zip` | `cd7362ea55dfb86a418958138dc396e74165dd01` |
+
+归档和校验值来自 Google `repository2-3.xml` 元数据。普通 `sdkmanager --install emulator` 会随上游稳定通道变化；复现本清单时使用表中归档并核对 `source.properties`，不要把新的版本继续记录为37.2.12。本次不创建AVD或安装系统镜像。Build Tools的aapt实际可执行，Platform的android.jar存在，Emulator实际版本命令通过。
+
+在本机已选定SDK的应用中运行打包CLI `iot-exp.sh --workspace <工作区> --experiment <实验配置绝对路径> --runtime <运行配置绝对路径> doctor`，应显示内置Node/Java/Appium、外部ADB/SDK/Dumpcap均可用。驱动doctor使用应用的绝对Node入口、应用状态下固定Appium索引、私有JAVA_HOME及所选ANDROID_HOME：`node <固定Appium入口> driver doctor uiautomator2`。实际结果为0项必需修复；目标手机LG LM-V405、Android10/API29、米家11.8.703在线。另一台手机7606c8ac无USB权限，不属于本轮验收对象。

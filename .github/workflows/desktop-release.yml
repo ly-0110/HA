@@ -1,0 +1,67 @@
+name: Desktop release
+on:
+  push:
+    branches: [codex/desktop-release-build]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            target: linux-x64
+          - os: windows-2022
+            target: windows-x64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.21.0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Prepare Ubuntu build tools
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb zstd libgtk-3-0t64 libnss3 libgbm1 libasound2t64
+      - name: Prepare locked frontend and desktop packages
+        working-directory: automation
+        shell: bash
+        run: |
+          npm ci --ignore-scripts
+          npm ci --ignore-scripts --prefix desktop
+          npm run web:check
+          npm run web:test
+          npm run web:build
+          npm test --prefix desktop
+      - name: Build and verify native desktop package
+        run: python automation/desktop/scripts/ci_release.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ matrix.target }}-0.1.4
+          path: automation/desktop/release-assets/*
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 7
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: desktop-*-0.1.4
+          merge-multiple: true
+          path: release-assets
+      - name: Publish desktop installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python automation/desktop/scripts/publish_release.py

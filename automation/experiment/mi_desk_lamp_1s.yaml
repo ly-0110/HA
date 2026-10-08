@@ -33,8 +33,8 @@ device:
   entity_id: null
   firmware: REPLACE_WITH_FIRMWARE_VERSION
 network:
-  forbidden_cidrs: [192.168.1.0/24]
-  target_device_ip: null
+  forbidden_cidrs: [10.42.0.0/24]
+  target_device_ip: 10.42.0.250
   require_no_usb_tethering: true
 sessions:
   count: 1
