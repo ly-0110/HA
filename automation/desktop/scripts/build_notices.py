@@ -28,7 +28,7 @@ def generate(resources: Path, electron_dist: Path | None = None) -> dict:
             raise ValueError(f"Electron上游许可材料缺失：{name}")
         shutil.copyfile(source, electron_materials / name)
     frontend = json.loads((DESKTOP.parent / "package-lock.json").read_text())
-    for name in ("react", "react-dom", "scheduler"):
+    for name in ("react", "react-dom", "scheduler", "lucide-react"):
         package = frontend["packages"]["node_modules/" + name]
         source = DESKTOP.parent / "node_modules" / name / "LICENSE"
         if not source.is_file():

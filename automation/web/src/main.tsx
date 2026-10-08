@@ -117,7 +117,7 @@ function App() {
   ];
   return <div className="shell">
     <aside>
-      <div className="brand"><div className="mark"><Icon name="runs" size={24} /></div><strong>IoT 实验工作台</strong></div>
+      <div className="brand"><div className="mark"><Icon name="brand" size={24} /></div><strong>IoT 实验工作台</strong></div>
       <nav aria-label="工作台导航">{nav.map(item => <button key={item.id} className={tab === item.id ? "active" : ""} aria-current={tab === item.id ? "page" : undefined} onClick={() => setTab(item.id)}>
         <Icon name={item.icon} /><span>{item.label}</span>{item.id === "runs" && running > 0 && <b className="nav-count">{running}</b>}
       </button>)}</nav>

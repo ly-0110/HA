@@ -16,7 +16,8 @@ def main() -> None:
     compiler = Path(os.environ.get("WINDIR", "C:/Windows")) / "Microsoft.NET/Framework64/v4.0.30319/csc.exe"
     args.output.parent.mkdir(parents=True, exist_ok=True)
     command = [str(compiler), "/nologo", "/target:winexe", "/platform:x64", "/r:System.Windows.Forms.dll",
-               "/r:System.Web.Extensions.dll", "/out:" + str(args.output)]
+               "/r:System.Web.Extensions.dll", "/win32icon:" + str(ROOT / "assets/workbench.ico"),
+               "/out:" + str(args.output)]
     if args.setup:
         command.append("/resource:" + str(args.setup.resolve()) + ",SetupPayload")
     command.append(str(ROOT / "installer/InstallGate.cs"))

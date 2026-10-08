@@ -10,6 +10,7 @@
 | Node | nodejs.org固定发行 | Node LICENSE（含其捆绑库说明） | 私有node二进制；不分发npm/npx安装入口 |
 | Temurin JDK17 | adoptium固定发行 | legal/、NOTICE和对应源码获取信息 | 原发行许可目录保留 |
 | Appium/UiAutomator2 | npm锁定发行 | Apache-2.0 LICENSE；传递依赖各自许可 | 私有完整运行载荷；扩展索引按平台重定位 |
+| Lucide图标 | lucide-react 1.52.0锁定发行 | ISC及包内Feather来源MIT通知，完整LICENSE保留 | 前端按需构建；Workflow用于应用图标，原通知随resources/licenses/frontend/lucide-react保留 |
 | Google Android SDK | Google官方或用户已安装SDK | 按具体组件官方许可准备 | 不纳入默认安装包 |
 | Npcap/USB驱动 | 官方系统安装 | 适用官方发行/部署条款 | 不捆绑、不静默安装 |
 | Linux Dumpcap | 发行版系统包 | 系统包许可及权限指引 | 外部系统组件 |

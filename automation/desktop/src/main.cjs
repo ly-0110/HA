@@ -161,7 +161,7 @@ app.whenReady().then(async()=>{
     if(!response.ok)throw Error(await response.text());
     roots=[...new Set([...roots,root])];save();return response.json();
   });
-  window=new BrowserWindow({width:1440,height:960,minWidth:740,minHeight:540,show:!process.argv.includes('--smoke-test') && !process.argv.includes('--instance-probe'),title:'IoT 实验工作台',webPreferences:{session:partition,preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,sandbox:true,nodeIntegration:false}});
+  window=new BrowserWindow({width:1440,height:960,minWidth:740,minHeight:540,show:!process.argv.includes('--smoke-test') && !process.argv.includes('--instance-probe'),title:'IoT 实验工作台',icon:path.join(__dirname,'../assets/workbench.png'),webPreferences:{session:partition,preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,sandbox:true,nodeIntegration:false}});
   window.webContents.setWindowOpenHandler(()=>({action:'deny'}));
   window.webContents.on('will-navigate',(event,url)=>{if(!url.startsWith('app://workbench/'))event.preventDefault();});
   window.webContents.on('render-process-gone',()=>{if(!closing)window.loadURL('app://workbench/index.html');});
