@@ -16,6 +16,9 @@ def _configs():
 
 def test_formal_preflight_rejects_placeholder_capture_boundaries(monkeypatch):
     experiment, runtime = _configs()
+    experiment = experiment.model_copy(update={
+        "network": experiment.network.model_copy(update={"target_device_ip": None}),
+    })
     runtime = runtime.__class__.model_validate({
         **runtime.model_dump(),
         "mode": "formal",
